@@ -31,10 +31,6 @@ class Gate:
     inputs: tuple[int]
 
 
-@dataclass
-class Net:
-    state = Logic.UNASSIGNED
-
 
 def read_netlist(file: str | Path):
     file = Path(file)
@@ -66,6 +62,10 @@ def read_netlist(file: str | Path):
 
 
 def evaluate_gate(gate: Gate, net: dict[int, Logic]) -> Logic:
+    for id in gate.inputs:
+        if net[id] == Logic.UNASSIGNED:
+            raise TypeError("Cannot evaluate a gate with unassigned inputs.")
+
     match gate.type_, gate.inputs:
         case GateType.INV, [a]:
             return Logic(not net[a])
@@ -83,15 +83,14 @@ def evaluate_gate(gate: Gate, net: dict[int, Logic]) -> Logic:
             raise TypeError(f'Could not evaluate gate {gate}')
 
 
-def process_files(netlist_file: str, test_vectors:list[str]):
-    for vector in test_vectors:
+def process_vector(netlist_file: str, test_vector:str):
         gates, net_list, input_nets, output_nets = read_netlist(netlist_file)
             
-        test_vector = [True if x == '1' else False for x in vector]
+        vector = [True if x == '1' else False for x in test_vector]
 
-        assert len(test_vector) == len(input_nets)
+        assert len(vector) == len(input_nets)
 
-        for net_id, state in zip(input_nets, test_vector):
+        for net_id, state in zip(input_nets, vector):
             net_list[net_id] = Logic(state)
 
         stack: set[Gate] = set()
@@ -123,7 +122,7 @@ def process_files(netlist_file: str, test_vectors:list[str]):
                 case other:
                     raise RuntimeError(f'Output left unassigned: {net}: {other}')
         
-        print(f'{vector} | {output}')
+        return output
 
 
 def main():
@@ -132,7 +131,10 @@ def main():
         print(f"File: {file}.net:")
         with open(f"tests/{file}.in") as fp:
             tests = [line.rstrip() for line in fp if line]
-        process_files(f'circuits/{file}.net', tests)
+        print(f"{'Inputs'.ljust(len(tests[0]))} | {'Outputs'} ")
+        for test in tests:
+            out = process_vector(f'circuits/{file}.net', test)
+            print(f'{test} | {out}')
         print()
 
 
