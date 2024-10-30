@@ -1,140 +1,152 @@
+from argparse import Namespace
 from pathlib import Path
-from enum import StrEnum, Enum, auto
-from dataclasses import dataclass
+
+from circuit import Circuit
 
 
-class GateType(StrEnum):
-    INV = 'INV'
-    BUF = 'BUF'
-    AND = 'AND'
-    OR = 'OR'
-    NOR = 'NOR'
-    NAND = 'NAND'
-
-    def __repr__(self):
-        return f'<{self.name}>'
 
 
-class Logic(Enum):
-    HIGH = True
-    LOW = False
-    UNASSIGNED = None
+# def read_netlist(file: str | Path):
+#     file = Path(file)
+#     with file.open() as f:
+#         # prefilter blank lines
+#         lines = [line.rstrip() for line in f if line]
 
-    def __repr__(self):
-        return f'<Logic.{self.name}>'
+#     gates: set[Gate] = set()
+#     net_list: dict[int, Logic] = {}
+#     input_nets: list[int] = []
+#     output_nets: list[int] = []
 
+#     for line in lines:
+#         name, *nets = line.split()
+#         nets = list(map(int, nets))
+#         if name in GateType:
+#             net_list.update((net, Logic.UNASSIGNED) for net in nets)
+#             *in_, out = nets
+#             gates.add(Gate(type_=GateType(name), output=out, inputs=tuple(in_)))
+#         elif name == 'INPUT':
+#             input_nets.extend(filter(lambda n: n > 0, nets))
+#         elif name == 'OUTPUT':
+#             output_nets.extend(filter(lambda n: n > 0, nets))
+#         else:
+#             raise RuntimeError(f'unknown gate type {name}')
 
-@dataclass(eq=True, frozen=True)
-class Gate:
-    type_: GateType
-    output: int
-    inputs: tuple[int]
-
-
-def read_netlist(file: str | Path):
-    file = Path(file)
-
-    with file.open() as f:
-        # prefilter blank lines
-        lines = [line.rstrip() for line in f if line]
-
-    gates: set[Gate] = set()
-    net_list: dict[int, Logic] = {}
-    input_nets: list[int] = []
-    output_nets: list[int] = []
-
-    for line in lines:
-        name, *nets = line.split()
-        nets = list(map(int, nets))
-        if name in GateType:
-            net_list.update((net, Logic.UNASSIGNED) for net in nets)
-            *in_, out = nets
-            gates.add(Gate(type_=GateType(name), output=out, inputs=tuple(in_)))
-        elif name == 'INPUT':
-            input_nets.extend(filter(lambda n: n > 0, nets))
-        elif name == 'OUTPUT':
-            output_nets.extend(filter(lambda n: n > 0, nets))
-        else:
-            raise RuntimeError(f'unknown gate type {name}')
-
-    return gates, net_list, input_nets, output_nets
+#     return gates, net_list, input_nets, output_nets
 
 
-def evaluate_gate(gate: Gate, net: dict[int, Logic]) -> Logic:
-    for id in gate.inputs:
-        if net[id] == Logic.UNASSIGNED:
-            raise TypeError('Cannot evaluate a gate with unassigned inputs.')
+# def evaluate_gate(gate: Gate, net: dict[int, Logic]) -> Logic:
+#     for id in gate.inputs:
+#         if net[id] == Logic.UNASSIGNED:
+#             raise TypeError('Cannot evaluate a gate with unassigned inputs.')
 
-    match gate.type_, gate.inputs:
-        case GateType.INV, [a]:
-            return Logic(not net[a])
-        case GateType.BUF, [a]:
-            return net[a]
-        case GateType.AND, [a, b]:
-            return Logic(net[a] and net[b])
-        case GateType.OR, [a, b]:
-            return Logic(net[a] or net[b])
-        case GateType.NOR, [a, b]:
-            return Logic(not (net[a] or net[b]))
-        case GateType.NAND, [a, b]:
-            return Logic(not (net[a] and net[b]))
-        case _:
-            raise TypeError(f'Could not evaluate gate {gate}')
+#     match gate.type_, gate.inputs:
+#         case GateType.INV, [a]:
+#             return Logic(not net[a])
+#         case GateType.BUF, [a]:
+#             return net[a]
+#         case GateType.AND, [a, b]:
+#             return Logic(net[a] and net[b])
+#         case GateType.OR, [a, b]:
+#             return Logic(net[a] or net[b])
+#         case GateType.NOR, [a, b]:
+#             return Logic(not (net[a] or net[b]))
+#         case GateType.NAND, [a, b]:
+#             return Logic(not (net[a] and net[b]))
+#         case _:
+#             raise TypeError(f'Could not evaluate gate {gate}')
 
 
-def process_vector(netlist_file: str, test_vector: str):
-    gates, net_list, input_nets, output_nets = read_netlist(netlist_file)
+# def process_vector(netlist_file: str, test_vector: str):
+#     gates, net_list, input_nets, output_nets = read_netlist(netlist_file)
 
-    vector = [True if x == '1' else False for x in test_vector]
+#     vector = [True if x == '1' else False for x in test_vector]
 
-    assert len(vector) == len(input_nets)
+#     assert len(vector) == len(input_nets)
 
-    for net_id, state in zip(input_nets, vector):
-        net_list[net_id] = Logic(state)
+#     for net_id, state in zip(input_nets, vector):
+#         net_list[net_id] = Logic(state)
 
-    stack: set[Gate] = set()
-    gates: set[Gate] = set(gates)
+#     stack: set[Gate] = set()
+#     gates: set[Gate] = set(gates)
 
-    is_assigned = lambda inpt: net_list[inpt] != Logic.UNASSIGNED  # noqa: E731
-    is_ready = lambda gate: all(map(is_assigned, gate.inputs))  # noqa: E731
+#     is_assigned = lambda inpt: net_list[inpt] != Logic.UNASSIGNED  # noqa: E731
+#     is_ready = lambda gate: all(map(is_assigned, gate.inputs))  # noqa: E731
 
-    ready_gates = set(filter(is_ready, gates))
-    stack.update(ready_gates)
-    gates.difference_update(ready_gates)
+#     ready_gates = set(filter(is_ready, gates))
+#     stack.update(ready_gates)
+#     gates.difference_update(ready_gates)
 
-    while len(stack) > 0:
-        gate = stack.pop()
-        output_state = evaluate_gate(gate, net_list)
-        net_list[gate.output] = output_state
+#     while len(stack) > 0:
+#         gate = stack.pop()
+#         output_state = evaluate_gate(gate, net_list)
+#         net_list[gate.output] = output_state
 
-        ready_gates = set(filter(is_ready, gates))
-        stack.update(ready_gates)
-        gates.difference_update(ready_gates)
+#         ready_gates = set(filter(is_ready, gates))
+#         stack.update(ready_gates)
+#         gates.difference_update(ready_gates)
 
-    output = ''
-    for net in output_nets:
-        match net_list[net]:
-            case Logic.HIGH:
-                output += '1'
-            case Logic.LOW:
-                output += '0'
-            case other:
-                raise RuntimeError(f'Output left unassigned: {net}: {other}')
+#     output = ''
+#     for net in output_nets:
+#         match net_list[net]:
+#             case Logic.HIGH:
+#                 output += '1'
+#             case Logic.LOW:
+#                 output += '0'
+#             case other:
+#                 raise RuntimeError(f'Output left unassigned: {net}: {other}')
 
-    return output
+#     return output
+
+
+def parse_args() -> Namespace:
+    from argparse import ArgumentParser, ArgumentTypeError
+
+    def valid_path(name):
+        p = Path(name)
+        if not p.is_file():
+            raise ArgumentTypeError(f'file "{name}" does not exist')
+        return p
+
+    parser = ArgumentParser(
+        description='Perform a logic simulation with a given netlist and test vector(s)'
+    )
+    parser.add_argument('net_file', type=valid_path, help='Netlist file to simulate')
+
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument(
+        'input_vector',
+        type=str,
+        nargs='?',
+        help='A single test vector string',
+    )
+    group.add_argument(
+        '-i',
+        '--input-file',
+        type=valid_path,
+        help='Path to a file containing multiple input vector strings',
+    )
+
+    return parser.parse_args()
 
 
 def main():
-    files = ['s27', 's298f_2', 's344f_2', 's349f_2']
-    for file in files:
-        print(f'File: {file}.net:')
-        with open(f'tests/{file}.in') as fp:
+    args = parse_args()
+    print(f'Netlist file: {args.net_file}:')
+
+    if args.input_file:
+        with args.input_file.open() as fp:
             tests = [line.rstrip() for line in fp if line]
-        print(f"{'Inputs'.ljust(len(tests[0]))} | {'Outputs'} ")
-        for test in tests:
-            out = process_vector(f'circuits/{file}.net', test)
-            print(f'{test} | {out}')
-        print()
+    else:
+        tests = [args.input_vector]
+
+    circuit = Circuit(args.net_file)
+
+    print(circuit.outputs)
+    print(f"{'Inputs'.ljust(len(tests[0]))} | {'Outputs'} ")
+    # for test in tests:
+        # out = circuit.evaluate_input(test)
+        # print(f'{test} | {out}')
+    print()
 
 
 if __name__ == '__main__':
