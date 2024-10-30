@@ -1,10 +1,30 @@
 from argparse import Namespace
 from pathlib import Path
 
-from circuit import Circuit
+from .circuit import Circuit
+
+
+def main():
+    args = parse_args()
+    print(f'Netlist file: {args.net_file}:')
+
+    if args.input_file:
+        with args.input_file.open() as fp:
+            tests = [line.rstrip() for line in fp if line]
+    else:
+        tests = [args.input_vector]
+
+    circuit = Circuit(args.net_file)
+
+    print(f"{'Inputs'.ljust(len(tests[0]))} | {'Outputs'} ")
+    for test in tests:
+        out = circuit.evaluate_input(test)
+        print(f'{test} | {out}')
+    print()
 
 
 def parse_args() -> Namespace:
+    """Command line interface definition for interactive usage"""
     from argparse import ArgumentParser, ArgumentTypeError
 
     def valid_path(name):
@@ -33,25 +53,6 @@ def parse_args() -> Namespace:
     )
 
     return parser.parse_args()
-
-
-def main():
-    args = parse_args()
-    print(f'Netlist file: {args.net_file}:')
-
-    if args.input_file:
-        with args.input_file.open() as fp:
-            tests = [line.rstrip() for line in fp if line]
-    else:
-        tests = [args.input_vector]
-
-    circuit = Circuit(args.net_file)
-
-    print(f"{'Inputs'.ljust(len(tests[0]))} | {'Outputs'} ")
-    for test in tests:
-        out = circuit.evaluate_input(test)
-        print(f'{test} | {out}')
-    print()
 
 
 if __name__ == '__main__':

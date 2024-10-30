@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger: Current File with Arguments",
+            "name": "Python Debugger: Simulator Entrypoint",
             "type": "debugpy",
             "request": "launch",
-            "program": "sim.py",
+            "program": "run.py",
             "console": "internalConsole",
             "args": [
                 "${workspaceFolder}/circuits/s27.net",
