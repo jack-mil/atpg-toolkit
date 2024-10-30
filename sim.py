@@ -31,7 +31,6 @@ class Gate:
     inputs: tuple[int]
 
 
-
 def read_netlist(file: str | Path):
     file = Path(file)
 
@@ -64,7 +63,7 @@ def read_netlist(file: str | Path):
 def evaluate_gate(gate: Gate, net: dict[int, Logic]) -> Logic:
     for id in gate.inputs:
         if net[id] == Logic.UNASSIGNED:
-            raise TypeError("Cannot evaluate a gate with unassigned inputs.")
+            raise TypeError('Cannot evaluate a gate with unassigned inputs.')
 
     match gate.type_, gate.inputs:
         case GateType.INV, [a]:
@@ -83,53 +82,53 @@ def evaluate_gate(gate: Gate, net: dict[int, Logic]) -> Logic:
             raise TypeError(f'Could not evaluate gate {gate}')
 
 
-def process_vector(netlist_file: str, test_vector:str):
-        gates, net_list, input_nets, output_nets = read_netlist(netlist_file)
-            
-        vector = [True if x == '1' else False for x in test_vector]
+def process_vector(netlist_file: str, test_vector: str):
+    gates, net_list, input_nets, output_nets = read_netlist(netlist_file)
 
-        assert len(vector) == len(input_nets)
+    vector = [True if x == '1' else False for x in test_vector]
 
-        for net_id, state in zip(input_nets, vector):
-            net_list[net_id] = Logic(state)
+    assert len(vector) == len(input_nets)
 
-        stack: set[Gate] = set()
-        gates: set[Gate] = set(gates)
+    for net_id, state in zip(input_nets, vector):
+        net_list[net_id] = Logic(state)
 
-        is_assigned = lambda inpt: net_list[inpt] != Logic.UNASSIGNED  # noqa: E731
-        is_ready = lambda gate: all(map(is_assigned, gate.inputs))  # noqa: E731
+    stack: set[Gate] = set()
+    gates: set[Gate] = set(gates)
+
+    is_assigned = lambda inpt: net_list[inpt] != Logic.UNASSIGNED  # noqa: E731
+    is_ready = lambda gate: all(map(is_assigned, gate.inputs))  # noqa: E731
+
+    ready_gates = set(filter(is_ready, gates))
+    stack.update(ready_gates)
+    gates.difference_update(ready_gates)
+
+    while len(stack) > 0:
+        gate = stack.pop()
+        output_state = evaluate_gate(gate, net_list)
+        net_list[gate.output] = output_state
 
         ready_gates = set(filter(is_ready, gates))
         stack.update(ready_gates)
         gates.difference_update(ready_gates)
 
-        while len(stack) > 0:
-            gate = stack.pop()
-            output_state = evaluate_gate(gate, net_list)
-            net_list[gate.output] = output_state
+    output = ''
+    for net in output_nets:
+        match net_list[net]:
+            case Logic.HIGH:
+                output += '1'
+            case Logic.LOW:
+                output += '0'
+            case other:
+                raise RuntimeError(f'Output left unassigned: {net}: {other}')
 
-            ready_gates = set(filter(is_ready, gates))
-            stack.update(ready_gates)
-            gates.difference_update(ready_gates)
-
-        output = ''
-        for net in output_nets:
-            match net_list[net]:
-                case Logic.HIGH:
-                    output += '1'
-                case Logic.LOW:
-                    output += '0'
-                case other:
-                    raise RuntimeError(f'Output left unassigned: {net}: {other}')
-        
-        return output
+    return output
 
 
 def main():
     files = ['s27', 's298f_2', 's344f_2', 's349f_2']
     for file in files:
-        print(f"File: {file}.net:")
-        with open(f"tests/{file}.in") as fp:
+        print(f'File: {file}.net:')
+        with open(f'tests/{file}.in') as fp:
             tests = [line.rstrip() for line in fp if line]
         print(f"{'Inputs'.ljust(len(tests[0]))} | {'Outputs'} ")
         for test in tests:
