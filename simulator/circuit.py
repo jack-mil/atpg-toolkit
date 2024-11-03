@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING: 
+if TYPE_CHECKING:
     from pathlib import Path
     from typing import Collection, Self
 
@@ -59,9 +59,13 @@ class Circuit:
             # prefilter blank lines
             lines = [line.rstrip() for line in f if line]
 
+        return cls.load_circuit_from_strings(lines)
+
+    @classmethod
+    def load_circuit_from_strings(cls, netlist: list[str]) -> Self:
         circuit = cls()
 
-        for line in lines:  # process line
+        for line in netlist:  # process gate or I/O definition
             keyword, *nets = line.split()  # split on whitespace
             nets = list(map(int, nets))  # map all net id's to numbers
 

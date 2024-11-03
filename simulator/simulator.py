@@ -19,15 +19,21 @@ class Simulation:
     Given an input vector, use simulate_input(vector) to get the output of the simulated circuit
     """
 
-    def __init__(self, netlist_file: Path):
+    def __init__(self, netlist_file: Path | list[str]):
         """
         Initialize a new simulation object to simulate the circuit defined in `netlist_file`.
 
         Multiple input simulation vectors can be run with the same Simulation object.
+
+        Optionally load from a list of strings in the format of netlist file lines (for testing)
         """
 
-        self._circuit = Circuit.load_circuit_from_file(netlist_file)
+        self._circuit: Circuit
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
+        if isinstance(netlist_file, list):
+            self._circuit = Circuit.load_circuit_from_strings(netlist_file)
+        else:
+            self._circuit = Circuit.load_circuit_from_file(netlist_file)
 
         self._net_states: dict[int, Logic] = self.reset_state()
         """Mapping of all net ids in the circuit, and the associated logic state (HIGH, LOW, UNASSIGNED)."""
@@ -89,12 +95,12 @@ class Simulation:
                 ready_gates.add(gate)
         return ready_gates
 
-    def all_nets_assigned(self, net_ids: Collection[int]) -> bool:
+    def all_nets_assigned(self, net_ids: None | Collection[int] = None) -> bool:
         """
         Return true if all given net ids are assigned a logic value.
         If collection is empty or none, check all known net's
         """
-        if not net_ids:
+        if net_ids is None:
             net_ids = self._net_states.keys()
         return all(self._net_states[id] != Logic.UNASSIGNED for id in net_ids)
 

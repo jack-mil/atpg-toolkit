@@ -5,7 +5,7 @@ Structures and enum data definitions for utility in the simulation module
 from dataclasses import dataclass
 from enum import Enum, StrEnum
 
-__all__ = ['GateType', 'Logic', 'Gate']
+__all__ = ['GateType', 'Logic', 'Gate', 'Fault']
 
 
 class Logic(Enum):
