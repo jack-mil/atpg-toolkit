@@ -13,7 +13,7 @@ from .structs import Logic
 
 class Simulation:
     """
-    The Simulation class keeps track of the current state of all the nets in the circuit.
+    The Simulation class keeps track of the current fault-free state of all the nets in the circuit.
     A Simulation object is loaded with a specific circuit definition from a net-list file.
 
     Given an input vector, use simulate_input(vector) to get the output of the simulated circuit
@@ -28,20 +28,20 @@ class Simulation:
         Optionally load from a list of strings in the format of netlist file lines (for testing)
         """
 
-        self._circuit: Circuit
+        self._circuit = (
+            Circuit.load_circuit_from_strings(netlist_file)
+            if isinstance(netlist_file, list)
+            else Circuit.load_circuit_from_file(netlist_file)
+        )
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
-        if isinstance(netlist_file, list):
-            self._circuit = Circuit.load_circuit_from_strings(netlist_file)
-        else:
-            self._circuit = Circuit.load_circuit_from_file(netlist_file)
 
         self._net_states: dict[int, Logic] = self.reset_state()
         """Mapping of all net ids in the circuit, and the associated logic state (HIGH, LOW, UNASSIGNED)."""
 
-    def simulate_input(self, input_str: str):
+    def simulate_input(self, input_str: str) -> str:
         """
         With a valid input vector, simulate the circuit completely,
-        and return the resulting output net vector.
+        and return the resulting output vector.
 
         The input string must be a binary string e.g. "1001010".
         The order of inputs will be matched to the order of inputs from the net-list definition.
@@ -104,7 +104,7 @@ class Simulation:
             net_ids = self._net_states.keys()
         return all(self._net_states[id] != Logic.UNASSIGNED for id in net_ids)
 
-    def reset_state(self):
+    def reset_state(self) -> dict[int, Logic]:
         """Return a dictionary with all circuit nets (nodes) in uninitialized state."""
         return {net_id: Logic.UNASSIGNED for net_id in self._circuit._nets}
 

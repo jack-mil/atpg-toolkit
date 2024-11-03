@@ -2,6 +2,8 @@
 Structures and enum data definitions for utility in the simulation module
 """
 
+from __future__ import annotations
+
 from dataclasses import dataclass
 from enum import Enum, StrEnum
 
@@ -14,12 +16,36 @@ class Logic(Enum):
     UNASSIGNED = None
 
     def __bool__(self) -> bool:
-        """Override the bool() behavior to allow boolean operations valid Logic variants"""
+        """Disable bool() (`not`) to prevent bugs. Use the bitwise operators to combine and evaluate logic values"""
+        return NotImplemented
+
+    def __invert__(self) -> Logic:
+        """Bitwise ~ operator. Override to return the opposite Logic value"""
         if self.value is None:
-            raise RuntimeError(
+            raise ValueError(
                 'Attempted boolean evaluation of unassigned Logic.\n This is probably unintended.'
             )
-        return self.value is True
+        return Logic(not self.value)
+
+    def __or__(self, other) -> Logic:
+        """Bitwise | operator. Override to evaluate OR operations on Logic type"""
+        if not isinstance(other, Logic):
+            return NotImplemented
+        if self.value is None:
+            raise ValueError(
+                'Attempted boolean evaluation of unassigned Logic.\n This is probably unintended.'
+            )
+        return Logic(self.value or other.value)
+
+    def __and__(self, other) -> Logic:
+        """Bitwise & operator. Override to evaluate AND operation on Logic type"""
+        if not isinstance(other, Logic):
+            return NotImplemented
+        if self.value is None:
+            raise ValueError(
+                'Attempted boolean evaluation of unassigned Logic.\n This is probably unintended.'
+            )
+        return Logic(self.value and other.value)
 
     def __str__(self) -> str:
         match self:
@@ -63,23 +89,24 @@ class Gate:
     inputs: tuple[int, ...]
     output: int
 
-    def evaluate(self, *inputs: Logic) -> Logic:
+    def evaluate(self, *input_states: Logic) -> Logic:
         """
         Stateless boolean logic output evaluation
-        based on this gate type
+        based on this gate type. Utilizes the overridden bitwise operators.
         """
-        match self.type_, inputs:
-            case GateType.INV, (a,):
-                return Logic(not a)
-            case GateType.BUF, (a,):
-                return Logic(a)
-            case GateType.AND, (a, b):
-                return Logic(a and b)
-            case GateType.OR, (a, b):
-                return Logic(a or b)
-            case GateType.NOR, (a, b):
-                return Logic(not (a or b))
-            case GateType.NAND, (a, b):
-                return Logic(not (a and b))
+        match self.type_, input_states:
+            case GateType.INV, (state,):
+                return ~state
+            case GateType.BUF, (state,):
+                return state
+            case GateType.AND, (state_a, state_b):
+                return state_a & state_b
+            case GateType.OR, (state_a, state_b):
+                return state_a | state_b
+            case GateType.NOR, (state_a, state_b):
+                return ~(state_a | state_b)
+            case GateType.NAND, (state_a, state_b):
+                return ~(state_a & state_b)
             case _:
                 raise TypeError(f'Could not evaluate gate {self}')
+
