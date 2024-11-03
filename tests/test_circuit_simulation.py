@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 
-from simulator.circuit import Circuit
+from simulator.simulator import Simulation
 
 
 class TestCircuit(unittest.TestCase):
@@ -25,8 +25,8 @@ class TestCircuit(unittest.TestCase):
     def test_evaluate_input(self):
         for netlist_file, input_vector, expected_output in self.test_cases:
             with self.subTest(netlist=netlist_file, vector=input_vector):
-                circuit = Circuit(Path(netlist_file))
-                self.assertEqual(circuit.evaluate_input(input_vector), expected_output)
+                circuit = Simulation(Path(netlist_file))
+                self.assertEqual(circuit.simulate_input(input_vector), expected_output)
 
 
 if __name__ == '__main__':

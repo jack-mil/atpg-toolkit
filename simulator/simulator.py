@@ -1,7 +1,7 @@
-from pathlib import Path
-from enum import StrEnum, Enum
 from dataclasses import dataclass
-from typing import Collection
+from enum import Enum, StrEnum
+from pathlib import Path
+from typing import Collection, Self
 
 
 class GateType(StrEnum):
@@ -25,7 +25,7 @@ class Logic(Enum):
         """Override the bool() behavior to allow boolean operations valid Logic variants"""
         if self.value is None:
             raise RuntimeError(
-                'Attempted boolean evaluation of unnasigned Logic.\n This is probably unintended.'
+                'Attempted boolean evaluation of unassigned Logic.\n This is probably unintended.'
             )
         return self.value is True
 
@@ -76,62 +76,68 @@ class Gate:
 
 
 class Circuit:
-    """A circuit is composed of a list of gates and a net-list where each net has an associated state.
+    """
+    A Circuit is a stateless definition of the logic gates and input/output nets
+    associated with a particular combinational logic circuit.
 
-    The Circuit class keeps track of the current state of all the nets.
+    - The Circuit object does not hold any simulation state of nodes.
+    - The Circuit is initialized from a net-list file in a particular format using `load_circuit_from_file()`"
+    """
 
-    The Circuit also has associated input and output nets.
-    The Circuit is initialized from a net-list file in a particular format"""
+    def __init__(self):
+        """
+        Initialize a Circuit with default (empty) configuration.
+          Use `Circuit.load_circuit_from_file(Path)` to initialize a specific net-list.
+        """
 
-    def __init__(self, netlist_file: Path):
-        """Create a new Circuit representation from the given net-list definition file."""
+        self._inputs: list[int] = list()
+        """List of circuit input net ids (order matters)"""
 
-        self._file = Path(netlist_file)
-        """The circuit definition file"""
-
-        if not self._file.exists():
-            raise RuntimeError(f'Netlist file "{self._file}" could not be found')
-
-        self._inputs: list[int] = []
-        """List of circuit input net ids"""
-
-        self._outputs: list[int] = []
-        """List of circuit output net ids"""
+        self._outputs: list[int] = list()
+        """List of circuit output net ids (order matters)"""
 
         self._gates: set[Gate] = set()
         """Set of all logic Gates in this circuit"""
 
-        self._net_states: dict[int, Logic] = {}
-        """Mapping of all net ids in this circuit, and the associated logic state (HIGH, LOW, UNASSIGNED)."""
+        self._nets: set[int] = set()
+        """Set of all net id's (nodes) in this circuit"""
 
-        self.load_state_from_file()
+    @classmethod
+    def load_circuit_from_file(cls, netlist_file: Path) -> Self:
+        """
+        Initialize and return a Circuit by reading from a net-list file.
 
-    def load_state_from_file(self):
+        The file must have the format:
+        ```
+          # One or more lines of Gate definitions
+          GATE_TYPE [1-2 input nets] [1 output net]
+          INV 9 5
+          NAND 16 17 14
+          # The last two lines are special INPUT and OUTPUT net definitions
+          INPUT  1 2 3 4 6 8 10 -1 # <- -1 end deliminator (REQUIRED)
+          OUTPUT  7 9 11 5 -1
+        ```
         """
-        Read from the associated netlist file,
-        and setup the initial circuit state
-        """
-        with self._file.open() as f:
+        if not netlist_file.exists():
+            raise RuntimeError(f'Net-list file "{netlist_file}" could not be found')
+
+        with netlist_file.open() as f:
             # prefilter blank lines
             lines = [line.rstrip() for line in f if line]
 
-        # each should be in the format 'GATE_TYPE [1-2 input nets] [1 output net]'
-        # e.g. "INV 9 5" or "NAND 16 17 14"
-        # The last two lines are special INPUT and OUTPUT net definitions
-        # e.g. INPUT  1 2 3 4 6 8 10 -1  <- -1 can be ignores
-        #      OUTPUT  7 9 11 5 -1
+        circuit = cls()
 
         for line in lines:  # process line
             keyword, *nets = line.split()  # split on whitespace
             nets = list(map(int, nets))  # map all net id's to numbers
 
             if keyword in GateType:
-                # add each net id we encounter to the internal dictionary. Some may repeat, that's ok
-                self._net_states.update((net, Logic.UNASSIGNED) for net in nets)
+                # add each net id we encounter to the set. Some may repeat, that's ok
+                circuit._nets.update(nets)
                 # the last net id in the line is the gate output net
                 *in_ids, out_id = nets
                 # Create a new gate and add it to internal set
-                self._gates.add(
+                circuit._gates.add(
                     Gate(
                         type=GateType(keyword),
                         output=out_id,
@@ -141,39 +147,63 @@ class Circuit:
 
             elif keyword == 'INPUT':
                 *in_ids, _ = nets
-                self._inputs.extend(self.validate_nets(in_ids))
+                circuit._inputs.extend(circuit.ensure_nets_exist(in_ids))
 
             elif keyword == 'OUTPUT':
                 *out_ids, _ = nets
-                self._outputs.extend(self.validate_nets(out_ids))
+                circuit._outputs.extend(circuit.ensure_nets_exist(out_ids))
 
             else:
                 raise RuntimeError(f'Unknown gate type {keyword} in line: {line}')
 
-    def validate_nets(self, net_ids: Collection[int]) -> Collection[int]:
+        return circuit
+
+    def ensure_nets_exist(self, net_ids: Collection[int]) -> Collection[int]:
         """Check to make sure that all given net_ids exist in this circuit."""
-        missing_keys = set(net_ids) - self._net_states.keys()
-        if len(missing_keys) > 0:
+        missing_keys = set(net_ids).difference(self._nets)
+        if missing_keys:
             raise RuntimeError(
                 f'Undefined input net(s) encountered. Nets: "{missing_keys}" not found net-list'
             )
         return net_ids
 
-    def evaluate_input(self, input_vector: str):
+
+class Simulation:
+    """
+    The Simulation class keeps track of the current state of all the nets in the circuit.
+    A Simulation object is loaded with a specific circuit definition from a net-list file.
+
+    Given an input vector, use simulate_input(vector) to get the output of the simulated circuit
+    """
+
+    def __init__(self, netlist_file: Path):
         """
-        With a valid input vector,
-        evaluate the circuit logic,
-        and return the resulting output net vector
+        Initialize a new simulation object to simulate the circuit defined in `netlist_file`.
+
+        Multiple input simulation vectors can be run with the same Simulation object.
         """
-        vector = self.validate_input_string(input_vector)
+
+        self._circuit = Circuit.load_circuit_from_file(netlist_file)
+        """Static, state-less representation of the topology of the circuit (gates and net ids)"""
+
+        self._net_states: dict[int, Logic] = self.reset_state()
+        """Mapping of all net ids in the circuit, and the associated logic state (HIGH, LOW, UNASSIGNED)."""
+
+    def simulate_input(self, input_str: str):
+        """
+        With a valid input vector, simulate the circuit completely,
+        and return the resulting output net vector.
+
+        The input string must be a binary string e.g. "1001010".
+        The order of inputs will be matched to the order of inputs from the net-list definition.
+        """
 
         # Initialize the input nets with the input vector values
-        # print('Initial input states: ')
-        for net_id, state in zip(self._inputs, vector):
-            # print(f'Input Net {net_id}: {state}')
+        vector = self.validate_input_string(input_str)
+        for net_id, state in zip(self._circuit._inputs, vector, strict=True):
             self._net_states[net_id] = state
 
-        gates_to_process = self._gates.copy()
+        gates_to_process = self._circuit._gates.copy()
         # simulate until every gate has been evaluated
         while len(gates_to_process) > 0:
             ready_gates = self.find_ready_gates(gates_to_process)
@@ -191,7 +221,7 @@ class Circuit:
         output_result = self.format_outputs()
 
         # Reset the net-list state so we can evaluate a new input vector later
-        self.reset_state()
+        self._net_states = self.reset_state()
 
         return output_result
 
@@ -216,10 +246,6 @@ class Circuit:
                 ready_gates.add(gate)
         return ready_gates
 
-    def reset_state(self):
-        """Reset the net-list assignments, ready to evaluate a new input"""
-        self._net_states = {net_id: Logic.UNASSIGNED for net_id in self._net_states}
-
     def all_nets_assigned(self, net_ids: Collection[int]) -> bool:
         """
         Return true if all given net ids are assigned a logic value.
@@ -229,17 +255,23 @@ class Circuit:
             net_ids = self._net_states.keys()
         return all(self._net_states[id] != Logic.UNASSIGNED for id in net_ids)
 
+    def reset_state(self):
+        """Return a dictionary with all circuit nets (nodes) in uninitialized state."""
+        return {net_id: Logic.UNASSIGNED for net_id in self._circuit._nets}
+
     def validate_input_string(self, string: str) -> list[Logic]:
         """
         Check if the string contains only '0's and '1's,
-        and matches the number of expected input nets
+        and matches the number of expected input nets.
+
+        Return the input vector string as a list of Logic values
         """
         if not all(char in '01' for char in string):
             raise RuntimeError("Input string must contain only '0's and '1's.")
 
-        if len(string) != len(self._inputs):
+        if len(string) != len(self._circuit._inputs):
             raise RuntimeError(
-                f'Input vector length must match the number of input nets ({len(self._inputs)})'
+                f'Input vector length must match the number of input nets ({len(self._circuit._inputs)})'
             )
 
         # Convert the string to a list of boolean values
@@ -248,7 +280,7 @@ class Circuit:
     def format_outputs(self):
         """A string representation of the circuit output state."""
         output_str = ''
-        for net_id in self._outputs:
+        for net_id in self._circuit._outputs:
             match self._net_states[net_id]:
                 case Logic.HIGH:
                     output_str += '1'

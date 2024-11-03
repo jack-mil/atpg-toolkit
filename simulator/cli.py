@@ -1,30 +1,41 @@
+"""
+Circuit Simulator and Deductive Fault Simulator entry point and command line interface.
+This module shows how to use the `simulator` and `circuit` module API.
+"""
+
 from argparse import Namespace
 from pathlib import Path
 
-from .circuit import Circuit
+from .simulator import Simulation
 
 
 def main():
     args = parse_args()
     print(f'Netlist file: {args.net_file}:')
 
+    # support a single input vector from cli arguments,
+    # or read multiple vectors from a file
     if args.input_file:
         with args.input_file.open() as fp:
             tests = [line.rstrip() for line in fp if line]
     else:
         tests = [args.input_vector]
 
-    circuit = Circuit(args.net_file)
+    # Create the simulation object from this circuit
+    circuit = Simulation(args.net_file)
 
+    # Run multiple test vectors with the same object
+    # and print the output nicely
     print(f"{'Inputs'.ljust(len(tests[0]))} | {'Outputs'} ")
     for test in tests:
-        out = circuit.evaluate_input(test)
+        out = circuit.simulate_input(test)
         print(f'{test} | {out}')
     print()
 
 
 def parse_args() -> Namespace:
     """Command line interface definition for interactive usage"""
+
     from argparse import ArgumentParser, ArgumentTypeError
 
     def valid_path(name):

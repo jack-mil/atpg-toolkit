@@ -14,7 +14,7 @@ for circuit_file in circuits/*.net; do
     # Check if the test file exists
     if [[ -f "$test_file" ]]; then
         # Run the Python script and append the output to results.txt
-        python sim.py "$circuit_file" -i "$test_file" >> results.txt
+        python3 run.py "$circuit_file" -i "$test_file" >> results.txt
     else
         echo "Test file $test_file not found, skipping $circuit_file" >> results.txt
     fi
