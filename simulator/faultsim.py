@@ -1,7 +1,11 @@
-from pathlib import Path
-from itertools import chain
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pathlib import Path
+
 from .simulator import Simulation
-from .structs import Fault, Logic, Gate, GateType
+from .structs import Fault, Logic
 
 
 class FaultSimulation:

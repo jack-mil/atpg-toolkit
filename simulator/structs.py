@@ -58,7 +58,7 @@ class Logic(Enum):
                 return 'Unassigned'
 
 
-@dataclass(eq=True, frozen=True)
+@dataclass(eq=True, frozen=True, order=True)
 class Fault:
     """Represent a single stuck-at fault on given net."""
 

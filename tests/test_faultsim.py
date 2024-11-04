@@ -110,5 +110,6 @@ class TestFaultsSingleGates(unittest.TestCase):
                 print(found_faults)
                 self.assertEqual(found_faults, correct_faults)
 
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-# Clear the results.txt file if it exists
-> results.txt
+# Clear files if the exist
+> results-sim.txt
+> results-faults.txt
 
 # Loop over all files in the circuits directory
 for circuit_file in circuits/*.net; do
@@ -14,8 +15,9 @@ for circuit_file in circuits/*.net; do
     # Check if the test file exists
     if [[ -f "$test_file" ]]; then
         # Run the Python script and append the output to results.txt
-        python3 run.py "$circuit_file" -i "$test_file" >> results.txt
+        python3 run.py simulate "$circuit_file" -f "$test_file" >> results-sim.txt
+        python3 run.py faults   "$circuit_file" -f "$test_file" >> results-faults.txt
     else
-        echo "Test file $test_file not found, skipping $circuit_file" >> results.txt
+        echo "Test file $test_file not found, skipping $circuit_file" 1>&2
     fi
 done
