@@ -92,6 +92,17 @@ class GateType(StrEnum):
     def __repr__(self):
         return f'<{self.name}>'
 
+    def control_value(self):
+        match self:
+            case GateType.AND | GateType.NAND:
+                return Logic.LOW
+            case GateType.OR | GateType.NOR:
+                return Logic.HIGH
+            case GateType.BUF | GateType.INV:
+                return None
+            case _:
+                raise TypeError(f'Gate type unknown: {self}')
+
 
 @dataclass(eq=True, frozen=True)
 class Gate:
@@ -129,15 +140,5 @@ class Gate:
             case _:
                 raise TypeError(f'Could not evaluate gate {self}')
 
-    def controlling_value(self) -> Literal[Logic.LOW] | Literal[Logic.HIGH]:
-        match self.type_:
-            case GateType.AND:
-                return Logic.LOW
-            case GateType.OR:
-                return Logic.HIGH
-            case GateType.NOR:
-                return Logic.HIGH
-            case GateType.NAND:
-                return Logic.LOW
-            case _:
-                raise TypeError(f'Could not evaluate gate {self}')
+    def control_value(self):
+        return self.type_.control_value()

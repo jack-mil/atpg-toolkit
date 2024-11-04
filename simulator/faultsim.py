@@ -23,10 +23,8 @@ class FaultSimulation:
         self._deduce_faults(vector)
 
         # detected faults is the union of all fault lists on all output nets
-        output_faults = set(
-            chain.from_iterable(
-                self._fault_lists[output_net] for output_net in self._sim._circuit._outputs
-            )
+        output_faults = set.union(
+            *(self._fault_lists[output_net] for output_net in self._sim._circuit._outputs), set()
         )
 
         self._fault_lists = self.reset_state()
@@ -35,7 +33,10 @@ class FaultSimulation:
         return output_faults
 
     def _deduce_faults(self, vector: list[Logic]):
-        """"""
+        """
+        Run a fault free simulation concurrently at the same time as propagating the faults.
+        TODO: Some code is duplicated from Simulation, I would like to fix that
+        """
 
         # Initialize the input nets fault lists with their opposite stuck-at fault
         for net_id, state in zip(self._sim._circuit._inputs, vector, strict=True):
@@ -48,29 +49,37 @@ class FaultSimulation:
             ready_gates = self._sim.find_ready_gates(gates_to_process)
 
             for gate in ready_gates:
+                # see docs/deductive_sim_fault_propagation.png for textbook equation used here
                 input_states = tuple(self._sim._net_states[net_id] for net_id in gate.inputs)
-                output_state = gate.evaluate(*input_states)
 
-                list_a = self._fault_lists[gate.inputs[0]]
-                list_b = self._fault_lists[gate.inputs[1]]
+                control_value = gate.control_value()
+                # Inverts and Buffers don't have a controlling value, and so this set is empty for them
+                controlling_inputs = {
+                    net for net, state in zip(gate.inputs, input_states) if state is control_value
+                }
+                non_controlling_inputs = set(gate.inputs) - controlling_inputs
 
-                control_value = gate.controlling_value()
-                # all inputs are at controlling value
-                if (input_states[0] is control_value) and (input_states[1] is control_value):
-                    propagated = list_a & list_b
-                # input a is controlling value, b isn't
-                elif input_states[0] is control_value:
-                    propagated = list_a - list_b
-                # input b is controlling value, a isn't
-                elif input_states[1] is control_value:
-                    propagated = list_b - list_a
-                # no inputs at controlling value
-                else:
-                    propagated = list_a | list_b
+                # start by propagating all faults on non-controlling inputs
+                propagated = set.union(
+                    *(self._fault_lists[net] for net in non_controlling_inputs), set()
+                )
+                if len(controlling_inputs) > 0:
+                    # in case there are inputs at a controlling value,
+                    # only propagate faults that affect all inputs at a controlling value,
+                    # and don't affect the previous non-controlling input faults
+                    # (see textbook)
+                    exclusive_faults = set.intersection(
+                        *(self._fault_lists[net] for net in controlling_inputs)
+                    )
+                    propagated = exclusive_faults - propagated
 
                 # evaluate the result of the gate inputs and update the net-list state
+                output_state = gate.evaluate(*input_states)
                 self._sim._net_states[gate.output] = output_state
-                self._fault_lists[gate.output] = propagated | {Fault(gate.output, ~output_state)}
+
+                # include the local output fault, and record the propagated faults
+                propagated = propagated | {Fault(gate.output, ~output_state)}
+                self._fault_lists[gate.output] = propagated
 
             # Remove the ready gates from the list of gates yet to be processed
             gates_to_process.difference_update(ready_gates)
