@@ -7,23 +7,85 @@ from simulator.structs import Fault
 
 
 class TestDeductiveFaultSim(unittest.TestCase):
-
     def test_and_gate(self):
-        """Test a simple circuit net-list made by hand"""
+        """Test a single AND gate"""
         netlist = [
             'AND 1 2 3',
             'INPUT 1 2 -1',
             'OUTPUT 3 -1',
         ]
         and_faults = {
-            '11': {Fault(1, Logic.LOW), Fault(2, Logic.LOW), Fault(3, Logic.LOW)},
-            '10': {Fault(3, Logic.HIGH), Fault(2, Logic.HIGH)},
-            '01': {Fault(3, Logic.HIGH), Fault(1, Logic.HIGH)},
             '00': {Fault(3, Logic.HIGH)},
+            '01': {Fault(3, Logic.HIGH), Fault(1, Logic.HIGH)},
+            '10': {Fault(3, Logic.HIGH), Fault(2, Logic.HIGH)},
+            '11': {Fault(1, Logic.LOW), Fault(2, Logic.LOW), Fault(3, Logic.LOW)},
         }
         sim = FaultSimulation(netlist)
 
         for test, correct_faults in and_faults.items():
+            with self.subTest(test=test):
+                found_faults = sim.detect_faults(test)
+                print(found_faults)
+                self.assertEqual(found_faults, correct_faults)
+
+    def test_or_gate(self):
+        """Test a single OR gate"""
+        netlist = [
+            'OR 1 2 3',
+            'INPUT 1 2 -1',
+            'OUTPUT 3 -1',
+        ]
+        or_faults = {
+            '00': {Fault(1, Logic.HIGH), Fault(2, Logic.HIGH), Fault(3, Logic.HIGH)},
+            '01': {Fault(3, Logic.LOW), Fault(2, Logic.LOW)},
+            '10': {Fault(3, Logic.LOW), Fault(1, Logic.LOW)},
+            '11': {Fault(3, Logic.LOW)},
+        }
+        sim = FaultSimulation(netlist)
+
+        for test, correct_faults in or_faults.items():
+            with self.subTest(test=test):
+                found_faults = sim.detect_faults(test)
+                print(found_faults)
+                self.assertEqual(found_faults, correct_faults)
+
+    def test_nor_gate(self):
+        """Test a single NOR gate"""
+        netlist = [
+            'NOR 1 2 3',
+            'INPUT 1 2 -1',
+            'OUTPUT 3 -1',
+        ]
+        nor_faults = {
+            '00': {Fault(1, Logic.HIGH), Fault(2, Logic.HIGH), Fault(3, Logic.LOW)},
+            '01': {Fault(2, Logic.LOW), Fault(3, Logic.HIGH)},
+            '10': {Fault(1, Logic.LOW), Fault(3, Logic.HIGH)},
+            '11': {Fault(3, Logic.HIGH)},
+        }
+        sim = FaultSimulation(netlist)
+
+        for test, correct_faults in nor_faults.items():
+            with self.subTest(test=test):
+                found_faults = sim.detect_faults(test)
+                print(found_faults)
+                self.assertEqual(found_faults, correct_faults)
+
+    def test_nand_gate(self):
+        """Test a single NAND gate"""
+        netlist = [
+            'NAND 1 2 3',
+            'INPUT 1 2 -1',
+            'OUTPUT 3 -1',
+        ]
+        nand_faults = {
+            '00': {Fault(3, Logic.LOW)},
+            '01': {Fault(3, Logic.LOW), Fault(1, Logic.HIGH)},
+            '10': {Fault(3, Logic.LOW), Fault(2, Logic.HIGH)},
+            '11': {Fault(1, Logic.LOW), Fault(2, Logic.LOW), Fault(3, Logic.HIGH)},
+        }
+        sim = FaultSimulation(netlist)
+
+        for test, correct_faults in nand_faults.items():
             with self.subTest(test=test):
                 found_faults = sim.detect_faults(test)
                 print(found_faults)

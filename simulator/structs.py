@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum, StrEnum
+from typing import Literal
 
 __all__ = ['GateType', 'Logic', 'Gate', 'Fault']
 
@@ -128,3 +129,15 @@ class Gate:
             case _:
                 raise TypeError(f'Could not evaluate gate {self}')
 
+    def controlling_value(self) -> Literal[Logic.LOW] | Literal[Logic.HIGH]:
+        match self.type_:
+            case GateType.AND:
+                return Logic.LOW
+            case GateType.OR:
+                return Logic.HIGH
+            case GateType.NOR:
+                return Logic.HIGH
+            case GateType.NAND:
+                return Logic.LOW
+            case _:
+                raise TypeError(f'Could not evaluate gate {self}')

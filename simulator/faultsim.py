@@ -54,14 +54,15 @@ class FaultSimulation:
                 list_a = self._fault_lists[gate.inputs[0]]
                 list_b = self._fault_lists[gate.inputs[1]]
 
+                control_value = gate.controlling_value()
                 # all inputs are at controlling value
-                if (input_states[0] is Logic.LOW) and (input_states[1] is Logic.LOW):
+                if (input_states[0] is control_value) and (input_states[1] is control_value):
                     propagated = list_a & list_b
                 # input a is controlling value, b isn't
-                elif input_states[0] is Logic.LOW:
+                elif input_states[0] is control_value:
                     propagated = list_a - list_b
                 # input b is controlling value, a isn't
-                elif input_states[1] is Logic.LOW:
+                elif input_states[1] is control_value:
                     propagated = list_b - list_a
                 # no inputs at controlling value
                 else:
