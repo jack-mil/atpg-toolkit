@@ -57,6 +57,24 @@ class Logic(Enum):
                 return 'Unassigned'
 
 
+@dataclass(eq=True, frozen=True)
+class Fault:
+    """Represent a single stuck-at fault on given net."""
+
+    net_id: int
+    stuck_at: Logic
+
+    def __post_init__(self):
+        """Validate the Fault struct at object creation"""
+        if not isinstance(self.stuck_at, Logic):
+            raise TypeError("stuck at value must be a 'Logic' type")
+        if self.stuck_at is Logic.UNASSIGNED:
+            raise TypeError('stuck at mush be set to a High or Low Logic value')
+
+    def __str__(self) -> str:
+        return f'{self.net_id}-sa-{self.stuck_at}'
+
+
 class GateType(StrEnum):
     """
     Supported gate types.

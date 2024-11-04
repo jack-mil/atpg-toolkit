@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from .structs import Gate
 
 from .circuit import Circuit
-from .structs import Logic
+from .structs import GateType, Logic, Fault
 
 
 class Simulation:
@@ -47,8 +47,23 @@ class Simulation:
         The order of inputs will be matched to the order of inputs from the net-list definition.
         """
 
-        # Initialize the input nets with the input vector values
+        # convert the input string to internal representation,
         vector = self.validate_input_string(input_str)
+        # and run the simulation to final state
+        self._run_simulation(vector)
+
+        # All nets have been evaluated. Save the output state to return
+        output_result = self.format_outputs()
+
+        # Reset the net-list state so we can evaluate a new input vector later
+        self._net_states = self.reset_state()
+
+        return output_result
+
+    def _run_simulation(self, vector: list[Logic]):
+        """Internal implementation that does not reset the simulated state"""
+
+        # Initialize the input nets with the input vector values
         for net_id, state in zip(self._circuit._inputs, vector, strict=True):
             self._net_states[net_id] = state
 
@@ -61,18 +76,9 @@ class Simulation:
                 output_state = self.evaluate_gate_output(gate)
                 # evaluate the result of the gate inputs and update the net-list state
                 self._net_states[gate.output] = output_state
-                # print(f'Gate {gate.type} net {gate.inputs}: -> net {gate.output}: {output_state}')
 
             # Remove the ready gates from the list of gates yet to be processed
             gates_to_process.difference_update(ready_gates)
-
-        # All nets have been evaluated. Save the output net state to return
-        output_result = self.format_outputs()
-
-        # Reset the net-list state so we can evaluate a new input vector later
-        self._net_states = self.reset_state()
-
-        return output_result
 
     def evaluate_gate_output(self, gate: Gate) -> Logic:
         """
@@ -126,7 +132,7 @@ class Simulation:
         # Convert the string to a list of boolean values
         return [Logic(char == '1') for char in string]
 
-    def format_outputs(self):
+    def format_outputs(self) -> str:
         """A string representation of the circuit output state."""
         output_str = ''
         for net_id in self._circuit._outputs:
