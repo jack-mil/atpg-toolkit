@@ -5,14 +5,28 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Simulator Entrypoint",
+            "name": "Debug Fault-Free Simulator Entrypoint",
             "type": "debugpy",
             "request": "launch",
             "program": "run.py",
             "console": "internalConsole",
             "args": [
+                "simulate",
                 "${workspaceFolder}/circuits/s27.net",
-                "-i",
+                "-f",
+                "${workspaceFolder}/tests/s27.in"
+            ]
+        },
+        {
+            "name": "Debug Deductive Fault Simulator Entrypoint",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "run.py",
+            "console": "internalConsole",
+            "args": [
+                "faults",
+                "${workspaceFolder}/circuits/s27.net",
+                "-f",
                 "${workspaceFolder}/tests/s27.in"
             ]
         }
