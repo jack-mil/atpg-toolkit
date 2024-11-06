@@ -1,1710 +1,1710 @@
 Circuit: circuits\s27.net
 Input Vector: 1 1 1 0 1 0 1
 ------ Detected Faults (8) ------
-   1 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   7 stuck at 0 (Low)
-   9 stuck at 1 (High)
-  11 stuck at 1 (High)
-  12 stuck at 0 (Low)
-  13 stuck at 0 (Low)
+   1 stuck at 0
+   3 stuck at 0
+   5 stuck at 0
+   7 stuck at 0
+   9 stuck at 1
+  11 stuck at 1
+  12 stuck at 0
+  13 stuck at 0
 
 Circuit: circuits\s27.net
 Input Vector: 0 0 0 1 0 1 0
 ------ Detected Faults (11) ------
-   2 stuck at 1 (High)
-   5 stuck at 1 (High)
-   6 stuck at 1 (High)
-   7 stuck at 1 (High)
-   9 stuck at 0 (Low)
-  10 stuck at 1 (High)
-  11 stuck at 1 (High)
-  14 stuck at 1 (High)
-  15 stuck at 0 (Low)
-  16 stuck at 0 (Low)
-  17 stuck at 0 (Low)
+   2 stuck at 1
+   5 stuck at 1
+   6 stuck at 1
+   7 stuck at 1
+   9 stuck at 0
+  10 stuck at 1
+  11 stuck at 1
+  14 stuck at 1
+  15 stuck at 0
+  16 stuck at 0
+  17 stuck at 0
 
 Circuit: circuits\s27.net
 Input Vector: 1 0 1 0 1 0 1
 ------ Detected Faults (8) ------
-   1 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   7 stuck at 0 (Low)
-   9 stuck at 1 (High)
-  11 stuck at 1 (High)
-  12 stuck at 0 (Low)
-  13 stuck at 0 (Low)
+   1 stuck at 0
+   3 stuck at 0
+   5 stuck at 0
+   7 stuck at 0
+   9 stuck at 1
+  11 stuck at 1
+  12 stuck at 0
+  13 stuck at 0
 
 Circuit: circuits\s27.net
 Input Vector: 0 1 1 0 1 1 1
 ------ Detected Faults (8) ------
-   1 stuck at 1 (High)
-   3 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   6 stuck at 0 (Low)
-   7 stuck at 1 (High)
-   9 stuck at 1 (High)
-  11 stuck at 1 (High)
-  12 stuck at 1 (High)
+   1 stuck at 1
+   3 stuck at 0
+   5 stuck at 0
+   6 stuck at 0
+   7 stuck at 1
+   9 stuck at 1
+  11 stuck at 1
+  12 stuck at 1
 
 Circuit: circuits\s27.net
 Input Vector: 1 0 1 0 0 0 1
 ------ Detected Faults (10) ------
-   1 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   7 stuck at 0 (Low)
-   9 stuck at 1 (High)
-  11 stuck at 1 (High)
-  12 stuck at 0 (Low)
-  13 stuck at 0 (Low)
-  14 stuck at 0 (Low)
-  20 stuck at 1 (High)
+   1 stuck at 0
+   3 stuck at 0
+   5 stuck at 0
+   7 stuck at 0
+   9 stuck at 1
+  11 stuck at 1
+  12 stuck at 0
+  13 stuck at 0
+  14 stuck at 0
+  20 stuck at 1
 
 
 Circuit: circuits\s298f_2.net
 Input Vector: 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1
 ------ Detected Faults (82) ------
-   3 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   6 stuck at 1 (High)
-   7 stuck at 0 (Low)
-   8 stuck at 1 (High)
-   9 stuck at 0 (Low)
-  10 stuck at 1 (High)
-  11 stuck at 0 (Low)
-  12 stuck at 1 (High)
-  15 stuck at 0 (Low)
-  18 stuck at 1 (High)
-  19 stuck at 1 (High)
-  20 stuck at 1 (High)
-  21 stuck at 1 (High)
-  22 stuck at 1 (High)
-  23 stuck at 1 (High)
-  24 stuck at 0 (Low)
-  25 stuck at 1 (High)
-  26 stuck at 0 (Low)
-  27 stuck at 1 (High)
-  28 stuck at 0 (Low)
-  29 stuck at 1 (High)
-  30 stuck at 1 (High)
-  31 stuck at 1 (High)
-  32 stuck at 0 (Low)
-  33 stuck at 0 (Low)
-  34 stuck at 0 (Low)
-  35 stuck at 1 (High)
-  36 stuck at 1 (High)
-  37 stuck at 1 (High)
-  39 stuck at 1 (High)
-  41 stuck at 1 (High)
-  45 stuck at 1 (High)
-  48 stuck at 0 (Low)
-  49 stuck at 0 (Low)
-  51 stuck at 1 (High)
-  52 stuck at 1 (High)
-  53 stuck at 1 (High)
-  54 stuck at 0 (Low)
-  56 stuck at 1 (High)
-  57 stuck at 1 (High)
-  58 stuck at 0 (Low)
-  64 stuck at 1 (High)
-  66 stuck at 0 (Low)
-  67 stuck at 1 (High)
-  68 stuck at 1 (High)
-  95 stuck at 0 (Low)
- 102 stuck at 0 (Low)
- 103 stuck at 1 (High)
- 105 stuck at 1 (High)
- 106 stuck at 1 (High)
- 107 stuck at 1 (High)
- 108 stuck at 1 (High)
- 109 stuck at 1 (High)
- 110 stuck at 1 (High)
- 115 stuck at 1 (High)
- 116 stuck at 0 (Low)
- 117 stuck at 0 (Low)
- 118 stuck at 1 (High)
- 119 stuck at 1 (High)
- 120 stuck at 1 (High)
- 122 stuck at 0 (Low)
- 132 stuck at 0 (Low)
- 133 stuck at 0 (Low)
- 135 stuck at 0 (Low)
- 138 stuck at 0 (Low)
- 141 stuck at 0 (Low)
- 142 stuck at 0 (Low)
- 143 stuck at 0 (Low)
- 145 stuck at 0 (Low)
- 146 stuck at 0 (Low)
- 163 stuck at 1 (High)
- 164 stuck at 1 (High)
- 166 stuck at 0 (Low)
- 168 stuck at 0 (Low)
- 169 stuck at 1 (High)
- 170 stuck at 1 (High)
- 173 stuck at 0 (Low)
- 182 stuck at 1 (High)
- 183 stuck at 1 (High)
- 186 stuck at 1 (High)
- 188 stuck at 0 (Low)
+   3 stuck at 0
+   5 stuck at 0
+   6 stuck at 1
+   7 stuck at 0
+   8 stuck at 1
+   9 stuck at 0
+  10 stuck at 1
+  11 stuck at 0
+  12 stuck at 1
+  15 stuck at 0
+  18 stuck at 1
+  19 stuck at 1
+  20 stuck at 1
+  21 stuck at 1
+  22 stuck at 1
+  23 stuck at 1
+  24 stuck at 0
+  25 stuck at 1
+  26 stuck at 0
+  27 stuck at 1
+  28 stuck at 0
+  29 stuck at 1
+  30 stuck at 1
+  31 stuck at 1
+  32 stuck at 0
+  33 stuck at 0
+  34 stuck at 0
+  35 stuck at 1
+  36 stuck at 1
+  37 stuck at 1
+  39 stuck at 1
+  41 stuck at 1
+  45 stuck at 1
+  48 stuck at 0
+  49 stuck at 0
+  51 stuck at 1
+  52 stuck at 1
+  53 stuck at 1
+  54 stuck at 0
+  56 stuck at 1
+  57 stuck at 1
+  58 stuck at 0
+  64 stuck at 1
+  66 stuck at 0
+  67 stuck at 1
+  68 stuck at 1
+  95 stuck at 0
+ 102 stuck at 0
+ 103 stuck at 1
+ 105 stuck at 1
+ 106 stuck at 1
+ 107 stuck at 1
+ 108 stuck at 1
+ 109 stuck at 1
+ 110 stuck at 1
+ 115 stuck at 1
+ 116 stuck at 0
+ 117 stuck at 0
+ 118 stuck at 1
+ 119 stuck at 1
+ 120 stuck at 1
+ 122 stuck at 0
+ 132 stuck at 0
+ 133 stuck at 0
+ 135 stuck at 0
+ 138 stuck at 0
+ 141 stuck at 0
+ 142 stuck at 0
+ 143 stuck at 0
+ 145 stuck at 0
+ 146 stuck at 0
+ 163 stuck at 1
+ 164 stuck at 1
+ 166 stuck at 0
+ 168 stuck at 0
+ 169 stuck at 1
+ 170 stuck at 1
+ 173 stuck at 0
+ 182 stuck at 1
+ 183 stuck at 1
+ 186 stuck at 1
+ 188 stuck at 0
 
 Circuit: circuits\s298f_2.net
 Input Vector: 0 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1
 ------ Detected Faults (58) ------
-   1 stuck at 1 (High)
-   5 stuck at 0 (Low)
-   6 stuck at 0 (Low)
-   7 stuck at 0 (Low)
-   8 stuck at 1 (High)
-   9 stuck at 1 (High)
-  10 stuck at 1 (High)
-  11 stuck at 1 (High)
-  12 stuck at 1 (High)
-  15 stuck at 0 (Low)
-  18 stuck at 1 (High)
-  19 stuck at 1 (High)
-  20 stuck at 1 (High)
-  21 stuck at 1 (High)
-  22 stuck at 1 (High)
-  23 stuck at 1 (High)
-  24 stuck at 1 (High)
-  25 stuck at 1 (High)
-  26 stuck at 1 (High)
-  27 stuck at 0 (Low)
-  28 stuck at 0 (Low)
-  29 stuck at 1 (High)
-  30 stuck at 1 (High)
-  31 stuck at 1 (High)
-  32 stuck at 1 (High)
-  33 stuck at 1 (High)
-  34 stuck at 0 (Low)
-  35 stuck at 1 (High)
-  36 stuck at 1 (High)
-  37 stuck at 1 (High)
-  39 stuck at 1 (High)
-  43 stuck at 0 (Low)
-  45 stuck at 1 (High)
-  47 stuck at 1 (High)
-  49 stuck at 1 (High)
-  53 stuck at 0 (Low)
-  54 stuck at 1 (High)
-  55 stuck at 1 (High)
-  56 stuck at 1 (High)
-  57 stuck at 1 (High)
-  61 stuck at 1 (High)
-  63 stuck at 1 (High)
-  64 stuck at 0 (Low)
-  65 stuck at 1 (High)
-  66 stuck at 1 (High)
-  67 stuck at 1 (High)
-  68 stuck at 1 (High)
-  90 stuck at 1 (High)
-  91 stuck at 1 (High)
- 101 stuck at 1 (High)
- 102 stuck at 1 (High)
- 117 stuck at 1 (High)
- 121 stuck at 1 (High)
- 149 stuck at 0 (Low)
- 150 stuck at 0 (Low)
- 152 stuck at 0 (Low)
- 173 stuck at 0 (Low)
- 181 stuck at 0 (Low)
+   1 stuck at 1
+   5 stuck at 0
+   6 stuck at 0
+   7 stuck at 0
+   8 stuck at 1
+   9 stuck at 1
+  10 stuck at 1
+  11 stuck at 1
+  12 stuck at 1
+  15 stuck at 0
+  18 stuck at 1
+  19 stuck at 1
+  20 stuck at 1
+  21 stuck at 1
+  22 stuck at 1
+  23 stuck at 1
+  24 stuck at 1
+  25 stuck at 1
+  26 stuck at 1
+  27 stuck at 0
+  28 stuck at 0
+  29 stuck at 1
+  30 stuck at 1
+  31 stuck at 1
+  32 stuck at 1
+  33 stuck at 1
+  34 stuck at 0
+  35 stuck at 1
+  36 stuck at 1
+  37 stuck at 1
+  39 stuck at 1
+  43 stuck at 0
+  45 stuck at 1
+  47 stuck at 1
+  49 stuck at 1
+  53 stuck at 0
+  54 stuck at 1
+  55 stuck at 1
+  56 stuck at 1
+  57 stuck at 1
+  61 stuck at 1
+  63 stuck at 1
+  64 stuck at 0
+  65 stuck at 1
+  66 stuck at 1
+  67 stuck at 1
+  68 stuck at 1
+  90 stuck at 1
+  91 stuck at 1
+ 101 stuck at 1
+ 102 stuck at 1
+ 117 stuck at 1
+ 121 stuck at 1
+ 149 stuck at 0
+ 150 stuck at 0
+ 152 stuck at 0
+ 173 stuck at 0
+ 181 stuck at 0
 
 Circuit: circuits\s298f_2.net
 Input Vector: 1 1 1 1 1 0 0 0 0 0 1 1 1 1 0 0 0
 ------ Detected Faults (98) ------
-   1 stuck at 0 (Low)
-   2 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   4 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   6 stuck at 1 (High)
-   7 stuck at 1 (High)
-   8 stuck at 1 (High)
-   9 stuck at 1 (High)
-  10 stuck at 1 (High)
-  11 stuck at 0 (Low)
-  12 stuck at 0 (Low)
-  13 stuck at 0 (Low)
-  14 stuck at 0 (Low)
-  15 stuck at 1 (High)
-  16 stuck at 1 (High)
-  17 stuck at 1 (High)
-  18 stuck at 1 (High)
-  19 stuck at 1 (High)
-  20 stuck at 1 (High)
-  21 stuck at 1 (High)
-  22 stuck at 1 (High)
-  23 stuck at 1 (High)
-  24 stuck at 1 (High)
-  25 stuck at 1 (High)
-  26 stuck at 1 (High)
-  27 stuck at 1 (High)
-  28 stuck at 0 (Low)
-  29 stuck at 0 (Low)
-  30 stuck at 0 (Low)
-  31 stuck at 0 (Low)
-  32 stuck at 1 (High)
-  33 stuck at 0 (Low)
-  34 stuck at 1 (High)
-  35 stuck at 1 (High)
-  36 stuck at 0 (Low)
-  37 stuck at 1 (High)
-  38 stuck at 1 (High)
-  40 stuck at 1 (High)
-  43 stuck at 0 (Low)
-  45 stuck at 1 (High)
-  46 stuck at 1 (High)
-  48 stuck at 1 (High)
-  55 stuck at 0 (Low)
-  56 stuck at 1 (High)
-  57 stuck at 1 (High)
-  58 stuck at 1 (High)
-  59 stuck at 1 (High)
-  60 stuck at 0 (Low)
-  61 stuck at 0 (Low)
-  62 stuck at 0 (Low)
-  63 stuck at 0 (Low)
-  64 stuck at 1 (High)
-  66 stuck at 0 (Low)
-  67 stuck at 1 (High)
-  68 stuck at 1 (High)
-  71 stuck at 0 (Low)
-  73 stuck at 0 (Low)
-  74 stuck at 0 (Low)
-  95 stuck at 0 (Low)
-  98 stuck at 0 (Low)
-  99 stuck at 0 (Low)
- 102 stuck at 0 (Low)
- 107 stuck at 0 (Low)
- 108 stuck at 0 (Low)
- 118 stuck at 1 (High)
- 119 stuck at 1 (High)
- 120 stuck at 1 (High)
- 122 stuck at 1 (High)
- 123 stuck at 1 (High)
- 124 stuck at 1 (High)
- 125 stuck at 1 (High)
- 126 stuck at 1 (High)
- 127 stuck at 1 (High)
- 128 stuck at 1 (High)
- 129 stuck at 1 (High)
- 141 stuck at 0 (Low)
- 143 stuck at 0 (Low)
- 145 stuck at 0 (Low)
- 146 stuck at 0 (Low)
- 148 stuck at 0 (Low)
- 149 stuck at 1 (High)
- 150 stuck at 1 (High)
- 151 stuck at 1 (High)
- 153 stuck at 0 (Low)
- 155 stuck at 0 (Low)
- 156 stuck at 0 (Low)
- 157 stuck at 0 (Low)
- 165 stuck at 0 (Low)
- 171 stuck at 1 (High)
- 172 stuck at 1 (High)
- 173 stuck at 0 (Low)
- 174 stuck at 1 (High)
- 175 stuck at 1 (High)
- 178 stuck at 1 (High)
- 179 stuck at 1 (High)
- 180 stuck at 1 (High)
- 181 stuck at 1 (High)
+   1 stuck at 0
+   2 stuck at 0
+   3 stuck at 0
+   4 stuck at 0
+   5 stuck at 0
+   6 stuck at 1
+   7 stuck at 1
+   8 stuck at 1
+   9 stuck at 1
+  10 stuck at 1
+  11 stuck at 0
+  12 stuck at 0
+  13 stuck at 0
+  14 stuck at 0
+  15 stuck at 1
+  16 stuck at 1
+  17 stuck at 1
+  18 stuck at 1
+  19 stuck at 1
+  20 stuck at 1
+  21 stuck at 1
+  22 stuck at 1
+  23 stuck at 1
+  24 stuck at 1
+  25 stuck at 1
+  26 stuck at 1
+  27 stuck at 1
+  28 stuck at 0
+  29 stuck at 0
+  30 stuck at 0
+  31 stuck at 0
+  32 stuck at 1
+  33 stuck at 0
+  34 stuck at 1
+  35 stuck at 1
+  36 stuck at 0
+  37 stuck at 1
+  38 stuck at 1
+  40 stuck at 1
+  43 stuck at 0
+  45 stuck at 1
+  46 stuck at 1
+  48 stuck at 1
+  55 stuck at 0
+  56 stuck at 1
+  57 stuck at 1
+  58 stuck at 1
+  59 stuck at 1
+  60 stuck at 0
+  61 stuck at 0
+  62 stuck at 0
+  63 stuck at 0
+  64 stuck at 1
+  66 stuck at 0
+  67 stuck at 1
+  68 stuck at 1
+  71 stuck at 0
+  73 stuck at 0
+  74 stuck at 0
+  95 stuck at 0
+  98 stuck at 0
+  99 stuck at 0
+ 102 stuck at 0
+ 107 stuck at 0
+ 108 stuck at 0
+ 118 stuck at 1
+ 119 stuck at 1
+ 120 stuck at 1
+ 122 stuck at 1
+ 123 stuck at 1
+ 124 stuck at 1
+ 125 stuck at 1
+ 126 stuck at 1
+ 127 stuck at 1
+ 128 stuck at 1
+ 129 stuck at 1
+ 141 stuck at 0
+ 143 stuck at 0
+ 145 stuck at 0
+ 146 stuck at 0
+ 148 stuck at 0
+ 149 stuck at 1
+ 150 stuck at 1
+ 151 stuck at 1
+ 153 stuck at 0
+ 155 stuck at 0
+ 156 stuck at 0
+ 157 stuck at 0
+ 165 stuck at 0
+ 171 stuck at 1
+ 172 stuck at 1
+ 173 stuck at 0
+ 174 stuck at 1
+ 175 stuck at 1
+ 178 stuck at 1
+ 179 stuck at 1
+ 180 stuck at 1
+ 181 stuck at 1
 
 Circuit: circuits\s298f_2.net
 Input Vector: 1 1 1 0 0 0 0 1 1 1 0 0 0 1 1 0 0
 ------ Detected Faults (79) ------
-   2 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   4 stuck at 1 (High)
-   5 stuck at 1 (High)
-   6 stuck at 1 (High)
-   7 stuck at 1 (High)
-   8 stuck at 0 (Low)
-   9 stuck at 0 (Low)
-  10 stuck at 0 (Low)
-  11 stuck at 1 (High)
-  12 stuck at 1 (High)
-  15 stuck at 0 (Low)
-  18 stuck at 1 (High)
-  19 stuck at 1 (High)
-  20 stuck at 1 (High)
-  21 stuck at 1 (High)
-  22 stuck at 1 (High)
-  23 stuck at 1 (High)
-  24 stuck at 1 (High)
-  25 stuck at 1 (High)
-  26 stuck at 0 (Low)
-  27 stuck at 1 (High)
-  28 stuck at 1 (High)
-  29 stuck at 0 (Low)
-  30 stuck at 1 (High)
-  31 stuck at 1 (High)
-  32 stuck at 0 (Low)
-  33 stuck at 1 (High)
-  34 stuck at 1 (High)
-  35 stuck at 0 (Low)
-  36 stuck at 1 (High)
-  37 stuck at 0 (Low)
-  43 stuck at 0 (Low)
-  45 stuck at 1 (High)
-  48 stuck at 1 (High)
-  51 stuck at 1 (High)
-  52 stuck at 1 (High)
-  53 stuck at 1 (High)
-  54 stuck at 0 (Low)
-  56 stuck at 0 (Low)
-  58 stuck at 1 (High)
-  59 stuck at 1 (High)
-  63 stuck at 1 (High)
-  64 stuck at 1 (High)
-  66 stuck at 0 (Low)
-  67 stuck at 1 (High)
-  68 stuck at 1 (High)
-  95 stuck at 0 (Low)
- 102 stuck at 0 (Low)
- 103 stuck at 1 (High)
- 104 stuck at 1 (High)
- 105 stuck at 1 (High)
- 109 stuck at 0 (Low)
- 115 stuck at 1 (High)
- 116 stuck at 0 (Low)
- 117 stuck at 0 (Low)
- 118 stuck at 0 (Low)
- 121 stuck at 0 (Low)
- 132 stuck at 0 (Low)
- 135 stuck at 0 (Low)
- 138 stuck at 0 (Low)
- 139 stuck at 0 (Low)
- 153 stuck at 0 (Low)
- 154 stuck at 0 (Low)
- 156 stuck at 0 (Low)
- 157 stuck at 0 (Low)
- 161 stuck at 1 (High)
- 162 stuck at 1 (High)
- 166 stuck at 0 (Low)
- 167 stuck at 0 (Low)
- 169 stuck at 1 (High)
- 170 stuck at 1 (High)
- 171 stuck at 1 (High)
- 172 stuck at 1 (High)
- 173 stuck at 0 (Low)
- 174 stuck at 1 (High)
- 175 stuck at 1 (High)
- 182 stuck at 1 (High)
- 183 stuck at 1 (High)
+   2 stuck at 0
+   3 stuck at 0
+   4 stuck at 1
+   5 stuck at 1
+   6 stuck at 1
+   7 stuck at 1
+   8 stuck at 0
+   9 stuck at 0
+  10 stuck at 0
+  11 stuck at 1
+  12 stuck at 1
+  15 stuck at 0
+  18 stuck at 1
+  19 stuck at 1
+  20 stuck at 1
+  21 stuck at 1
+  22 stuck at 1
+  23 stuck at 1
+  24 stuck at 1
+  25 stuck at 1
+  26 stuck at 0
+  27 stuck at 1
+  28 stuck at 1
+  29 stuck at 0
+  30 stuck at 1
+  31 stuck at 1
+  32 stuck at 0
+  33 stuck at 1
+  34 stuck at 1
+  35 stuck at 0
+  36 stuck at 1
+  37 stuck at 0
+  43 stuck at 0
+  45 stuck at 1
+  48 stuck at 1
+  51 stuck at 1
+  52 stuck at 1
+  53 stuck at 1
+  54 stuck at 0
+  56 stuck at 0
+  58 stuck at 1
+  59 stuck at 1
+  63 stuck at 1
+  64 stuck at 1
+  66 stuck at 0
+  67 stuck at 1
+  68 stuck at 1
+  95 stuck at 0
+ 102 stuck at 0
+ 103 stuck at 1
+ 104 stuck at 1
+ 105 stuck at 1
+ 109 stuck at 0
+ 115 stuck at 1
+ 116 stuck at 0
+ 117 stuck at 0
+ 118 stuck at 0
+ 121 stuck at 0
+ 132 stuck at 0
+ 135 stuck at 0
+ 138 stuck at 0
+ 139 stuck at 0
+ 153 stuck at 0
+ 154 stuck at 0
+ 156 stuck at 0
+ 157 stuck at 0
+ 161 stuck at 1
+ 162 stuck at 1
+ 166 stuck at 0
+ 167 stuck at 0
+ 169 stuck at 1
+ 170 stuck at 1
+ 171 stuck at 1
+ 172 stuck at 1
+ 173 stuck at 0
+ 174 stuck at 1
+ 175 stuck at 1
+ 182 stuck at 1
+ 183 stuck at 1
 
 Circuit: circuits\s298f_2.net
 Input Vector: 0 1 1 1 1 0 1 1 1 1 0 0 0 0 0 0 0
 ------ Detected Faults (118) ------
-   1 stuck at 1 (High)
-   2 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   4 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   6 stuck at 1 (High)
-   7 stuck at 0 (Low)
-   8 stuck at 0 (Low)
-   9 stuck at 0 (Low)
-  10 stuck at 0 (Low)
-  11 stuck at 1 (High)
-  12 stuck at 1 (High)
-  13 stuck at 1 (High)
-  14 stuck at 1 (High)
-  15 stuck at 1 (High)
-  16 stuck at 1 (High)
-  17 stuck at 1 (High)
-  18 stuck at 0 (Low)
-  19 stuck at 0 (Low)
-  20 stuck at 0 (Low)
-  21 stuck at 0 (Low)
-  22 stuck at 0 (Low)
-  23 stuck at 1 (High)
-  24 stuck at 0 (Low)
-  25 stuck at 0 (Low)
-  26 stuck at 0 (Low)
-  27 stuck at 0 (Low)
-  28 stuck at 1 (High)
-  29 stuck at 1 (High)
-  30 stuck at 1 (High)
-  31 stuck at 1 (High)
-  32 stuck at 0 (Low)
-  33 stuck at 1 (High)
-  34 stuck at 0 (Low)
-  35 stuck at 0 (Low)
-  36 stuck at 1 (High)
-  37 stuck at 0 (Low)
-  38 stuck at 0 (Low)
-  39 stuck at 0 (Low)
-  40 stuck at 0 (Low)
-  41 stuck at 0 (Low)
-  42 stuck at 1 (High)
-  43 stuck at 1 (High)
-  44 stuck at 0 (Low)
-  45 stuck at 0 (Low)
-  46 stuck at 1 (High)
-  48 stuck at 0 (Low)
-  49 stuck at 0 (Low)
-  50 stuck at 0 (Low)
-  51 stuck at 0 (Low)
-  52 stuck at 1 (High)
-  53 stuck at 1 (High)
-  54 stuck at 1 (High)
-  55 stuck at 1 (High)
-  56 stuck at 0 (Low)
-  58 stuck at 0 (Low)
-  60 stuck at 1 (High)
-  62 stuck at 1 (High)
-  64 stuck at 1 (High)
-  66 stuck at 0 (Low)
-  68 stuck at 0 (Low)
-  69 stuck at 1 (High)
-  70 stuck at 1 (High)
-  71 stuck at 1 (High)
-  72 stuck at 1 (High)
-  73 stuck at 1 (High)
-  74 stuck at 1 (High)
-  75 stuck at 1 (High)
-  76 stuck at 1 (High)
-  80 stuck at 1 (High)
-  82 stuck at 1 (High)
-  88 stuck at 1 (High)
-  89 stuck at 1 (High)
-  95 stuck at 0 (Low)
-  98 stuck at 0 (Low)
-  99 stuck at 0 (Low)
- 102 stuck at 0 (Low)
- 107 stuck at 1 (High)
- 108 stuck at 1 (High)
- 109 stuck at 1 (High)
- 110 stuck at 1 (High)
- 111 stuck at 1 (High)
- 112 stuck at 1 (High)
- 113 stuck at 1 (High)
- 114 stuck at 1 (High)
- 115 stuck at 1 (High)
- 118 stuck at 0 (Low)
- 121 stuck at 0 (Low)
- 122 stuck at 0 (Low)
- 123 stuck at 0 (Low)
- 125 stuck at 0 (Low)
- 127 stuck at 0 (Low)
- 128 stuck at 0 (Low)
- 130 stuck at 0 (Low)
- 132 stuck at 0 (Low)
- 135 stuck at 0 (Low)
- 137 stuck at 0 (Low)
- 138 stuck at 0 (Low)
- 140 stuck at 0 (Low)
- 149 stuck at 0 (Low)
- 151 stuck at 0 (Low)
- 152 stuck at 0 (Low)
- 158 stuck at 0 (Low)
- 161 stuck at 0 (Low)
- 163 stuck at 0 (Low)
- 165 stuck at 1 (High)
- 166 stuck at 1 (High)
- 167 stuck at 1 (High)
- 168 stuck at 1 (High)
- 169 stuck at 1 (High)
- 170 stuck at 1 (High)
- 173 stuck at 1 (High)
- 179 stuck at 0 (Low)
- 182 stuck at 1 (High)
- 183 stuck at 1 (High)
- 186 stuck at 1 (High)
- 187 stuck at 1 (High)
- 188 stuck at 1 (High)
+   1 stuck at 1
+   2 stuck at 0
+   3 stuck at 0
+   4 stuck at 0
+   5 stuck at 0
+   6 stuck at 1
+   7 stuck at 0
+   8 stuck at 0
+   9 stuck at 0
+  10 stuck at 0
+  11 stuck at 1
+  12 stuck at 1
+  13 stuck at 1
+  14 stuck at 1
+  15 stuck at 1
+  16 stuck at 1
+  17 stuck at 1
+  18 stuck at 0
+  19 stuck at 0
+  20 stuck at 0
+  21 stuck at 0
+  22 stuck at 0
+  23 stuck at 1
+  24 stuck at 0
+  25 stuck at 0
+  26 stuck at 0
+  27 stuck at 0
+  28 stuck at 1
+  29 stuck at 1
+  30 stuck at 1
+  31 stuck at 1
+  32 stuck at 0
+  33 stuck at 1
+  34 stuck at 0
+  35 stuck at 0
+  36 stuck at 1
+  37 stuck at 0
+  38 stuck at 0
+  39 stuck at 0
+  40 stuck at 0
+  41 stuck at 0
+  42 stuck at 1
+  43 stuck at 1
+  44 stuck at 0
+  45 stuck at 0
+  46 stuck at 1
+  48 stuck at 0
+  49 stuck at 0
+  50 stuck at 0
+  51 stuck at 0
+  52 stuck at 1
+  53 stuck at 1
+  54 stuck at 1
+  55 stuck at 1
+  56 stuck at 0
+  58 stuck at 0
+  60 stuck at 1
+  62 stuck at 1
+  64 stuck at 1
+  66 stuck at 0
+  68 stuck at 0
+  69 stuck at 1
+  70 stuck at 1
+  71 stuck at 1
+  72 stuck at 1
+  73 stuck at 1
+  74 stuck at 1
+  75 stuck at 1
+  76 stuck at 1
+  80 stuck at 1
+  82 stuck at 1
+  88 stuck at 1
+  89 stuck at 1
+  95 stuck at 0
+  98 stuck at 0
+  99 stuck at 0
+ 102 stuck at 0
+ 107 stuck at 1
+ 108 stuck at 1
+ 109 stuck at 1
+ 110 stuck at 1
+ 111 stuck at 1
+ 112 stuck at 1
+ 113 stuck at 1
+ 114 stuck at 1
+ 115 stuck at 1
+ 118 stuck at 0
+ 121 stuck at 0
+ 122 stuck at 0
+ 123 stuck at 0
+ 125 stuck at 0
+ 127 stuck at 0
+ 128 stuck at 0
+ 130 stuck at 0
+ 132 stuck at 0
+ 135 stuck at 0
+ 137 stuck at 0
+ 138 stuck at 0
+ 140 stuck at 0
+ 149 stuck at 0
+ 151 stuck at 0
+ 152 stuck at 0
+ 158 stuck at 0
+ 161 stuck at 0
+ 163 stuck at 0
+ 165 stuck at 1
+ 166 stuck at 1
+ 167 stuck at 1
+ 168 stuck at 1
+ 169 stuck at 1
+ 170 stuck at 1
+ 173 stuck at 1
+ 179 stuck at 0
+ 182 stuck at 1
+ 183 stuck at 1
+ 186 stuck at 1
+ 187 stuck at 1
+ 188 stuck at 1
 
 
 Circuit: circuits\s344f_2.net
 Input Vector: 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 1 1 1 1 1 1 1
 ------ Detected Faults (101) ------
-   1 stuck at 0 (Low)
-   2 stuck at 1 (High)
-   3 stuck at 0 (Low)
-   4 stuck at 1 (High)
-   5 stuck at 0 (Low)
-   6 stuck at 1 (High)
-   7 stuck at 0 (Low)
-   8 stuck at 1 (High)
-   9 stuck at 0 (Low)
-  10 stuck at 1 (High)
-  11 stuck at 0 (Low)
-  12 stuck at 1 (High)
-  13 stuck at 0 (Low)
-  14 stuck at 1 (High)
-  15 stuck at 0 (Low)
-  16 stuck at 1 (High)
-  25 stuck at 0 (Low)
-  26 stuck at 1 (High)
-  27 stuck at 0 (Low)
-  28 stuck at 1 (High)
-  29 stuck at 0 (Low)
-  30 stuck at 1 (High)
-  31 stuck at 0 (Low)
-  32 stuck at 1 (High)
-  33 stuck at 0 (Low)
-  34 stuck at 1 (High)
-  35 stuck at 0 (Low)
-  36 stuck at 1 (High)
-  37 stuck at 0 (Low)
-  38 stuck at 1 (High)
-  39 stuck at 0 (Low)
-  40 stuck at 1 (High)
-  41 stuck at 0 (Low)
-  42 stuck at 1 (High)
-  43 stuck at 0 (Low)
-  44 stuck at 1 (High)
-  45 stuck at 0 (Low)
-  46 stuck at 1 (High)
-  47 stuck at 0 (Low)
-  48 stuck at 0 (Low)
-  49 stuck at 1 (High)
-  50 stuck at 0 (Low)
-  51 stuck at 1 (High)
-  52 stuck at 0 (Low)
-  53 stuck at 0 (Low)
-  54 stuck at 0 (Low)
-  55 stuck at 1 (High)
-  56 stuck at 0 (Low)
-  57 stuck at 1 (High)
-  58 stuck at 0 (Low)
-  60 stuck at 0 (Low)
-  61 stuck at 1 (High)
-  62 stuck at 1 (High)
-  64 stuck at 0 (Low)
-  65 stuck at 1 (High)
-  66 stuck at 1 (High)
-  67 stuck at 0 (Low)
-  68 stuck at 1 (High)
-  69 stuck at 0 (Low)
-  70 stuck at 1 (High)
-  71 stuck at 1 (High)
-  72 stuck at 1 (High)
-  73 stuck at 1 (High)
-  76 stuck at 1 (High)
-  77 stuck at 1 (High)
-  78 stuck at 1 (High)
-  91 stuck at 0 (Low)
-  92 stuck at 1 (High)
-  95 stuck at 1 (High)
-  96 stuck at 1 (High)
-  97 stuck at 0 (Low)
-  99 stuck at 1 (High)
- 100 stuck at 1 (High)
- 101 stuck at 0 (Low)
- 105 stuck at 1 (High)
- 106 stuck at 0 (Low)
- 108 stuck at 0 (Low)
- 109 stuck at 1 (High)
- 110 stuck at 1 (High)
- 111 stuck at 1 (High)
- 112 stuck at 0 (Low)
- 114 stuck at 0 (Low)
- 115 stuck at 1 (High)
- 116 stuck at 1 (High)
- 129 stuck at 1 (High)
- 130 stuck at 1 (High)
- 137 stuck at 0 (Low)
- 139 stuck at 0 (Low)
- 141 stuck at 1 (High)
- 142 stuck at 1 (High)
- 144 stuck at 0 (Low)
- 146 stuck at 0 (Low)
- 176 stuck at 0 (Low)
- 177 stuck at 0 (Low)
- 179 stuck at 1 (High)
- 180 stuck at 1 (High)
- 181 stuck at 0 (Low)
- 183 stuck at 0 (Low)
- 188 stuck at 1 (High)
- 189 stuck at 1 (High)
- 190 stuck at 1 (High)
+   1 stuck at 0
+   2 stuck at 1
+   3 stuck at 0
+   4 stuck at 1
+   5 stuck at 0
+   6 stuck at 1
+   7 stuck at 0
+   8 stuck at 1
+   9 stuck at 0
+  10 stuck at 1
+  11 stuck at 0
+  12 stuck at 1
+  13 stuck at 0
+  14 stuck at 1
+  15 stuck at 0
+  16 stuck at 1
+  25 stuck at 0
+  26 stuck at 1
+  27 stuck at 0
+  28 stuck at 1
+  29 stuck at 0
+  30 stuck at 1
+  31 stuck at 0
+  32 stuck at 1
+  33 stuck at 0
+  34 stuck at 1
+  35 stuck at 0
+  36 stuck at 1
+  37 stuck at 0
+  38 stuck at 1
+  39 stuck at 0
+  40 stuck at 1
+  41 stuck at 0
+  42 stuck at 1
+  43 stuck at 0
+  44 stuck at 1
+  45 stuck at 0
+  46 stuck at 1
+  47 stuck at 0
+  48 stuck at 0
+  49 stuck at 1
+  50 stuck at 0
+  51 stuck at 1
+  52 stuck at 0
+  53 stuck at 0
+  54 stuck at 0
+  55 stuck at 1
+  56 stuck at 0
+  57 stuck at 1
+  58 stuck at 0
+  60 stuck at 0
+  61 stuck at 1
+  62 stuck at 1
+  64 stuck at 0
+  65 stuck at 1
+  66 stuck at 1
+  67 stuck at 0
+  68 stuck at 1
+  69 stuck at 0
+  70 stuck at 1
+  71 stuck at 1
+  72 stuck at 1
+  73 stuck at 1
+  76 stuck at 1
+  77 stuck at 1
+  78 stuck at 1
+  91 stuck at 0
+  92 stuck at 1
+  95 stuck at 1
+  96 stuck at 1
+  97 stuck at 0
+  99 stuck at 1
+ 100 stuck at 1
+ 101 stuck at 0
+ 105 stuck at 1
+ 106 stuck at 0
+ 108 stuck at 0
+ 109 stuck at 1
+ 110 stuck at 1
+ 111 stuck at 1
+ 112 stuck at 0
+ 114 stuck at 0
+ 115 stuck at 1
+ 116 stuck at 1
+ 129 stuck at 1
+ 130 stuck at 1
+ 137 stuck at 0
+ 139 stuck at 0
+ 141 stuck at 1
+ 142 stuck at 1
+ 144 stuck at 0
+ 146 stuck at 0
+ 176 stuck at 0
+ 177 stuck at 0
+ 179 stuck at 1
+ 180 stuck at 1
+ 181 stuck at 0
+ 183 stuck at 0
+ 188 stuck at 1
+ 189 stuck at 1
+ 190 stuck at 1
 
 Circuit: circuits\s344f_2.net
 Input Vector: 0 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0
 ------ Detected Faults (72) ------
-   2 stuck at 0 (Low)
-   4 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   6 stuck at 0 (Low)
-   7 stuck at 0 (Low)
-   8 stuck at 1 (High)
-   9 stuck at 1 (High)
-  10 stuck at 1 (High)
-  11 stuck at 1 (High)
-  12 stuck at 1 (High)
-  13 stuck at 1 (High)
-  14 stuck at 1 (High)
-  15 stuck at 0 (Low)
-  16 stuck at 0 (Low)
-  25 stuck at 1 (High)
-  26 stuck at 1 (High)
-  27 stuck at 1 (High)
-  28 stuck at 0 (Low)
-  29 stuck at 0 (Low)
-  30 stuck at 0 (Low)
-  31 stuck at 0 (Low)
-  32 stuck at 1 (High)
-  33 stuck at 1 (High)
-  34 stuck at 1 (High)
-  35 stuck at 1 (High)
-  36 stuck at 1 (High)
-  37 stuck at 1 (High)
-  38 stuck at 1 (High)
-  39 stuck at 0 (Low)
-  40 stuck at 1 (High)
-  41 stuck at 1 (High)
-  42 stuck at 1 (High)
-  43 stuck at 1 (High)
-  44 stuck at 0 (Low)
-  45 stuck at 0 (Low)
-  46 stuck at 0 (Low)
-  47 stuck at 0 (Low)
-  48 stuck at 0 (Low)
-  49 stuck at 1 (High)
-  50 stuck at 1 (High)
-  54 stuck at 1 (High)
-  59 stuck at 0 (Low)
-  61 stuck at 0 (Low)
-  63 stuck at 0 (Low)
-  65 stuck at 0 (Low)
-  67 stuck at 0 (Low)
-  68 stuck at 0 (Low)
-  69 stuck at 0 (Low)
-  70 stuck at 1 (High)
-  73 stuck at 1 (High)
-  74 stuck at 1 (High)
-  76 stuck at 0 (Low)
-  79 stuck at 1 (High)
-  80 stuck at 1 (High)
-  81 stuck at 1 (High)
-  92 stuck at 0 (Low)
-  93 stuck at 0 (Low)
-  94 stuck at 0 (Low)
-  95 stuck at 1 (High)
-  96 stuck at 1 (High)
-  97 stuck at 1 (High)
-  98 stuck at 1 (High)
-  99 stuck at 1 (High)
- 100 stuck at 1 (High)
- 101 stuck at 0 (Low)
- 103 stuck at 1 (High)
- 104 stuck at 0 (Low)
- 146 stuck at 0 (Low)
- 147 stuck at 0 (Low)
- 148 stuck at 0 (Low)
- 149 stuck at 0 (Low)
- 154 stuck at 0 (Low)
+   2 stuck at 0
+   4 stuck at 0
+   5 stuck at 0
+   6 stuck at 0
+   7 stuck at 0
+   8 stuck at 1
+   9 stuck at 1
+  10 stuck at 1
+  11 stuck at 1
+  12 stuck at 1
+  13 stuck at 1
+  14 stuck at 1
+  15 stuck at 0
+  16 stuck at 0
+  25 stuck at 1
+  26 stuck at 1
+  27 stuck at 1
+  28 stuck at 0
+  29 stuck at 0
+  30 stuck at 0
+  31 stuck at 0
+  32 stuck at 1
+  33 stuck at 1
+  34 stuck at 1
+  35 stuck at 1
+  36 stuck at 1
+  37 stuck at 1
+  38 stuck at 1
+  39 stuck at 0
+  40 stuck at 1
+  41 stuck at 1
+  42 stuck at 1
+  43 stuck at 1
+  44 stuck at 0
+  45 stuck at 0
+  46 stuck at 0
+  47 stuck at 0
+  48 stuck at 0
+  49 stuck at 1
+  50 stuck at 1
+  54 stuck at 1
+  59 stuck at 0
+  61 stuck at 0
+  63 stuck at 0
+  65 stuck at 0
+  67 stuck at 0
+  68 stuck at 0
+  69 stuck at 0
+  70 stuck at 1
+  73 stuck at 1
+  74 stuck at 1
+  76 stuck at 0
+  79 stuck at 1
+  80 stuck at 1
+  81 stuck at 1
+  92 stuck at 0
+  93 stuck at 0
+  94 stuck at 0
+  95 stuck at 1
+  96 stuck at 1
+  97 stuck at 1
+  98 stuck at 1
+  99 stuck at 1
+ 100 stuck at 1
+ 101 stuck at 0
+ 103 stuck at 1
+ 104 stuck at 0
+ 146 stuck at 0
+ 147 stuck at 0
+ 148 stuck at 0
+ 149 stuck at 0
+ 154 stuck at 0
 
 Circuit: circuits\s344f_2.net
 Input Vector: 1 1 1 1 1 0 0 0 0 0 1 1 1 1 0 0 0 1 1 1 1 1 1 1
 ------ Detected Faults (133) ------
-   1 stuck at 0 (Low)
-   2 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   4 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   6 stuck at 1 (High)
-   7 stuck at 1 (High)
-   8 stuck at 1 (High)
-   9 stuck at 1 (High)
-  10 stuck at 1 (High)
-  11 stuck at 0 (Low)
-  12 stuck at 0 (Low)
-  13 stuck at 0 (Low)
-  14 stuck at 0 (Low)
-  15 stuck at 1 (High)
-  16 stuck at 1 (High)
-  25 stuck at 1 (High)
-  26 stuck at 1 (High)
-  27 stuck at 1 (High)
-  28 stuck at 0 (Low)
-  29 stuck at 0 (Low)
-  30 stuck at 0 (Low)
-  31 stuck at 1 (High)
-  32 stuck at 1 (High)
-  33 stuck at 1 (High)
-  34 stuck at 1 (High)
-  35 stuck at 1 (High)
-  36 stuck at 0 (Low)
-  37 stuck at 0 (Low)
-  38 stuck at 0 (Low)
-  39 stuck at 1 (High)
-  40 stuck at 0 (Low)
-  41 stuck at 0 (Low)
-  42 stuck at 1 (High)
-  43 stuck at 1 (High)
-  44 stuck at 1 (High)
-  45 stuck at 0 (Low)
-  46 stuck at 0 (Low)
-  47 stuck at 0 (Low)
-  48 stuck at 1 (High)
-  49 stuck at 0 (Low)
-  50 stuck at 1 (High)
-  51 stuck at 0 (Low)
-  52 stuck at 0 (Low)
-  53 stuck at 1 (High)
-  55 stuck at 0 (Low)
-  56 stuck at 0 (Low)
-  57 stuck at 0 (Low)
-  58 stuck at 1 (High)
-  59 stuck at 0 (Low)
-  61 stuck at 0 (Low)
-  63 stuck at 0 (Low)
-  65 stuck at 0 (Low)
-  67 stuck at 1 (High)
-  68 stuck at 1 (High)
-  69 stuck at 1 (High)
-  70 stuck at 0 (Low)
-  71 stuck at 0 (Low)
-  72 stuck at 0 (Low)
-  73 stuck at 1 (High)
-  76 stuck at 0 (Low)
-  78 stuck at 0 (Low)
-  79 stuck at 0 (Low)
-  82 stuck at 0 (Low)
-  83 stuck at 0 (Low)
-  85 stuck at 0 (Low)
-  86 stuck at 0 (Low)
-  88 stuck at 0 (Low)
-  89 stuck at 0 (Low)
-  91 stuck at 1 (High)
-  92 stuck at 0 (Low)
-  93 stuck at 0 (Low)
-  94 stuck at 0 (Low)
-  95 stuck at 0 (Low)
-  97 stuck at 0 (Low)
-  99 stuck at 0 (Low)
- 101 stuck at 1 (High)
- 102 stuck at 1 (High)
- 103 stuck at 1 (High)
- 104 stuck at 0 (Low)
- 117 stuck at 0 (Low)
- 118 stuck at 1 (High)
- 119 stuck at 1 (High)
- 120 stuck at 1 (High)
- 122 stuck at 0 (Low)
- 123 stuck at 0 (Low)
- 124 stuck at 1 (High)
- 125 stuck at 1 (High)
- 126 stuck at 0 (Low)
- 127 stuck at 1 (High)
- 128 stuck at 1 (High)
- 130 stuck at 0 (Low)
- 131 stuck at 0 (Low)
- 132 stuck at 1 (High)
- 133 stuck at 1 (High)
- 134 stuck at 0 (Low)
- 135 stuck at 1 (High)
- 136 stuck at 1 (High)
- 137 stuck at 1 (High)
- 138 stuck at 1 (High)
- 139 stuck at 1 (High)
- 140 stuck at 1 (High)
- 141 stuck at 1 (High)
- 142 stuck at 1 (High)
- 143 stuck at 0 (Low)
- 144 stuck at 0 (Low)
- 145 stuck at 0 (Low)
- 147 stuck at 0 (Low)
- 148 stuck at 0 (Low)
- 149 stuck at 0 (Low)
- 153 stuck at 1 (High)
- 154 stuck at 0 (Low)
- 155 stuck at 0 (Low)
- 156 stuck at 0 (Low)
- 162 stuck at 1 (High)
- 163 stuck at 1 (High)
- 164 stuck at 1 (High)
- 165 stuck at 0 (Low)
- 170 stuck at 1 (High)
- 171 stuck at 1 (High)
- 172 stuck at 1 (High)
- 173 stuck at 1 (High)
- 174 stuck at 1 (High)
- 175 stuck at 1 (High)
- 179 stuck at 0 (Low)
- 181 stuck at 1 (High)
- 182 stuck at 1 (High)
- 183 stuck at 1 (High)
- 184 stuck at 1 (High)
- 186 stuck at 1 (High)
- 187 stuck at 1 (High)
- 188 stuck at 0 (Low)
- 189 stuck at 0 (Low)
+   1 stuck at 0
+   2 stuck at 0
+   3 stuck at 0
+   4 stuck at 0
+   5 stuck at 0
+   6 stuck at 1
+   7 stuck at 1
+   8 stuck at 1
+   9 stuck at 1
+  10 stuck at 1
+  11 stuck at 0
+  12 stuck at 0
+  13 stuck at 0
+  14 stuck at 0
+  15 stuck at 1
+  16 stuck at 1
+  25 stuck at 1
+  26 stuck at 1
+  27 stuck at 1
+  28 stuck at 0
+  29 stuck at 0
+  30 stuck at 0
+  31 stuck at 1
+  32 stuck at 1
+  33 stuck at 1
+  34 stuck at 1
+  35 stuck at 1
+  36 stuck at 0
+  37 stuck at 0
+  38 stuck at 0
+  39 stuck at 1
+  40 stuck at 0
+  41 stuck at 0
+  42 stuck at 1
+  43 stuck at 1
+  44 stuck at 1
+  45 stuck at 0
+  46 stuck at 0
+  47 stuck at 0
+  48 stuck at 1
+  49 stuck at 0
+  50 stuck at 1
+  51 stuck at 0
+  52 stuck at 0
+  53 stuck at 1
+  55 stuck at 0
+  56 stuck at 0
+  57 stuck at 0
+  58 stuck at 1
+  59 stuck at 0
+  61 stuck at 0
+  63 stuck at 0
+  65 stuck at 0
+  67 stuck at 1
+  68 stuck at 1
+  69 stuck at 1
+  70 stuck at 0
+  71 stuck at 0
+  72 stuck at 0
+  73 stuck at 1
+  76 stuck at 0
+  78 stuck at 0
+  79 stuck at 0
+  82 stuck at 0
+  83 stuck at 0
+  85 stuck at 0
+  86 stuck at 0
+  88 stuck at 0
+  89 stuck at 0
+  91 stuck at 1
+  92 stuck at 0
+  93 stuck at 0
+  94 stuck at 0
+  95 stuck at 0
+  97 stuck at 0
+  99 stuck at 0
+ 101 stuck at 1
+ 102 stuck at 1
+ 103 stuck at 1
+ 104 stuck at 0
+ 117 stuck at 0
+ 118 stuck at 1
+ 119 stuck at 1
+ 120 stuck at 1
+ 122 stuck at 0
+ 123 stuck at 0
+ 124 stuck at 1
+ 125 stuck at 1
+ 126 stuck at 0
+ 127 stuck at 1
+ 128 stuck at 1
+ 130 stuck at 0
+ 131 stuck at 0
+ 132 stuck at 1
+ 133 stuck at 1
+ 134 stuck at 0
+ 135 stuck at 1
+ 136 stuck at 1
+ 137 stuck at 1
+ 138 stuck at 1
+ 139 stuck at 1
+ 140 stuck at 1
+ 141 stuck at 1
+ 142 stuck at 1
+ 143 stuck at 0
+ 144 stuck at 0
+ 145 stuck at 0
+ 147 stuck at 0
+ 148 stuck at 0
+ 149 stuck at 0
+ 153 stuck at 1
+ 154 stuck at 0
+ 155 stuck at 0
+ 156 stuck at 0
+ 162 stuck at 1
+ 163 stuck at 1
+ 164 stuck at 1
+ 165 stuck at 0
+ 170 stuck at 1
+ 171 stuck at 1
+ 172 stuck at 1
+ 173 stuck at 1
+ 174 stuck at 1
+ 175 stuck at 1
+ 179 stuck at 0
+ 181 stuck at 1
+ 182 stuck at 1
+ 183 stuck at 1
+ 184 stuck at 1
+ 186 stuck at 1
+ 187 stuck at 1
+ 188 stuck at 0
+ 189 stuck at 0
 
 Circuit: circuits\s344f_2.net
 Input Vector: 1 1 1 0 0 0 0 1 1 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0
 ------ Detected Faults (131) ------
-   1 stuck at 0 (Low)
-   2 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   4 stuck at 1 (High)
-   5 stuck at 1 (High)
-   6 stuck at 1 (High)
-   7 stuck at 1 (High)
-   8 stuck at 0 (Low)
-   9 stuck at 0 (Low)
-  10 stuck at 0 (Low)
-  11 stuck at 1 (High)
-  12 stuck at 1 (High)
-  13 stuck at 1 (High)
-  14 stuck at 0 (Low)
-  15 stuck at 0 (Low)
-  16 stuck at 1 (High)
-  25 stuck at 1 (High)
-  26 stuck at 1 (High)
-  27 stuck at 1 (High)
-  28 stuck at 1 (High)
-  29 stuck at 0 (Low)
-  30 stuck at 0 (Low)
-  31 stuck at 1 (High)
-  32 stuck at 0 (Low)
-  33 stuck at 0 (Low)
-  34 stuck at 0 (Low)
-  35 stuck at 0 (Low)
-  36 stuck at 1 (High)
-  37 stuck at 1 (High)
-  38 stuck at 0 (Low)
-  39 stuck at 0 (Low)
-  40 stuck at 0 (Low)
-  41 stuck at 0 (Low)
-  42 stuck at 0 (Low)
-  43 stuck at 0 (Low)
-  44 stuck at 0 (Low)
-  45 stuck at 1 (High)
-  46 stuck at 1 (High)
-  47 stuck at 1 (High)
-  48 stuck at 1 (High)
-  49 stuck at 0 (Low)
-  50 stuck at 1 (High)
-  51 stuck at 0 (Low)
-  52 stuck at 0 (Low)
-  53 stuck at 1 (High)
-  55 stuck at 1 (High)
-  56 stuck at 0 (Low)
-  57 stuck at 0 (Low)
-  58 stuck at 1 (High)
-  59 stuck at 1 (High)
-  60 stuck at 1 (High)
-  61 stuck at 1 (High)
-  62 stuck at 1 (High)
-  63 stuck at 1 (High)
-  64 stuck at 1 (High)
-  65 stuck at 1 (High)
-  66 stuck at 1 (High)
-  67 stuck at 0 (Low)
-  68 stuck at 0 (Low)
-  69 stuck at 1 (High)
-  70 stuck at 1 (High)
-  71 stuck at 0 (Low)
-  72 stuck at 0 (Low)
-  73 stuck at 1 (High)
-  76 stuck at 0 (Low)
-  78 stuck at 0 (Low)
-  79 stuck at 1 (High)
-  80 stuck at 1 (High)
-  81 stuck at 1 (High)
-  82 stuck at 1 (High)
-  83 stuck at 1 (High)
-  84 stuck at 1 (High)
-  85 stuck at 0 (Low)
-  87 stuck at 0 (Low)
-  88 stuck at 0 (Low)
-  90 stuck at 0 (Low)
-  91 stuck at 1 (High)
-  92 stuck at 0 (Low)
-  93 stuck at 0 (Low)
-  94 stuck at 1 (High)
-  95 stuck at 1 (High)
-  96 stuck at 1 (High)
-  97 stuck at 1 (High)
-  98 stuck at 1 (High)
-  99 stuck at 0 (Low)
- 101 stuck at 0 (Low)
- 103 stuck at 0 (Low)
- 117 stuck at 1 (High)
- 120 stuck at 1 (High)
- 121 stuck at 0 (Low)
- 123 stuck at 1 (High)
- 125 stuck at 0 (Low)
- 126 stuck at 0 (Low)
- 127 stuck at 1 (High)
- 128 stuck at 1 (High)
- 130 stuck at 0 (Low)
- 131 stuck at 1 (High)
- 133 stuck at 0 (Low)
- 134 stuck at 0 (Low)
- 135 stuck at 1 (High)
- 136 stuck at 1 (High)
- 137 stuck at 1 (High)
- 138 stuck at 1 (High)
- 140 stuck at 0 (Low)
- 141 stuck at 1 (High)
- 142 stuck at 1 (High)
- 145 stuck at 0 (Low)
- 146 stuck at 0 (Low)
- 147 stuck at 1 (High)
- 148 stuck at 1 (High)
- 149 stuck at 1 (High)
- 150 stuck at 0 (Low)
- 151 stuck at 0 (Low)
- 154 stuck at 1 (High)
- 158 stuck at 1 (High)
- 160 stuck at 0 (Low)
- 161 stuck at 0 (Low)
- 165 stuck at 0 (Low)
- 166 stuck at 1 (High)
- 168 stuck at 0 (Low)
- 169 stuck at 0 (Low)
- 173 stuck at 1 (High)
- 174 stuck at 0 (Low)
- 175 stuck at 1 (High)
- 179 stuck at 0 (Low)
- 181 stuck at 1 (High)
- 182 stuck at 1 (High)
- 183 stuck at 1 (High)
- 184 stuck at 1 (High)
- 188 stuck at 0 (Low)
- 189 stuck at 0 (Low)
+   1 stuck at 0
+   2 stuck at 0
+   3 stuck at 0
+   4 stuck at 1
+   5 stuck at 1
+   6 stuck at 1
+   7 stuck at 1
+   8 stuck at 0
+   9 stuck at 0
+  10 stuck at 0
+  11 stuck at 1
+  12 stuck at 1
+  13 stuck at 1
+  14 stuck at 0
+  15 stuck at 0
+  16 stuck at 1
+  25 stuck at 1
+  26 stuck at 1
+  27 stuck at 1
+  28 stuck at 1
+  29 stuck at 0
+  30 stuck at 0
+  31 stuck at 1
+  32 stuck at 0
+  33 stuck at 0
+  34 stuck at 0
+  35 stuck at 0
+  36 stuck at 1
+  37 stuck at 1
+  38 stuck at 0
+  39 stuck at 0
+  40 stuck at 0
+  41 stuck at 0
+  42 stuck at 0
+  43 stuck at 0
+  44 stuck at 0
+  45 stuck at 1
+  46 stuck at 1
+  47 stuck at 1
+  48 stuck at 1
+  49 stuck at 0
+  50 stuck at 1
+  51 stuck at 0
+  52 stuck at 0
+  53 stuck at 1
+  55 stuck at 1
+  56 stuck at 0
+  57 stuck at 0
+  58 stuck at 1
+  59 stuck at 1
+  60 stuck at 1
+  61 stuck at 1
+  62 stuck at 1
+  63 stuck at 1
+  64 stuck at 1
+  65 stuck at 1
+  66 stuck at 1
+  67 stuck at 0
+  68 stuck at 0
+  69 stuck at 1
+  70 stuck at 1
+  71 stuck at 0
+  72 stuck at 0
+  73 stuck at 1
+  76 stuck at 0
+  78 stuck at 0
+  79 stuck at 1
+  80 stuck at 1
+  81 stuck at 1
+  82 stuck at 1
+  83 stuck at 1
+  84 stuck at 1
+  85 stuck at 0
+  87 stuck at 0
+  88 stuck at 0
+  90 stuck at 0
+  91 stuck at 1
+  92 stuck at 0
+  93 stuck at 0
+  94 stuck at 1
+  95 stuck at 1
+  96 stuck at 1
+  97 stuck at 1
+  98 stuck at 1
+  99 stuck at 0
+ 101 stuck at 0
+ 103 stuck at 0
+ 117 stuck at 1
+ 120 stuck at 1
+ 121 stuck at 0
+ 123 stuck at 1
+ 125 stuck at 0
+ 126 stuck at 0
+ 127 stuck at 1
+ 128 stuck at 1
+ 130 stuck at 0
+ 131 stuck at 1
+ 133 stuck at 0
+ 134 stuck at 0
+ 135 stuck at 1
+ 136 stuck at 1
+ 137 stuck at 1
+ 138 stuck at 1
+ 140 stuck at 0
+ 141 stuck at 1
+ 142 stuck at 1
+ 145 stuck at 0
+ 146 stuck at 0
+ 147 stuck at 1
+ 148 stuck at 1
+ 149 stuck at 1
+ 150 stuck at 0
+ 151 stuck at 0
+ 154 stuck at 1
+ 158 stuck at 1
+ 160 stuck at 0
+ 161 stuck at 0
+ 165 stuck at 0
+ 166 stuck at 1
+ 168 stuck at 0
+ 169 stuck at 0
+ 173 stuck at 1
+ 174 stuck at 0
+ 175 stuck at 1
+ 179 stuck at 0
+ 181 stuck at 1
+ 182 stuck at 1
+ 183 stuck at 1
+ 184 stuck at 1
+ 188 stuck at 0
+ 189 stuck at 0
 
 Circuit: circuits\s344f_2.net
 Input Vector: 0 1 1 1 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1
 ------ Detected Faults (135) ------
-   1 stuck at 1 (High)
-   2 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   4 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   6 stuck at 1 (High)
-   7 stuck at 0 (Low)
-   8 stuck at 0 (Low)
-   9 stuck at 0 (Low)
-  10 stuck at 0 (Low)
-  11 stuck at 1 (High)
-  12 stuck at 1 (High)
-  13 stuck at 1 (High)
-  14 stuck at 1 (High)
-  15 stuck at 1 (High)
-  16 stuck at 1 (High)
-  25 stuck at 0 (Low)
-  26 stuck at 1 (High)
-  27 stuck at 1 (High)
-  28 stuck at 0 (Low)
-  29 stuck at 0 (Low)
-  30 stuck at 0 (Low)
-  31 stuck at 1 (High)
-  32 stuck at 0 (Low)
-  33 stuck at 0 (Low)
-  34 stuck at 0 (Low)
-  35 stuck at 0 (Low)
-  36 stuck at 1 (High)
-  37 stuck at 1 (High)
-  38 stuck at 1 (High)
-  39 stuck at 1 (High)
-  40 stuck at 1 (High)
-  41 stuck at 0 (Low)
-  42 stuck at 1 (High)
-  43 stuck at 1 (High)
-  44 stuck at 0 (Low)
-  45 stuck at 1 (High)
-  46 stuck at 1 (High)
-  47 stuck at 1 (High)
-  48 stuck at 0 (Low)
-  49 stuck at 1 (High)
-  50 stuck at 1 (High)
-  51 stuck at 1 (High)
-  52 stuck at 0 (Low)
-  53 stuck at 1 (High)
-  55 stuck at 0 (Low)
-  56 stuck at 0 (Low)
-  57 stuck at 0 (Low)
-  58 stuck at 1 (High)
-  59 stuck at 1 (High)
-  60 stuck at 1 (High)
-  61 stuck at 1 (High)
-  62 stuck at 1 (High)
-  63 stuck at 1 (High)
-  64 stuck at 1 (High)
-  65 stuck at 1 (High)
-  66 stuck at 1 (High)
-  67 stuck at 0 (Low)
-  68 stuck at 0 (Low)
-  69 stuck at 0 (Low)
-  70 stuck at 0 (Low)
-  73 stuck at 1 (High)
-  74 stuck at 1 (High)
-  76 stuck at 0 (Low)
-  79 stuck at 0 (Low)
-  81 stuck at 0 (Low)
-  82 stuck at 0 (Low)
-  84 stuck at 0 (Low)
-  85 stuck at 0 (Low)
-  87 stuck at 0 (Low)
-  88 stuck at 0 (Low)
-  90 stuck at 0 (Low)
-  91 stuck at 1 (High)
-  92 stuck at 0 (Low)
-  93 stuck at 0 (Low)
-  94 stuck at 0 (Low)
-  95 stuck at 1 (High)
-  96 stuck at 1 (High)
-  97 stuck at 1 (High)
-  98 stuck at 1 (High)
-  99 stuck at 1 (High)
- 100 stuck at 1 (High)
- 101 stuck at 1 (High)
- 102 stuck at 1 (High)
- 103 stuck at 0 (Low)
- 104 stuck at 1 (High)
- 117 stuck at 0 (Low)
- 118 stuck at 1 (High)
- 119 stuck at 1 (High)
- 120 stuck at 1 (High)
- 122 stuck at 0 (Low)
- 123 stuck at 0 (Low)
- 124 stuck at 1 (High)
- 125 stuck at 1 (High)
- 126 stuck at 0 (Low)
- 127 stuck at 1 (High)
- 128 stuck at 1 (High)
- 130 stuck at 0 (Low)
- 131 stuck at 0 (Low)
- 132 stuck at 1 (High)
- 133 stuck at 1 (High)
- 134 stuck at 0 (Low)
- 135 stuck at 1 (High)
- 136 stuck at 1 (High)
- 137 stuck at 1 (High)
- 138 stuck at 1 (High)
- 139 stuck at 1 (High)
- 140 stuck at 1 (High)
- 141 stuck at 1 (High)
- 142 stuck at 1 (High)
- 147 stuck at 1 (High)
- 148 stuck at 1 (High)
- 149 stuck at 1 (High)
- 153 stuck at 1 (High)
- 154 stuck at 1 (High)
- 155 stuck at 0 (Low)
- 156 stuck at 0 (Low)
- 162 stuck at 1 (High)
- 163 stuck at 1 (High)
- 164 stuck at 1 (High)
- 165 stuck at 0 (Low)
- 170 stuck at 1 (High)
- 171 stuck at 1 (High)
- 172 stuck at 1 (High)
- 173 stuck at 1 (High)
- 174 stuck at 1 (High)
- 175 stuck at 1 (High)
- 176 stuck at 0 (Low)
- 178 stuck at 0 (Low)
- 179 stuck at 0 (Low)
- 181 stuck at 0 (Low)
- 182 stuck at 0 (Low)
- 184 stuck at 1 (High)
- 186 stuck at 1 (High)
- 187 stuck at 1 (High)
+   1 stuck at 1
+   2 stuck at 0
+   3 stuck at 0
+   4 stuck at 0
+   5 stuck at 0
+   6 stuck at 1
+   7 stuck at 0
+   8 stuck at 0
+   9 stuck at 0
+  10 stuck at 0
+  11 stuck at 1
+  12 stuck at 1
+  13 stuck at 1
+  14 stuck at 1
+  15 stuck at 1
+  16 stuck at 1
+  25 stuck at 0
+  26 stuck at 1
+  27 stuck at 1
+  28 stuck at 0
+  29 stuck at 0
+  30 stuck at 0
+  31 stuck at 1
+  32 stuck at 0
+  33 stuck at 0
+  34 stuck at 0
+  35 stuck at 0
+  36 stuck at 1
+  37 stuck at 1
+  38 stuck at 1
+  39 stuck at 1
+  40 stuck at 1
+  41 stuck at 0
+  42 stuck at 1
+  43 stuck at 1
+  44 stuck at 0
+  45 stuck at 1
+  46 stuck at 1
+  47 stuck at 1
+  48 stuck at 0
+  49 stuck at 1
+  50 stuck at 1
+  51 stuck at 1
+  52 stuck at 0
+  53 stuck at 1
+  55 stuck at 0
+  56 stuck at 0
+  57 stuck at 0
+  58 stuck at 1
+  59 stuck at 1
+  60 stuck at 1
+  61 stuck at 1
+  62 stuck at 1
+  63 stuck at 1
+  64 stuck at 1
+  65 stuck at 1
+  66 stuck at 1
+  67 stuck at 0
+  68 stuck at 0
+  69 stuck at 0
+  70 stuck at 0
+  73 stuck at 1
+  74 stuck at 1
+  76 stuck at 0
+  79 stuck at 0
+  81 stuck at 0
+  82 stuck at 0
+  84 stuck at 0
+  85 stuck at 0
+  87 stuck at 0
+  88 stuck at 0
+  90 stuck at 0
+  91 stuck at 1
+  92 stuck at 0
+  93 stuck at 0
+  94 stuck at 0
+  95 stuck at 1
+  96 stuck at 1
+  97 stuck at 1
+  98 stuck at 1
+  99 stuck at 1
+ 100 stuck at 1
+ 101 stuck at 1
+ 102 stuck at 1
+ 103 stuck at 0
+ 104 stuck at 1
+ 117 stuck at 0
+ 118 stuck at 1
+ 119 stuck at 1
+ 120 stuck at 1
+ 122 stuck at 0
+ 123 stuck at 0
+ 124 stuck at 1
+ 125 stuck at 1
+ 126 stuck at 0
+ 127 stuck at 1
+ 128 stuck at 1
+ 130 stuck at 0
+ 131 stuck at 0
+ 132 stuck at 1
+ 133 stuck at 1
+ 134 stuck at 0
+ 135 stuck at 1
+ 136 stuck at 1
+ 137 stuck at 1
+ 138 stuck at 1
+ 139 stuck at 1
+ 140 stuck at 1
+ 141 stuck at 1
+ 142 stuck at 1
+ 147 stuck at 1
+ 148 stuck at 1
+ 149 stuck at 1
+ 153 stuck at 1
+ 154 stuck at 1
+ 155 stuck at 0
+ 156 stuck at 0
+ 162 stuck at 1
+ 163 stuck at 1
+ 164 stuck at 1
+ 165 stuck at 0
+ 170 stuck at 1
+ 171 stuck at 1
+ 172 stuck at 1
+ 173 stuck at 1
+ 174 stuck at 1
+ 175 stuck at 1
+ 176 stuck at 0
+ 178 stuck at 0
+ 179 stuck at 0
+ 181 stuck at 0
+ 182 stuck at 0
+ 184 stuck at 1
+ 186 stuck at 1
+ 187 stuck at 1
 
 
 Circuit: circuits\s349f_2.net
 Input Vector: 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 1 1 1 1 1 1 1
 ------ Detected Faults (101) ------
-   1 stuck at 0 (Low)
-   2 stuck at 1 (High)
-   3 stuck at 0 (Low)
-   4 stuck at 1 (High)
-   5 stuck at 0 (Low)
-   6 stuck at 1 (High)
-   7 stuck at 0 (Low)
-   8 stuck at 1 (High)
-   9 stuck at 0 (Low)
-  10 stuck at 1 (High)
-  11 stuck at 0 (Low)
-  12 stuck at 1 (High)
-  13 stuck at 0 (Low)
-  14 stuck at 1 (High)
-  15 stuck at 0 (Low)
-  16 stuck at 1 (High)
-  25 stuck at 0 (Low)
-  26 stuck at 1 (High)
-  27 stuck at 0 (Low)
-  28 stuck at 1 (High)
-  29 stuck at 0 (Low)
-  30 stuck at 1 (High)
-  31 stuck at 0 (Low)
-  32 stuck at 1 (High)
-  33 stuck at 0 (Low)
-  34 stuck at 1 (High)
-  35 stuck at 0 (Low)
-  36 stuck at 1 (High)
-  37 stuck at 0 (Low)
-  38 stuck at 1 (High)
-  39 stuck at 0 (Low)
-  40 stuck at 1 (High)
-  41 stuck at 0 (Low)
-  42 stuck at 0 (Low)
-  43 stuck at 1 (High)
-  44 stuck at 0 (Low)
-  45 stuck at 1 (High)
-  46 stuck at 0 (Low)
-  47 stuck at 1 (High)
-  48 stuck at 0 (Low)
-  49 stuck at 1 (High)
-  50 stuck at 0 (Low)
-  51 stuck at 1 (High)
-  52 stuck at 0 (Low)
-  53 stuck at 1 (High)
-  54 stuck at 1 (High)
-  55 stuck at 0 (Low)
-  56 stuck at 1 (High)
-  57 stuck at 0 (Low)
-  58 stuck at 0 (Low)
-  60 stuck at 1 (High)
-  61 stuck at 1 (High)
-  62 stuck at 0 (Low)
-  64 stuck at 1 (High)
-  65 stuck at 1 (High)
-  66 stuck at 0 (Low)
-  67 stuck at 1 (High)
-  68 stuck at 0 (Low)
-  69 stuck at 1 (High)
-  70 stuck at 1 (High)
-  71 stuck at 1 (High)
-  72 stuck at 1 (High)
-  73 stuck at 1 (High)
-  74 stuck at 1 (High)
- 109 stuck at 0 (Low)
- 110 stuck at 1 (High)
- 111 stuck at 1 (High)
- 113 stuck at 0 (Low)
- 114 stuck at 1 (High)
- 115 stuck at 1 (High)
- 116 stuck at 1 (High)
- 118 stuck at 1 (High)
- 120 stuck at 0 (Low)
- 121 stuck at 0 (Low)
- 122 stuck at 1 (High)
- 123 stuck at 1 (High)
- 124 stuck at 1 (High)
- 126 stuck at 0 (Low)
- 127 stuck at 0 (Low)
- 128 stuck at 1 (High)
- 129 stuck at 1 (High)
- 130 stuck at 1 (High)
- 131 stuck at 1 (High)
- 133 stuck at 0 (Low)
- 134 stuck at 1 (High)
- 135 stuck at 1 (High)
- 137 stuck at 0 (Low)
- 138 stuck at 1 (High)
- 171 stuck at 0 (Low)
- 173 stuck at 0 (Low)
- 174 stuck at 1 (High)
- 176 stuck at 0 (Low)
- 177 stuck at 1 (High)
- 178 stuck at 1 (High)
- 179 stuck at 0 (Low)
- 180 stuck at 0 (Low)
- 181 stuck at 0 (Low)
- 183 stuck at 0 (Low)
- 187 stuck at 1 (High)
- 188 stuck at 1 (High)
- 189 stuck at 1 (High)
+   1 stuck at 0
+   2 stuck at 1
+   3 stuck at 0
+   4 stuck at 1
+   5 stuck at 0
+   6 stuck at 1
+   7 stuck at 0
+   8 stuck at 1
+   9 stuck at 0
+  10 stuck at 1
+  11 stuck at 0
+  12 stuck at 1
+  13 stuck at 0
+  14 stuck at 1
+  15 stuck at 0
+  16 stuck at 1
+  25 stuck at 0
+  26 stuck at 1
+  27 stuck at 0
+  28 stuck at 1
+  29 stuck at 0
+  30 stuck at 1
+  31 stuck at 0
+  32 stuck at 1
+  33 stuck at 0
+  34 stuck at 1
+  35 stuck at 0
+  36 stuck at 1
+  37 stuck at 0
+  38 stuck at 1
+  39 stuck at 0
+  40 stuck at 1
+  41 stuck at 0
+  42 stuck at 0
+  43 stuck at 1
+  44 stuck at 0
+  45 stuck at 1
+  46 stuck at 0
+  47 stuck at 1
+  48 stuck at 0
+  49 stuck at 1
+  50 stuck at 0
+  51 stuck at 1
+  52 stuck at 0
+  53 stuck at 1
+  54 stuck at 1
+  55 stuck at 0
+  56 stuck at 1
+  57 stuck at 0
+  58 stuck at 0
+  60 stuck at 1
+  61 stuck at 1
+  62 stuck at 0
+  64 stuck at 1
+  65 stuck at 1
+  66 stuck at 0
+  67 stuck at 1
+  68 stuck at 0
+  69 stuck at 1
+  70 stuck at 1
+  71 stuck at 1
+  72 stuck at 1
+  73 stuck at 1
+  74 stuck at 1
+ 109 stuck at 0
+ 110 stuck at 1
+ 111 stuck at 1
+ 113 stuck at 0
+ 114 stuck at 1
+ 115 stuck at 1
+ 116 stuck at 1
+ 118 stuck at 1
+ 120 stuck at 0
+ 121 stuck at 0
+ 122 stuck at 1
+ 123 stuck at 1
+ 124 stuck at 1
+ 126 stuck at 0
+ 127 stuck at 0
+ 128 stuck at 1
+ 129 stuck at 1
+ 130 stuck at 1
+ 131 stuck at 1
+ 133 stuck at 0
+ 134 stuck at 1
+ 135 stuck at 1
+ 137 stuck at 0
+ 138 stuck at 1
+ 171 stuck at 0
+ 173 stuck at 0
+ 174 stuck at 1
+ 176 stuck at 0
+ 177 stuck at 1
+ 178 stuck at 1
+ 179 stuck at 0
+ 180 stuck at 0
+ 181 stuck at 0
+ 183 stuck at 0
+ 187 stuck at 1
+ 188 stuck at 1
+ 189 stuck at 1
 
 Circuit: circuits\s349f_2.net
 Input Vector: 0 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0
 ------ Detected Faults (71) ------
-   2 stuck at 0 (Low)
-   4 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   6 stuck at 0 (Low)
-   7 stuck at 0 (Low)
-   8 stuck at 1 (High)
-   9 stuck at 1 (High)
-  10 stuck at 1 (High)
-  11 stuck at 1 (High)
-  12 stuck at 1 (High)
-  13 stuck at 1 (High)
-  14 stuck at 1 (High)
-  15 stuck at 0 (Low)
-  16 stuck at 0 (Low)
-  25 stuck at 1 (High)
-  26 stuck at 1 (High)
-  27 stuck at 1 (High)
-  28 stuck at 0 (Low)
-  29 stuck at 0 (Low)
-  30 stuck at 0 (Low)
-  31 stuck at 0 (Low)
-  32 stuck at 1 (High)
-  33 stuck at 1 (High)
-  34 stuck at 1 (High)
-  35 stuck at 1 (High)
-  36 stuck at 1 (High)
-  37 stuck at 1 (High)
-  38 stuck at 1 (High)
-  39 stuck at 0 (Low)
-  40 stuck at 1 (High)
-  41 stuck at 0 (Low)
-  42 stuck at 1 (High)
-  43 stuck at 0 (Low)
-  44 stuck at 0 (Low)
-  45 stuck at 0 (Low)
-  46 stuck at 0 (Low)
-  47 stuck at 1 (High)
-  48 stuck at 1 (High)
-  49 stuck at 1 (High)
-  50 stuck at 1 (High)
-  59 stuck at 0 (Low)
-  61 stuck at 0 (Low)
-  63 stuck at 0 (Low)
-  65 stuck at 0 (Low)
-  66 stuck at 0 (Low)
-  67 stuck at 0 (Low)
-  68 stuck at 0 (Low)
-  69 stuck at 1 (High)
-  72 stuck at 0 (Low)
-  93 stuck at 0 (Low)
-  94 stuck at 1 (High)
-  95 stuck at 1 (High)
-  96 stuck at 0 (Low)
-  97 stuck at 1 (High)
-  98 stuck at 1 (High)
- 116 stuck at 0 (Low)
- 117 stuck at 0 (Low)
- 130 stuck at 1 (High)
- 131 stuck at 1 (High)
- 132 stuck at 1 (High)
- 133 stuck at 1 (High)
- 134 stuck at 1 (High)
- 135 stuck at 1 (High)
- 137 stuck at 0 (Low)
- 138 stuck at 1 (High)
- 139 stuck at 1 (High)
- 166 stuck at 0 (Low)
- 167 stuck at 0 (Low)
- 168 stuck at 0 (Low)
- 169 stuck at 0 (Low)
- 173 stuck at 0 (Low)
+   2 stuck at 0
+   4 stuck at 0
+   5 stuck at 0
+   6 stuck at 0
+   7 stuck at 0
+   8 stuck at 1
+   9 stuck at 1
+  10 stuck at 1
+  11 stuck at 1
+  12 stuck at 1
+  13 stuck at 1
+  14 stuck at 1
+  15 stuck at 0
+  16 stuck at 0
+  25 stuck at 1
+  26 stuck at 1
+  27 stuck at 1
+  28 stuck at 0
+  29 stuck at 0
+  30 stuck at 0
+  31 stuck at 0
+  32 stuck at 1
+  33 stuck at 1
+  34 stuck at 1
+  35 stuck at 1
+  36 stuck at 1
+  37 stuck at 1
+  38 stuck at 1
+  39 stuck at 0
+  40 stuck at 1
+  41 stuck at 0
+  42 stuck at 1
+  43 stuck at 0
+  44 stuck at 0
+  45 stuck at 0
+  46 stuck at 0
+  47 stuck at 1
+  48 stuck at 1
+  49 stuck at 1
+  50 stuck at 1
+  59 stuck at 0
+  61 stuck at 0
+  63 stuck at 0
+  65 stuck at 0
+  66 stuck at 0
+  67 stuck at 0
+  68 stuck at 0
+  69 stuck at 1
+  72 stuck at 0
+  93 stuck at 0
+  94 stuck at 1
+  95 stuck at 1
+  96 stuck at 0
+  97 stuck at 1
+  98 stuck at 1
+ 116 stuck at 0
+ 117 stuck at 0
+ 130 stuck at 1
+ 131 stuck at 1
+ 132 stuck at 1
+ 133 stuck at 1
+ 134 stuck at 1
+ 135 stuck at 1
+ 137 stuck at 0
+ 138 stuck at 1
+ 139 stuck at 1
+ 166 stuck at 0
+ 167 stuck at 0
+ 168 stuck at 0
+ 169 stuck at 0
+ 173 stuck at 0
 
 Circuit: circuits\s349f_2.net
 Input Vector: 1 1 1 1 1 0 0 0 0 0 1 1 1 1 0 0 0 1 1 1 1 1 1 1
 ------ Detected Faults (134) ------
-   1 stuck at 0 (Low)
-   2 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   4 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   6 stuck at 1 (High)
-   7 stuck at 1 (High)
-   8 stuck at 1 (High)
-   9 stuck at 1 (High)
-  10 stuck at 1 (High)
-  11 stuck at 0 (Low)
-  12 stuck at 0 (Low)
-  13 stuck at 0 (Low)
-  14 stuck at 0 (Low)
-  15 stuck at 1 (High)
-  16 stuck at 1 (High)
-  25 stuck at 1 (High)
-  26 stuck at 1 (High)
-  27 stuck at 1 (High)
-  28 stuck at 0 (Low)
-  29 stuck at 0 (Low)
-  30 stuck at 0 (Low)
-  31 stuck at 1 (High)
-  32 stuck at 1 (High)
-  33 stuck at 1 (High)
-  34 stuck at 1 (High)
-  35 stuck at 1 (High)
-  36 stuck at 0 (Low)
-  37 stuck at 0 (Low)
-  38 stuck at 0 (Low)
-  39 stuck at 1 (High)
-  40 stuck at 0 (Low)
-  41 stuck at 1 (High)
-  42 stuck at 1 (High)
-  43 stuck at 1 (High)
-  44 stuck at 0 (Low)
-  45 stuck at 0 (Low)
-  46 stuck at 0 (Low)
-  47 stuck at 0 (Low)
-  48 stuck at 0 (Low)
-  49 stuck at 1 (High)
-  50 stuck at 1 (High)
-  51 stuck at 0 (Low)
-  52 stuck at 0 (Low)
-  53 stuck at 0 (Low)
-  54 stuck at 0 (Low)
-  55 stuck at 0 (Low)
-  56 stuck at 0 (Low)
-  57 stuck at 1 (High)
-  59 stuck at 0 (Low)
-  61 stuck at 0 (Low)
-  63 stuck at 0 (Low)
-  65 stuck at 0 (Low)
-  66 stuck at 1 (High)
-  67 stuck at 1 (High)
-  68 stuck at 1 (High)
-  69 stuck at 0 (Low)
-  70 stuck at 0 (Low)
-  71 stuck at 0 (Low)
-  72 stuck at 0 (Low)
-  74 stuck at 0 (Low)
-  75 stuck at 0 (Low)
-  76 stuck at 1 (High)
-  77 stuck at 1 (High)
-  78 stuck at 0 (Low)
-  79 stuck at 1 (High)
-  80 stuck at 1 (High)
-  81 stuck at 0 (Low)
-  82 stuck at 1 (High)
-  83 stuck at 1 (High)
-  84 stuck at 0 (Low)
-  85 stuck at 1 (High)
-  86 stuck at 1 (High)
-  87 stuck at 1 (High)
-  89 stuck at 0 (Low)
-  90 stuck at 0 (Low)
-  91 stuck at 1 (High)
-  92 stuck at 1 (High)
-  93 stuck at 0 (Low)
-  94 stuck at 0 (Low)
-  95 stuck at 1 (High)
-  96 stuck at 0 (Low)
-  99 stuck at 0 (Low)
- 100 stuck at 0 (Low)
- 102 stuck at 0 (Low)
- 103 stuck at 0 (Low)
- 105 stuck at 0 (Low)
- 106 stuck at 0 (Low)
- 108 stuck at 1 (High)
- 109 stuck at 1 (High)
- 110 stuck at 1 (High)
- 111 stuck at 1 (High)
- 112 stuck at 1 (High)
- 113 stuck at 1 (High)
- 114 stuck at 0 (Low)
- 116 stuck at 0 (Low)
- 117 stuck at 0 (Low)
- 131 stuck at 0 (Low)
- 133 stuck at 0 (Low)
- 135 stuck at 0 (Low)
- 136 stuck at 1 (High)
- 137 stuck at 1 (High)
- 138 stuck at 1 (High)
- 143 stuck at 1 (High)
- 144 stuck at 1 (High)
- 145 stuck at 1 (High)
- 150 stuck at 1 (High)
- 151 stuck at 1 (High)
- 152 stuck at 1 (High)
- 157 stuck at 0 (Low)
- 158 stuck at 0 (Low)
- 161 stuck at 1 (High)
- 162 stuck at 1 (High)
- 163 stuck at 1 (High)
- 164 stuck at 1 (High)
- 165 stuck at 0 (Low)
- 166 stuck at 0 (Low)
- 167 stuck at 0 (Low)
- 168 stuck at 0 (Low)
- 169 stuck at 0 (Low)
- 170 stuck at 0 (Low)
- 171 stuck at 0 (Low)
- 172 stuck at 0 (Low)
- 174 stuck at 0 (Low)
- 175 stuck at 0 (Low)
- 177 stuck at 0 (Low)
- 180 stuck at 1 (High)
- 181 stuck at 1 (High)
- 182 stuck at 1 (High)
- 183 stuck at 1 (High)
- 185 stuck at 1 (High)
- 186 stuck at 1 (High)
- 187 stuck at 0 (Low)
- 188 stuck at 0 (Low)
+   1 stuck at 0
+   2 stuck at 0
+   3 stuck at 0
+   4 stuck at 0
+   5 stuck at 0
+   6 stuck at 1
+   7 stuck at 1
+   8 stuck at 1
+   9 stuck at 1
+  10 stuck at 1
+  11 stuck at 0
+  12 stuck at 0
+  13 stuck at 0
+  14 stuck at 0
+  15 stuck at 1
+  16 stuck at 1
+  25 stuck at 1
+  26 stuck at 1
+  27 stuck at 1
+  28 stuck at 0
+  29 stuck at 0
+  30 stuck at 0
+  31 stuck at 1
+  32 stuck at 1
+  33 stuck at 1
+  34 stuck at 1
+  35 stuck at 1
+  36 stuck at 0
+  37 stuck at 0
+  38 stuck at 0
+  39 stuck at 1
+  40 stuck at 0
+  41 stuck at 1
+  42 stuck at 1
+  43 stuck at 1
+  44 stuck at 0
+  45 stuck at 0
+  46 stuck at 0
+  47 stuck at 0
+  48 stuck at 0
+  49 stuck at 1
+  50 stuck at 1
+  51 stuck at 0
+  52 stuck at 0
+  53 stuck at 0
+  54 stuck at 0
+  55 stuck at 0
+  56 stuck at 0
+  57 stuck at 1
+  59 stuck at 0
+  61 stuck at 0
+  63 stuck at 0
+  65 stuck at 0
+  66 stuck at 1
+  67 stuck at 1
+  68 stuck at 1
+  69 stuck at 0
+  70 stuck at 0
+  71 stuck at 0
+  72 stuck at 0
+  74 stuck at 0
+  75 stuck at 0
+  76 stuck at 1
+  77 stuck at 1
+  78 stuck at 0
+  79 stuck at 1
+  80 stuck at 1
+  81 stuck at 0
+  82 stuck at 1
+  83 stuck at 1
+  84 stuck at 0
+  85 stuck at 1
+  86 stuck at 1
+  87 stuck at 1
+  89 stuck at 0
+  90 stuck at 0
+  91 stuck at 1
+  92 stuck at 1
+  93 stuck at 0
+  94 stuck at 0
+  95 stuck at 1
+  96 stuck at 0
+  99 stuck at 0
+ 100 stuck at 0
+ 102 stuck at 0
+ 103 stuck at 0
+ 105 stuck at 0
+ 106 stuck at 0
+ 108 stuck at 1
+ 109 stuck at 1
+ 110 stuck at 1
+ 111 stuck at 1
+ 112 stuck at 1
+ 113 stuck at 1
+ 114 stuck at 0
+ 116 stuck at 0
+ 117 stuck at 0
+ 131 stuck at 0
+ 133 stuck at 0
+ 135 stuck at 0
+ 136 stuck at 1
+ 137 stuck at 1
+ 138 stuck at 1
+ 143 stuck at 1
+ 144 stuck at 1
+ 145 stuck at 1
+ 150 stuck at 1
+ 151 stuck at 1
+ 152 stuck at 1
+ 157 stuck at 0
+ 158 stuck at 0
+ 161 stuck at 1
+ 162 stuck at 1
+ 163 stuck at 1
+ 164 stuck at 1
+ 165 stuck at 0
+ 166 stuck at 0
+ 167 stuck at 0
+ 168 stuck at 0
+ 169 stuck at 0
+ 170 stuck at 0
+ 171 stuck at 0
+ 172 stuck at 0
+ 174 stuck at 0
+ 175 stuck at 0
+ 177 stuck at 0
+ 180 stuck at 1
+ 181 stuck at 1
+ 182 stuck at 1
+ 183 stuck at 1
+ 185 stuck at 1
+ 186 stuck at 1
+ 187 stuck at 0
+ 188 stuck at 0
 
 Circuit: circuits\s349f_2.net
 Input Vector: 1 1 1 0 0 0 0 1 1 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0
 ------ Detected Faults (132) ------
-   1 stuck at 0 (Low)
-   2 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   4 stuck at 1 (High)
-   5 stuck at 1 (High)
-   6 stuck at 1 (High)
-   7 stuck at 1 (High)
-   8 stuck at 0 (Low)
-   9 stuck at 0 (Low)
-  10 stuck at 0 (Low)
-  11 stuck at 1 (High)
-  12 stuck at 1 (High)
-  13 stuck at 1 (High)
-  14 stuck at 0 (Low)
-  15 stuck at 0 (Low)
-  16 stuck at 1 (High)
-  25 stuck at 1 (High)
-  26 stuck at 1 (High)
-  27 stuck at 1 (High)
-  28 stuck at 1 (High)
-  29 stuck at 0 (Low)
-  30 stuck at 0 (Low)
-  31 stuck at 1 (High)
-  32 stuck at 0 (Low)
-  33 stuck at 0 (Low)
-  34 stuck at 0 (Low)
-  35 stuck at 0 (Low)
-  36 stuck at 1 (High)
-  37 stuck at 1 (High)
-  38 stuck at 0 (Low)
-  39 stuck at 0 (Low)
-  40 stuck at 0 (Low)
-  41 stuck at 1 (High)
-  42 stuck at 1 (High)
-  43 stuck at 0 (Low)
-  44 stuck at 1 (High)
-  45 stuck at 1 (High)
-  46 stuck at 1 (High)
-  47 stuck at 0 (Low)
-  48 stuck at 0 (Low)
-  49 stuck at 0 (Low)
-  50 stuck at 0 (Low)
-  51 stuck at 0 (Low)
-  52 stuck at 0 (Low)
-  53 stuck at 0 (Low)
-  54 stuck at 1 (High)
-  55 stuck at 0 (Low)
-  56 stuck at 0 (Low)
-  57 stuck at 1 (High)
-  58 stuck at 1 (High)
-  59 stuck at 1 (High)
-  60 stuck at 1 (High)
-  61 stuck at 1 (High)
-  62 stuck at 1 (High)
-  63 stuck at 1 (High)
-  64 stuck at 1 (High)
-  65 stuck at 1 (High)
-  66 stuck at 0 (Low)
-  67 stuck at 0 (Low)
-  68 stuck at 1 (High)
-  69 stuck at 1 (High)
-  70 stuck at 0 (Low)
-  71 stuck at 0 (Low)
-  72 stuck at 0 (Low)
-  74 stuck at 0 (Low)
-  75 stuck at 0 (Low)
-  76 stuck at 1 (High)
-  77 stuck at 1 (High)
-  78 stuck at 1 (High)
-  79 stuck at 0 (Low)
-  81 stuck at 0 (Low)
-  82 stuck at 1 (High)
-  83 stuck at 1 (High)
-  84 stuck at 1 (High)
-  85 stuck at 0 (Low)
-  87 stuck at 1 (High)
-  88 stuck at 0 (Low)
-  90 stuck at 1 (High)
-  93 stuck at 1 (High)
-  94 stuck at 1 (High)
-  95 stuck at 0 (Low)
-  97 stuck at 1 (High)
-  98 stuck at 1 (High)
-  99 stuck at 1 (High)
- 100 stuck at 1 (High)
- 101 stuck at 1 (High)
- 102 stuck at 0 (Low)
- 104 stuck at 0 (Low)
- 105 stuck at 0 (Low)
- 107 stuck at 0 (Low)
- 108 stuck at 0 (Low)
- 110 stuck at 1 (High)
- 111 stuck at 1 (High)
- 112 stuck at 1 (High)
- 113 stuck at 1 (High)
- 114 stuck at 0 (Low)
- 116 stuck at 0 (Low)
- 117 stuck at 0 (Low)
- 130 stuck at 1 (High)
- 131 stuck at 1 (High)
- 132 stuck at 1 (High)
- 133 stuck at 1 (High)
- 135 stuck at 0 (Low)
- 137 stuck at 0 (Low)
- 138 stuck at 1 (High)
- 141 stuck at 1 (High)
- 146 stuck at 0 (Low)
- 147 stuck at 0 (Low)
- 148 stuck at 1 (High)
- 153 stuck at 0 (Low)
- 154 stuck at 0 (Low)
- 155 stuck at 0 (Low)
- 156 stuck at 0 (Low)
- 162 stuck at 0 (Low)
- 163 stuck at 1 (High)
- 164 stuck at 1 (High)
- 165 stuck at 0 (Low)
- 166 stuck at 1 (High)
- 167 stuck at 1 (High)
- 168 stuck at 1 (High)
- 169 stuck at 1 (High)
- 172 stuck at 0 (Low)
- 173 stuck at 0 (Low)
- 174 stuck at 0 (Low)
- 175 stuck at 0 (Low)
- 177 stuck at 0 (Low)
- 180 stuck at 1 (High)
- 181 stuck at 1 (High)
- 182 stuck at 1 (High)
- 183 stuck at 1 (High)
- 187 stuck at 0 (Low)
- 188 stuck at 0 (Low)
+   1 stuck at 0
+   2 stuck at 0
+   3 stuck at 0
+   4 stuck at 1
+   5 stuck at 1
+   6 stuck at 1
+   7 stuck at 1
+   8 stuck at 0
+   9 stuck at 0
+  10 stuck at 0
+  11 stuck at 1
+  12 stuck at 1
+  13 stuck at 1
+  14 stuck at 0
+  15 stuck at 0
+  16 stuck at 1
+  25 stuck at 1
+  26 stuck at 1
+  27 stuck at 1
+  28 stuck at 1
+  29 stuck at 0
+  30 stuck at 0
+  31 stuck at 1
+  32 stuck at 0
+  33 stuck at 0
+  34 stuck at 0
+  35 stuck at 0
+  36 stuck at 1
+  37 stuck at 1
+  38 stuck at 0
+  39 stuck at 0
+  40 stuck at 0
+  41 stuck at 1
+  42 stuck at 1
+  43 stuck at 0
+  44 stuck at 1
+  45 stuck at 1
+  46 stuck at 1
+  47 stuck at 0
+  48 stuck at 0
+  49 stuck at 0
+  50 stuck at 0
+  51 stuck at 0
+  52 stuck at 0
+  53 stuck at 0
+  54 stuck at 1
+  55 stuck at 0
+  56 stuck at 0
+  57 stuck at 1
+  58 stuck at 1
+  59 stuck at 1
+  60 stuck at 1
+  61 stuck at 1
+  62 stuck at 1
+  63 stuck at 1
+  64 stuck at 1
+  65 stuck at 1
+  66 stuck at 0
+  67 stuck at 0
+  68 stuck at 1
+  69 stuck at 1
+  70 stuck at 0
+  71 stuck at 0
+  72 stuck at 0
+  74 stuck at 0
+  75 stuck at 0
+  76 stuck at 1
+  77 stuck at 1
+  78 stuck at 1
+  79 stuck at 0
+  81 stuck at 0
+  82 stuck at 1
+  83 stuck at 1
+  84 stuck at 1
+  85 stuck at 0
+  87 stuck at 1
+  88 stuck at 0
+  90 stuck at 1
+  93 stuck at 1
+  94 stuck at 1
+  95 stuck at 0
+  97 stuck at 1
+  98 stuck at 1
+  99 stuck at 1
+ 100 stuck at 1
+ 101 stuck at 1
+ 102 stuck at 0
+ 104 stuck at 0
+ 105 stuck at 0
+ 107 stuck at 0
+ 108 stuck at 0
+ 110 stuck at 1
+ 111 stuck at 1
+ 112 stuck at 1
+ 113 stuck at 1
+ 114 stuck at 0
+ 116 stuck at 0
+ 117 stuck at 0
+ 130 stuck at 1
+ 131 stuck at 1
+ 132 stuck at 1
+ 133 stuck at 1
+ 135 stuck at 0
+ 137 stuck at 0
+ 138 stuck at 1
+ 141 stuck at 1
+ 146 stuck at 0
+ 147 stuck at 0
+ 148 stuck at 1
+ 153 stuck at 0
+ 154 stuck at 0
+ 155 stuck at 0
+ 156 stuck at 0
+ 162 stuck at 0
+ 163 stuck at 1
+ 164 stuck at 1
+ 165 stuck at 0
+ 166 stuck at 1
+ 167 stuck at 1
+ 168 stuck at 1
+ 169 stuck at 1
+ 172 stuck at 0
+ 173 stuck at 0
+ 174 stuck at 0
+ 175 stuck at 0
+ 177 stuck at 0
+ 180 stuck at 1
+ 181 stuck at 1
+ 182 stuck at 1
+ 183 stuck at 1
+ 187 stuck at 0
+ 188 stuck at 0
 
 Circuit: circuits\s349f_2.net
 Input Vector: 0 1 1 1 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1
 ------ Detected Faults (136) ------
-   1 stuck at 1 (High)
-   2 stuck at 0 (Low)
-   3 stuck at 0 (Low)
-   4 stuck at 0 (Low)
-   5 stuck at 0 (Low)
-   6 stuck at 1 (High)
-   7 stuck at 0 (Low)
-   8 stuck at 0 (Low)
-   9 stuck at 0 (Low)
-  10 stuck at 0 (Low)
-  11 stuck at 1 (High)
-  12 stuck at 1 (High)
-  13 stuck at 1 (High)
-  14 stuck at 1 (High)
-  15 stuck at 1 (High)
-  16 stuck at 1 (High)
-  25 stuck at 0 (Low)
-  26 stuck at 1 (High)
-  27 stuck at 1 (High)
-  28 stuck at 0 (Low)
-  29 stuck at 0 (Low)
-  30 stuck at 0 (Low)
-  31 stuck at 1 (High)
-  32 stuck at 0 (Low)
-  33 stuck at 0 (Low)
-  34 stuck at 0 (Low)
-  35 stuck at 0 (Low)
-  36 stuck at 1 (High)
-  37 stuck at 1 (High)
-  38 stuck at 1 (High)
-  39 stuck at 1 (High)
-  40 stuck at 1 (High)
-  41 stuck at 0 (Low)
-  42 stuck at 1 (High)
-  43 stuck at 0 (Low)
-  44 stuck at 1 (High)
-  45 stuck at 1 (High)
-  46 stuck at 1 (High)
-  47 stuck at 1 (High)
-  48 stuck at 0 (Low)
-  49 stuck at 1 (High)
-  50 stuck at 1 (High)
-  51 stuck at 1 (High)
-  52 stuck at 0 (Low)
-  53 stuck at 0 (Low)
-  54 stuck at 0 (Low)
-  55 stuck at 0 (Low)
-  56 stuck at 0 (Low)
-  57 stuck at 1 (High)
-  58 stuck at 1 (High)
-  59 stuck at 1 (High)
-  60 stuck at 1 (High)
-  61 stuck at 1 (High)
-  62 stuck at 1 (High)
-  63 stuck at 1 (High)
-  64 stuck at 1 (High)
-  65 stuck at 1 (High)
-  66 stuck at 0 (Low)
-  67 stuck at 0 (Low)
-  68 stuck at 0 (Low)
-  69 stuck at 0 (Low)
-  72 stuck at 0 (Low)
-  75 stuck at 0 (Low)
-  76 stuck at 1 (High)
-  77 stuck at 1 (High)
-  78 stuck at 0 (Low)
-  79 stuck at 1 (High)
-  80 stuck at 1 (High)
-  81 stuck at 0 (Low)
-  82 stuck at 1 (High)
-  83 stuck at 1 (High)
-  84 stuck at 0 (Low)
-  85 stuck at 1 (High)
-  86 stuck at 1 (High)
-  87 stuck at 1 (High)
-  89 stuck at 0 (Low)
-  90 stuck at 0 (Low)
-  91 stuck at 1 (High)
-  92 stuck at 1 (High)
-  93 stuck at 0 (Low)
-  94 stuck at 0 (Low)
-  95 stuck at 0 (Low)
-  96 stuck at 1 (High)
-  98 stuck at 0 (Low)
-  99 stuck at 0 (Low)
- 101 stuck at 0 (Low)
- 102 stuck at 0 (Low)
- 104 stuck at 0 (Low)
- 105 stuck at 0 (Low)
- 107 stuck at 0 (Low)
- 108 stuck at 1 (High)
- 109 stuck at 1 (High)
- 110 stuck at 1 (High)
- 111 stuck at 1 (High)
- 112 stuck at 1 (High)
- 113 stuck at 1 (High)
- 114 stuck at 0 (Low)
- 116 stuck at 0 (Low)
- 117 stuck at 0 (Low)
- 130 stuck at 1 (High)
- 131 stuck at 1 (High)
- 132 stuck at 1 (High)
- 133 stuck at 1 (High)
- 134 stuck at 1 (High)
- 135 stuck at 1 (High)
- 136 stuck at 1 (High)
- 137 stuck at 1 (High)
- 138 stuck at 1 (High)
- 139 stuck at 1 (High)
- 143 stuck at 1 (High)
- 144 stuck at 1 (High)
- 145 stuck at 1 (High)
- 150 stuck at 1 (High)
- 151 stuck at 1 (High)
- 152 stuck at 1 (High)
- 157 stuck at 0 (Low)
- 158 stuck at 0 (Low)
- 161 stuck at 1 (High)
- 162 stuck at 1 (High)
- 163 stuck at 1 (High)
- 164 stuck at 1 (High)
- 165 stuck at 0 (Low)
- 166 stuck at 1 (High)
- 167 stuck at 1 (High)
- 168 stuck at 1 (High)
- 169 stuck at 1 (High)
- 174 stuck at 0 (Low)
- 175 stuck at 0 (Low)
- 176 stuck at 0 (Low)
- 177 stuck at 0 (Low)
- 180 stuck at 0 (Low)
- 181 stuck at 1 (High)
- 182 stuck at 1 (High)
- 183 stuck at 1 (High)
- 185 stuck at 1 (High)
- 186 stuck at 1 (High)
+   1 stuck at 1
+   2 stuck at 0
+   3 stuck at 0
+   4 stuck at 0
+   5 stuck at 0
+   6 stuck at 1
+   7 stuck at 0
+   8 stuck at 0
+   9 stuck at 0
+  10 stuck at 0
+  11 stuck at 1
+  12 stuck at 1
+  13 stuck at 1
+  14 stuck at 1
+  15 stuck at 1
+  16 stuck at 1
+  25 stuck at 0
+  26 stuck at 1
+  27 stuck at 1
+  28 stuck at 0
+  29 stuck at 0
+  30 stuck at 0
+  31 stuck at 1
+  32 stuck at 0
+  33 stuck at 0
+  34 stuck at 0
+  35 stuck at 0
+  36 stuck at 1
+  37 stuck at 1
+  38 stuck at 1
+  39 stuck at 1
+  40 stuck at 1
+  41 stuck at 0
+  42 stuck at 1
+  43 stuck at 0
+  44 stuck at 1
+  45 stuck at 1
+  46 stuck at 1
+  47 stuck at 1
+  48 stuck at 0
+  49 stuck at 1
+  50 stuck at 1
+  51 stuck at 1
+  52 stuck at 0
+  53 stuck at 0
+  54 stuck at 0
+  55 stuck at 0
+  56 stuck at 0
+  57 stuck at 1
+  58 stuck at 1
+  59 stuck at 1
+  60 stuck at 1
+  61 stuck at 1
+  62 stuck at 1
+  63 stuck at 1
+  64 stuck at 1
+  65 stuck at 1
+  66 stuck at 0
+  67 stuck at 0
+  68 stuck at 0
+  69 stuck at 0
+  72 stuck at 0
+  75 stuck at 0
+  76 stuck at 1
+  77 stuck at 1
+  78 stuck at 0
+  79 stuck at 1
+  80 stuck at 1
+  81 stuck at 0
+  82 stuck at 1
+  83 stuck at 1
+  84 stuck at 0
+  85 stuck at 1
+  86 stuck at 1
+  87 stuck at 1
+  89 stuck at 0
+  90 stuck at 0
+  91 stuck at 1
+  92 stuck at 1
+  93 stuck at 0
+  94 stuck at 0
+  95 stuck at 0
+  96 stuck at 1
+  98 stuck at 0
+  99 stuck at 0
+ 101 stuck at 0
+ 102 stuck at 0
+ 104 stuck at 0
+ 105 stuck at 0
+ 107 stuck at 0
+ 108 stuck at 1
+ 109 stuck at 1
+ 110 stuck at 1
+ 111 stuck at 1
+ 112 stuck at 1
+ 113 stuck at 1
+ 114 stuck at 0
+ 116 stuck at 0
+ 117 stuck at 0
+ 130 stuck at 1
+ 131 stuck at 1
+ 132 stuck at 1
+ 133 stuck at 1
+ 134 stuck at 1
+ 135 stuck at 1
+ 136 stuck at 1
+ 137 stuck at 1
+ 138 stuck at 1
+ 139 stuck at 1
+ 143 stuck at 1
+ 144 stuck at 1
+ 145 stuck at 1
+ 150 stuck at 1
+ 151 stuck at 1
+ 152 stuck at 1
+ 157 stuck at 0
+ 158 stuck at 0
+ 161 stuck at 1
+ 162 stuck at 1
+ 163 stuck at 1
+ 164 stuck at 1
+ 165 stuck at 0
+ 166 stuck at 1
+ 167 stuck at 1
+ 168 stuck at 1
+ 169 stuck at 1
+ 174 stuck at 0
+ 175 stuck at 0
+ 176 stuck at 0
+ 177 stuck at 0
+ 180 stuck at 0
+ 181 stuck at 1
+ 182 stuck at 1
+ 183 stuck at 1
+ 185 stuck at 1
+ 186 stuck at 1
 
 

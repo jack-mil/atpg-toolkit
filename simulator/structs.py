@@ -50,9 +50,9 @@ class Logic(Enum):
     def __str__(self) -> str:
         match self:
             case Logic.High:
-                return '1 (High)'
+                return '1'
             case Logic.Low:
-                return '0 (Low)'
+                return '0'
             case Logic.Unassigned:
                 return 'Unassigned'
 
