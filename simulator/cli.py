@@ -38,7 +38,7 @@ def simulate(net_file: Path, tests: list[str]):
     # Run multiple test vectors with the same object
     # and print the output nicely
     print(f'Circuit: {net_file}')
-    print(f"{'Inputs'.ljust(len(tests[0]))} | {'Outputs'} ")
+    print(f"{'Inputs'.ljust(len(tests[0]))} | {'Outputs'}")
     for test in tests:
         out = circuit.simulate_input(test)
         print(f'{test} | {out}')
