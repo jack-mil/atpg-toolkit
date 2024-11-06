@@ -32,6 +32,7 @@ def main():
 
 
 def simulate(net_file: Path, tests: list[str]):
+    """Action for running fault-free circuit simulator."""
     # Create the simulation object from this circuit
     circuit = Simulation(net_file)
 
@@ -46,6 +47,7 @@ def simulate(net_file: Path, tests: list[str]):
 
 
 def deduce(net_file: Path, tests: list[str]):
+    """Action for running deductive fault simulator."""
     # Create the deductive fault simulator from this netlist
     sim = FaultSimulation(net_file)
 

@@ -67,6 +67,11 @@ class Circuit:
 
     @classmethod
     def load_circuit_from_strings(cls, netlist: list[str]) -> Self:
+        """
+        Initialize and return a Circuit by from the list gate definitions
+
+        Each element should match the format from a file.
+        """
         circuit = cls()
 
         for line in netlist:  # process gate or I/O definition
@@ -106,13 +111,13 @@ class Circuit:
         return net_ids
 
     def net_count(self) -> int:
-        """Return total number of nets (nodes) in this circuit"""
+        """Total number of nets (nodes) in this circuit"""
         return len(self.nets)
 
     def input_count(self) -> int:
-        """Return the number of input nets (nodes) in this circuit"""
+        """Number of input nets (nodes) in this circuit"""
         return len(self.inputs)
 
     def output_count(self) -> int:
-        """Return the number of output nets (nodes) in this circuit"""
+        """Number of output nets (nodes) in this circuit"""
         return len(self.outputs)
