@@ -1,5 +1,4 @@
 import unittest
-from pathlib import Path
 
 from simulator import Logic
 from simulator import FaultSimulation
@@ -26,7 +25,7 @@ class TestFaultsSingleGates(unittest.TestCase):
             with self.subTest(test=test):
                 found_faults = sim.detect_faults(test)
                 print(found_faults)
-                self.assertEqual(found_faults, correct_faults)
+                self.assertSetEqual(found_faults, correct_faults)
 
     def test_or_gate(self):
         """Test a single OR gate"""
@@ -47,7 +46,7 @@ class TestFaultsSingleGates(unittest.TestCase):
             with self.subTest(test=test):
                 found_faults = sim.detect_faults(test)
                 print(found_faults)
-                self.assertEqual(found_faults, correct_faults)
+                self.assertSetEqual(found_faults, correct_faults)
 
     def test_nor_gate(self):
         """Test a single NOR gate"""
@@ -68,7 +67,7 @@ class TestFaultsSingleGates(unittest.TestCase):
             with self.subTest(test=test):
                 found_faults = sim.detect_faults(test)
                 print(found_faults)
-                self.assertEqual(found_faults, correct_faults)
+                self.assertSetEqual(found_faults, correct_faults)
 
     def test_nand_gate(self):
         """Test a single NAND gate"""
@@ -89,7 +88,7 @@ class TestFaultsSingleGates(unittest.TestCase):
             with self.subTest(test=test):
                 found_faults = sim.detect_faults(test)
                 print(found_faults)
-                self.assertEqual(found_faults, correct_faults)
+                self.assertSetEqual(found_faults, correct_faults)
 
     def test_inverter(self):
         """Test a single inverter"""
@@ -107,8 +106,56 @@ class TestFaultsSingleGates(unittest.TestCase):
         for test, correct_faults in inv_faults.items():
             with self.subTest(test=test):
                 found_faults = sim.detect_faults(test)
-                print(found_faults)
-                self.assertEqual(found_faults, correct_faults)
+                self.assertSetEqual(found_faults, correct_faults)
+
+
+class TestFaultSimulator(unittest.TestCase):
+    def test_small_netlist(self):
+        """Find all faults in small circuit and check exact output"""
+        expected_faults = {
+            Fault(1, Logic.LOW),
+            Fault(3, Logic.LOW),
+            Fault(5, Logic.LOW),
+            Fault(7, Logic.LOW),
+            Fault(9, Logic.HIGH),
+            Fault(11, Logic.HIGH),
+            Fault(12, Logic.LOW),
+            Fault(13, Logic.LOW),
+        }
+        netlist = 'circuits/s27.net'
+        vector = '1110101'
+        sim = FaultSimulation(netlist)
+        faults = sim.detect_faults(vector)
+        self.assertSetEqual(faults, expected_faults)
+
+    def test_can_do_regular_sim(self):
+        """Ensure that the FaultSimulation class preserves functionality of parent class"""
+        netlist = [
+            'INV 1 4',
+            'NAND 2 3 5',
+            'OR 4 5 6',
+            'INPUT 1 2 3 -1',
+            'OUTPUT 5 6 -1',
+        ]
+        sim = FaultSimulation(netlist)
+        reset_state = {
+            1: Logic.UNASSIGNED,
+            2: Logic.UNASSIGNED,
+            3: Logic.UNASSIGNED,
+            4: Logic.UNASSIGNED,
+            5: Logic.UNASSIGNED,
+            6: Logic.UNASSIGNED,
+        }
+        # check correct initial state
+        self.assertDictEqual(reset_state, sim._net_states)
+        self.assertFalse(sim.all_nets_assigned())
+
+        # check correct output
+        self.assertEqual(sim.simulate_input('111'), '00')
+
+        # check proper reset
+        self.assertDictEqual(reset_state, sim._net_states)
+        self.assertDictEqual(dict(), sim._fault_lists)
 
 
 if __name__ == '__main__':

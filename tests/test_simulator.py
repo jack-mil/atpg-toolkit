@@ -24,7 +24,8 @@ class TestSimulator(unittest.TestCase):
         for netlist_file, input_vector, expected_output in self.test_cases:
             with self.subTest(netlist=netlist_file, vector=input_vector):
                 sim = Simulation(Path(netlist_file))
-                self.assertEqual(sim.simulate_input(input_vector), expected_output)
+                output = sim.simulate_input(input_vector)
+                self.assertEqual(output, expected_output)
 
     def test_simple_case(self):
         """Test a simple circuit net-list made by hand"""
@@ -44,12 +45,15 @@ class TestSimulator(unittest.TestCase):
             5: Logic.UNASSIGNED,
             6: Logic.UNASSIGNED,
         }
-        self.assertEqual(reset_state, sim._net_states)
+        # check proper init
+        self.assertDictEqual(reset_state, sim._net_states)
         self.assertFalse(sim.all_nets_assigned())
 
+        # check correct output
         self.assertEqual(sim.simulate_input('111'), '00')
 
-        self.assertEqual(reset_state, sim._net_states)
+        # check proper reset
+        self.assertDictEqual(reset_state, sim._net_states)
 
 
 if __name__ == '__main__':
