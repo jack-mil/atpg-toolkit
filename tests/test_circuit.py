@@ -20,10 +20,10 @@ class TestCircuit(unittest.TestCase):
             Gate(GateType.Nand, (2, 3), 5),
             Gate(GateType.Or, (4, 5), 6),
         }
-        self.assertSetEqual(gates, circuit._gates)
-        self.assertSetEqual({1, 2, 3, 4, 5, 6}, circuit._nets)
-        self.assertListEqual([1, 2, 3], circuit._inputs)
-        self.assertListEqual([6], circuit._outputs)
+        self.assertSetEqual(gates, circuit.gates)
+        self.assertSetEqual({1, 2, 3, 4, 5, 6}, circuit.nets)
+        self.assertListEqual([1, 2, 3], circuit.inputs)
+        self.assertListEqual([6], circuit.outputs)
 
 
 if __name__ == '__main__':

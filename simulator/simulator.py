@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from .structs import Gate
 
 from .circuit import Circuit
-from .structs import GateType, Logic, Fault
+from .structs import Logic
 
 
 class Simulation:
@@ -27,14 +27,14 @@ class Simulation:
         Optionally load from a list of strings in the format of net-list file lines (for testing)
         """
 
-        self._circuit = (
+        self.circuit = (
             Circuit.load_circuit_from_strings(netlist_file)
             if isinstance(netlist_file, list)
             else Circuit.load_circuit_from_file(netlist_file)
         )
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
 
-        self._net_states = {net_id: Logic.Unassigned for net_id in self._circuit._nets}
+        self._net_states = {net_id: Logic.Unassigned for net_id in self.circuit.nets}
         """Mapping of all net ids (nodes) in the circuit, and the associated fault-free logic value (HIGH, LOW, UNASSIGNED)."""
 
     def simulate_input(self, input_str: str) -> str:
@@ -62,10 +62,10 @@ class Simulation:
         """Internal implementation that does not reset the simulated state"""
 
         # Initialize the input nets with the input vector values
-        for net_id, state in zip(self._circuit._inputs, vector, strict=True):
+        for net_id, state in zip(self.circuit.inputs, vector, strict=True):
             self._net_states[net_id] = state
 
-        gates_to_process = self._circuit._gates.copy()
+        gates_to_process = self.circuit.gates.copy()
         # Simulate until every gate has been evaluated
         while len(gates_to_process) > 0:
             ready_gates = self.find_ready_gates(gates_to_process)
@@ -120,9 +120,9 @@ class Simulation:
         if not all(char in '01' for char in string):
             raise RuntimeError("Input string must contain only '0's and '1's.")
 
-        if len(string) != len(self._circuit._inputs):
+        if len(string) != len(self.circuit.inputs):
             raise RuntimeError(
-                f'Input vector length must match the number of input nets ({len(self._circuit._inputs)})'
+                f'Input vector length must match the number of input nets ({len(self.circuit.inputs)})'
             )
 
         # Convert the string to a list of boolean values
@@ -131,7 +131,7 @@ class Simulation:
     def format_outputs(self) -> str:
         """A string representation of the fault-free circuit output state."""
         output_str = ''
-        for net_id in self._circuit._outputs:
+        for net_id in self.circuit.outputs:
             match self._net_states[net_id]:
                 case Logic.High:
                     output_str += '1'
@@ -143,4 +143,4 @@ class Simulation:
 
     def reset(self):
         """Reset the simulation to all circuit nets (nodes) in uninitialized state."""
-        self._net_states = {net_id: Logic.Unassigned for net_id in self._circuit._nets}
+        self._net_states = {net_id: Logic.Unassigned for net_id in self.circuit.nets}

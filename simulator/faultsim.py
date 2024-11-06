@@ -37,7 +37,7 @@ class FaultSimulation(Simulation):
 
         # detected faults is the union of all fault lists on all output nets
         output_faults = set.union(
-            *(self._fault_lists[output_net] for output_net in self._circuit._outputs), set()
+            *(self._fault_lists[output_net] for output_net in self.circuit.outputs), set()
         )
         # Reset the net-list state so we can evaluate a new input vector later
         self.reset()
@@ -50,11 +50,11 @@ class FaultSimulation(Simulation):
         """
 
         # Initialize the initial input net fault lists with their opposite stuck-at fault
-        for net_id, state in zip(self._circuit._inputs, vector, strict=True):
+        for net_id, state in zip(self.circuit.inputs, vector, strict=True):
             self._net_states[net_id] = state
             self._fault_lists[net_id] = {Fault(net_id, ~state)}
 
-        gates_to_process = self._circuit._gates.copy()
+        gates_to_process = self.circuit.gates.copy()
         # Simulate until every gate has been evaluated and faults propagated
         while len(gates_to_process) > 0:
             ready_gates = self.find_ready_gates(gates_to_process)

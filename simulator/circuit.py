@@ -25,16 +25,16 @@ class Circuit:
           Use `Circuit.load_circuit_from_file(Path)` to initialize a specific net-list.
         """
 
-        self._inputs: list[int] = list()
+        self.inputs: list[int] = list()
         """List of circuit input net ids (order matters)"""
 
-        self._outputs: list[int] = list()
+        self.outputs: list[int] = list()
         """List of circuit output net ids (order matters)"""
 
-        self._gates: set[Gate] = set()
+        self.gates: set[Gate] = set()
         """Set of all logic Gates in this circuit"""
 
-        self._nets: set[int] = set()
+        self.nets: set[int] = set()
         """Set of all net id's (nodes) in this circuit"""
 
     @classmethod
@@ -75,21 +75,21 @@ class Circuit:
 
             if keyword in GateType:
                 # add each net id we encounter to the set. Some may repeat, that's ok
-                circuit._nets.update(nets)
+                circuit.nets.update(nets)
                 # the last net id in the line is the gate output net
                 *in_ids, out_id = nets
                 # Create a new gate and add it to internal set
-                circuit._gates.add(
+                circuit.gates.add(
                     Gate(GateType(keyword), output=out_id, inputs=tuple(in_ids)),
                 )
 
             elif keyword == 'INPUT':
                 *in_ids, _ = nets
-                circuit._inputs.extend(circuit.ensure_nets_exist(in_ids))
+                circuit.inputs.extend(circuit.ensure_nets_exist(in_ids))
 
             elif keyword == 'OUTPUT':
                 *out_ids, _ = nets
-                circuit._outputs.extend(circuit.ensure_nets_exist(out_ids))
+                circuit.outputs.extend(circuit.ensure_nets_exist(out_ids))
 
             else:
                 raise RuntimeError(f'Unknown gate type {keyword} in line: {line}')
@@ -98,9 +98,13 @@ class Circuit:
 
     def ensure_nets_exist(self, net_ids: Collection[int]) -> Collection[int]:
         """Check to make sure that all given net_ids exist in this circuit."""
-        missing_keys = set(net_ids).difference(self._nets)
+        missing_keys = set(net_ids).difference(self.nets)
         if missing_keys:
             raise RuntimeError(
                 f'Undefined input net(s) encountered. Nets: "{missing_keys}" not found net-list'
             )
         return net_ids
+
+    def number_of_nets(self) -> int:
+        """Return the number of nets (nodes) in this circuit"""
+        return len(self.nets)
