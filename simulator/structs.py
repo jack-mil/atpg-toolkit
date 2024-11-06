@@ -6,15 +6,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum, StrEnum
-from typing import Literal
 
 __all__ = ['GateType', 'Logic', 'Gate', 'Fault']
 
 
 class Logic(Enum):
-    HIGH = True
-    LOW = False
-    UNASSIGNED = None
+    High = True
+    Low = False
+    Unassigned = None
 
     def __bool__(self) -> bool:
         """Disable bool() (`not`) to prevent bugs. Use the bitwise operators to combine and evaluate logic values"""
@@ -50,11 +49,11 @@ class Logic(Enum):
 
     def __str__(self) -> str:
         match self:
-            case Logic.HIGH:
+            case Logic.High:
                 return '1 (High)'
-            case Logic.LOW:
+            case Logic.Low:
                 return '0 (Low)'
-            case Logic.UNASSIGNED:
+            case Logic.Unassigned:
                 return 'Unassigned'
 
 
@@ -69,7 +68,7 @@ class Fault:
         """Validate the Fault struct at object creation"""
         if not isinstance(self.stuck_at, Logic):
             raise TypeError("stuck at value must be a 'Logic' type")
-        if self.stuck_at is Logic.UNASSIGNED:
+        if self.stuck_at is Logic.Unassigned:
             raise TypeError('stuck at mush be set to a High or Low Logic value')
 
     def __str__(self) -> str:
@@ -82,23 +81,23 @@ class GateType(StrEnum):
     Used internally by the `Gate` class.
     """
 
-    INV = 'INV'
-    BUF = 'BUF'
-    AND = 'AND'
-    OR = 'OR'
-    NOR = 'NOR'
-    NAND = 'NAND'
+    Inv = 'INV'
+    Buf = 'BUF'
+    And = 'AND'
+    Or = 'OR'
+    Nor = 'NOR'
+    Nand = 'NAND'
 
     def __repr__(self):
         return f'<{self.name}>'
 
     def control_value(self):
         match self:
-            case GateType.AND | GateType.NAND:
-                return Logic.LOW
-            case GateType.OR | GateType.NOR:
-                return Logic.HIGH
-            case GateType.BUF | GateType.INV:
+            case GateType.And | GateType.Nand:
+                return Logic.Low
+            case GateType.Or | GateType.Nor:
+                return Logic.High
+            case GateType.Buf | GateType.Inv:
                 return None
             case _:
                 raise TypeError(f'Gate type unknown: {self}')
@@ -125,17 +124,17 @@ class Gate:
         based on this gate type. Utilizes the overridden bitwise operators.
         """
         match self.type_, input_states:
-            case GateType.INV, (state,):
+            case GateType.Inv, (state,):
                 return ~state
-            case GateType.BUF, (state,):
+            case GateType.Buf, (state,):
                 return state
-            case GateType.AND, (state_a, state_b):
+            case GateType.And, (state_a, state_b):
                 return state_a & state_b
-            case GateType.OR, (state_a, state_b):
+            case GateType.Or, (state_a, state_b):
                 return state_a | state_b
-            case GateType.NOR, (state_a, state_b):
+            case GateType.Nor, (state_a, state_b):
                 return ~(state_a | state_b)
-            case GateType.NAND, (state_a, state_b):
+            case GateType.Nand, (state_a, state_b):
                 return ~(state_a & state_b)
             case _:
                 raise TypeError(f'Could not evaluate gate {self}')

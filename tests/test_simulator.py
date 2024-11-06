@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 
-from simulator import Simulation, Logic
+from simulator import Logic, Simulation
 
 
 class TestSimulator(unittest.TestCase):
@@ -38,12 +38,12 @@ class TestSimulator(unittest.TestCase):
         ]
         sim = Simulation(netlist)
         reset_state = {
-            1: Logic.UNASSIGNED,
-            2: Logic.UNASSIGNED,
-            3: Logic.UNASSIGNED,
-            4: Logic.UNASSIGNED,
-            5: Logic.UNASSIGNED,
-            6: Logic.UNASSIGNED,
+            1: Logic.Unassigned,
+            2: Logic.Unassigned,
+            3: Logic.Unassigned,
+            4: Logic.Unassigned,
+            5: Logic.Unassigned,
+            6: Logic.Unassigned,
         }
         # check proper init
         self.assertDictEqual(reset_state, sim._net_states)

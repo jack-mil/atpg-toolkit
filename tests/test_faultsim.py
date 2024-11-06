@@ -1,8 +1,6 @@
 import unittest
 
-from simulator import Logic
-from simulator import FaultSimulation
-from simulator.structs import Fault
+from simulator import Fault, FaultSimulation, Logic
 
 
 class TestFaultsSingleGates(unittest.TestCase):
@@ -14,10 +12,10 @@ class TestFaultsSingleGates(unittest.TestCase):
             'OUTPUT 3 -1',
         ]
         and_faults = {
-            '00': {Fault(3, Logic.HIGH)},
-            '01': {Fault(3, Logic.HIGH), Fault(1, Logic.HIGH)},
-            '10': {Fault(3, Logic.HIGH), Fault(2, Logic.HIGH)},
-            '11': {Fault(1, Logic.LOW), Fault(2, Logic.LOW), Fault(3, Logic.LOW)},
+            '00': {Fault(3, Logic.High)},
+            '01': {Fault(3, Logic.High), Fault(1, Logic.High)},
+            '10': {Fault(3, Logic.High), Fault(2, Logic.High)},
+            '11': {Fault(1, Logic.Low), Fault(2, Logic.Low), Fault(3, Logic.Low)},
         }
         sim = FaultSimulation(netlist)
 
@@ -35,10 +33,10 @@ class TestFaultsSingleGates(unittest.TestCase):
             'OUTPUT 3 -1',
         ]
         or_faults = {
-            '00': {Fault(1, Logic.HIGH), Fault(2, Logic.HIGH), Fault(3, Logic.HIGH)},
-            '01': {Fault(3, Logic.LOW), Fault(2, Logic.LOW)},
-            '10': {Fault(3, Logic.LOW), Fault(1, Logic.LOW)},
-            '11': {Fault(3, Logic.LOW)},
+            '00': {Fault(1, Logic.High), Fault(2, Logic.High), Fault(3, Logic.High)},
+            '01': {Fault(3, Logic.Low), Fault(2, Logic.Low)},
+            '10': {Fault(3, Logic.Low), Fault(1, Logic.Low)},
+            '11': {Fault(3, Logic.Low)},
         }
         sim = FaultSimulation(netlist)
 
@@ -56,10 +54,10 @@ class TestFaultsSingleGates(unittest.TestCase):
             'OUTPUT 3 -1',
         ]
         nor_faults = {
-            '00': {Fault(1, Logic.HIGH), Fault(2, Logic.HIGH), Fault(3, Logic.LOW)},
-            '01': {Fault(2, Logic.LOW), Fault(3, Logic.HIGH)},
-            '10': {Fault(1, Logic.LOW), Fault(3, Logic.HIGH)},
-            '11': {Fault(3, Logic.HIGH)},
+            '00': {Fault(1, Logic.High), Fault(2, Logic.High), Fault(3, Logic.Low)},
+            '01': {Fault(2, Logic.Low), Fault(3, Logic.High)},
+            '10': {Fault(1, Logic.Low), Fault(3, Logic.High)},
+            '11': {Fault(3, Logic.High)},
         }
         sim = FaultSimulation(netlist)
 
@@ -77,10 +75,10 @@ class TestFaultsSingleGates(unittest.TestCase):
             'OUTPUT 3 -1',
         ]
         nand_faults = {
-            '00': {Fault(3, Logic.LOW)},
-            '01': {Fault(3, Logic.LOW), Fault(1, Logic.HIGH)},
-            '10': {Fault(3, Logic.LOW), Fault(2, Logic.HIGH)},
-            '11': {Fault(1, Logic.LOW), Fault(2, Logic.LOW), Fault(3, Logic.HIGH)},
+            '00': {Fault(3, Logic.Low)},
+            '01': {Fault(3, Logic.Low), Fault(1, Logic.High)},
+            '10': {Fault(3, Logic.Low), Fault(2, Logic.High)},
+            '11': {Fault(1, Logic.Low), Fault(2, Logic.Low), Fault(3, Logic.High)},
         }
         sim = FaultSimulation(netlist)
 
@@ -98,8 +96,8 @@ class TestFaultsSingleGates(unittest.TestCase):
             'OUTPUT 2 -1',
         ]
         inv_faults = {
-            '0': {Fault(1, Logic.HIGH), Fault(2, Logic.LOW)},
-            '1': {Fault(1, Logic.LOW), Fault(2, Logic.HIGH)},
+            '0': {Fault(1, Logic.High), Fault(2, Logic.Low)},
+            '1': {Fault(1, Logic.Low), Fault(2, Logic.High)},
         }
         sim = FaultSimulation(netlist)
 
@@ -113,14 +111,14 @@ class TestFaultSimulator(unittest.TestCase):
     def test_small_netlist(self):
         """Find all faults in small circuit and check exact output"""
         expected_faults = {
-            Fault(1, Logic.LOW),
-            Fault(3, Logic.LOW),
-            Fault(5, Logic.LOW),
-            Fault(7, Logic.LOW),
-            Fault(9, Logic.HIGH),
-            Fault(11, Logic.HIGH),
-            Fault(12, Logic.LOW),
-            Fault(13, Logic.LOW),
+            Fault(1, Logic.Low),
+            Fault(3, Logic.Low),
+            Fault(5, Logic.Low),
+            Fault(7, Logic.Low),
+            Fault(9, Logic.High),
+            Fault(11, Logic.High),
+            Fault(12, Logic.Low),
+            Fault(13, Logic.Low),
         }
         netlist = 'circuits/s27.net'
         vector = '1110101'
@@ -139,12 +137,12 @@ class TestFaultSimulator(unittest.TestCase):
         ]
         sim = FaultSimulation(netlist)
         reset_state = {
-            1: Logic.UNASSIGNED,
-            2: Logic.UNASSIGNED,
-            3: Logic.UNASSIGNED,
-            4: Logic.UNASSIGNED,
-            5: Logic.UNASSIGNED,
-            6: Logic.UNASSIGNED,
+            1: Logic.Unassigned,
+            2: Logic.Unassigned,
+            3: Logic.Unassigned,
+            4: Logic.Unassigned,
+            5: Logic.Unassigned,
+            6: Logic.Unassigned,
         }
         # check correct initial state
         self.assertDictEqual(reset_state, sim._net_states)

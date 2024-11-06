@@ -1,6 +1,7 @@
 import unittest
-from simulator.circuit import Circuit
-from simulator.structs import Gate, GateType
+
+from simulator import Circuit, Gate
+from simulator.structs import GateType
 
 
 class TestCircuit(unittest.TestCase):
@@ -15,9 +16,9 @@ class TestCircuit(unittest.TestCase):
         circuit = Circuit.load_circuit_from_strings(netlist)
 
         gates = {
-            Gate(GateType.INV, (1,), 4),
-            Gate(GateType.NAND, (2, 3), 5),
-            Gate(GateType.OR, (4, 5), 6),
+            Gate(GateType.Inv, (1,), 4),
+            Gate(GateType.Nand, (2, 3), 5),
+            Gate(GateType.Or, (4, 5), 6),
         }
         self.assertSetEqual(gates, circuit._gates)
         self.assertSetEqual({1, 2, 3, 4, 5, 6}, circuit._nets)
