@@ -19,13 +19,12 @@ class Simulation:
     Given an input vector, use simulate_input(vector) to get the output of the simulated circuit
     """
 
-    def __init__(self, netlist_file: Path | list[str]):
+    def __init__(self, netlist_file: Path | str | list[str]):
         """
-        Initialize a new simulation object to simulate the circuit defined in `netlist_file`.
+        Initialize a new simulation to simulate the circuit defined in `netlist`.
 
-        Multiple input simulation vectors can be run with the same Simulation object.
-
-        Optionally load from a list of strings in the format of netlist file lines (for testing)
+        Multiple input vectors can be simulated from the same Simulation object.
+        Optionally load from a list of strings in the format of net-list file lines (for testing)
         """
 
         self._circuit = (
@@ -35,12 +34,12 @@ class Simulation:
         )
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
 
-        self._net_states: dict[int, Logic] = self.reset_state()
-        """Mapping of all net ids in the circuit, and the associated logic state (HIGH, LOW, UNASSIGNED)."""
+        self._net_states = {net_id: Logic.UNASSIGNED for net_id in self._circuit._nets}
+        """Mapping of all net ids (nodes) in the circuit, and the associated fault-free logic value (HIGH, LOW, UNASSIGNED)."""
 
     def simulate_input(self, input_str: str) -> str:
         """
-        With a valid input vector, simulate the circuit completely,
+        Given an input vector, simulate the fault-free circuit
         and return the resulting output vector.
 
         The input string must be a binary string e.g. "1001010".
@@ -56,8 +55,7 @@ class Simulation:
         output_result = self.format_outputs()
 
         # Reset the net-list state so we can evaluate a new input vector later
-        self._net_states = self.reset_state()
-
+        self.reset()
         return output_result
 
     def _run_simulation(self, vector: list[Logic]):
@@ -68,29 +66,29 @@ class Simulation:
             self._net_states[net_id] = state
 
         gates_to_process = self._circuit._gates.copy()
-        # simulate until every gate has been evaluated
+        # Simulate until every gate has been evaluated
         while len(gates_to_process) > 0:
             ready_gates = self.find_ready_gates(gates_to_process)
-
             for gate in ready_gates:
-                output_state = self.evaluate_gate_output(gate)
-                # evaluate the result of the gate inputs and update the net-list state
-                self._net_states[gate.output] = output_state
+                self._eval_ready_gate(gate)
 
             # Remove the ready gates from the list of gates yet to be processed
             gates_to_process.difference_update(ready_gates)
 
-    def evaluate_gate_output(self, gate: Gate) -> Logic:
+    def _eval_ready_gate(self, gate: Gate):
         """
         Using the current net-list state,
         evaluate what the output net state should be for the given gate.
         """
+
         # sanity check to ensure only valid gates get evaluated
         if not self.all_nets_assigned(gate.inputs):
             raise TypeError('Cannot evaluate a gate with unassigned inputs.')
 
+        # evaluate the result of the gate inputs and update the net-list state
         input_states = tuple(self._net_states[net_id] for net_id in gate.inputs)
-        return gate.evaluate(*input_states)
+        output_state = gate.evaluate(*input_states)
+        self._net_states[gate.output] = output_state
 
     def find_ready_gates(self, gates: set[Gate]) -> set[Gate]:
         """Return all gates from `gates` with all input nets assigned"""
@@ -106,13 +104,10 @@ class Simulation:
         Return true if all given net ids are assigned a logic value.
         If collection is empty or none, check all known net's
         """
+
         if net_ids is None:
             net_ids = self._net_states.keys()
         return all(self._net_states[id] != Logic.UNASSIGNED for id in net_ids)
-
-    def reset_state(self) -> dict[int, Logic]:
-        """Return a dictionary with all circuit nets (nodes) in uninitialized state."""
-        return {net_id: Logic.UNASSIGNED for net_id in self._circuit._nets}
 
     def validate_input_string(self, string: str) -> list[Logic]:
         """
@@ -121,6 +116,7 @@ class Simulation:
 
         Return the input vector string as a list of Logic values
         """
+
         if not all(char in '01' for char in string):
             raise RuntimeError("Input string must contain only '0's and '1's.")
 
@@ -133,7 +129,7 @@ class Simulation:
         return [Logic(char == '1') for char in string]
 
     def format_outputs(self) -> str:
-        """A string representation of the circuit output state."""
+        """A string representation of the fault-free circuit output state."""
         output_str = ''
         for net_id in self._circuit._outputs:
             match self._net_states[net_id]:
@@ -144,3 +140,7 @@ class Simulation:
                 case Logic.UNASSIGNED:
                     output_str += '?'
         return output_str
+
+    def reset(self):
+        """Reset the simulation to all circuit nets (nodes) in uninitialized state."""
+        self._net_states = {net_id: Logic.UNASSIGNED for net_id in self._circuit._nets}

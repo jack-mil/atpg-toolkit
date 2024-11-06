@@ -3,8 +3,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from pathlib import Path
     from typing import Collection, Self
+
+from pathlib import Path
 
 from .structs import Gate, GateType
 
@@ -37,7 +38,7 @@ class Circuit:
         """Set of all net id's (nodes) in this circuit"""
 
     @classmethod
-    def load_circuit_from_file(cls, netlist_file: Path) -> Self:
+    def load_circuit_from_file(cls, netlist_file: Path | str) -> Self:
         """
         Initialize and return a Circuit by reading from a net-list file.
 
@@ -52,6 +53,9 @@ class Circuit:
           OUTPUT  7 9 11 5 -1
         ```
         """
+        if not isinstance(netlist_file, Path):
+            netlist_file = Path(netlist_file)
+
         if not netlist_file.exists():
             raise RuntimeError(f'Net-list file "{netlist_file}" could not be found')
 

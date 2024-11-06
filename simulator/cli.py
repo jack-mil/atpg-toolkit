@@ -66,6 +66,7 @@ def parse_args() -> Namespace:
     """Command line interface definition for interactive usage"""
 
     from argparse import ArgumentParser, ArgumentTypeError
+    from pathlib import Path
 
     def valid_path(name):
         p = Path(name)
