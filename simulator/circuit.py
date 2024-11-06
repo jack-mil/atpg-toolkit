@@ -105,6 +105,14 @@ class Circuit:
             )
         return net_ids
 
-    def number_of_nets(self) -> int:
-        """Return the number of nets (nodes) in this circuit"""
+    def net_count(self) -> int:
+        """Return total number of nets (nodes) in this circuit"""
         return len(self.nets)
+
+    def input_count(self) -> int:
+        """Return the number of input nets (nodes) in this circuit"""
+        return len(self.inputs)
+
+    def output_count(self) -> int:
+        """Return the number of output nets (nodes) in this circuit"""
+        return len(self.outputs)
