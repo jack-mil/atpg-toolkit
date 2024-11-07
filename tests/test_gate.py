@@ -16,7 +16,7 @@ class TestGate(unittest.TestCase):
         gate = Gate(GateType.And, (1, 2), 3)
 
         with self.assertRaises(FrozenInstanceError):
-            gate.output = 4
+            gate.output = 4 # type: ignore
 
     def test_gate_evaluation(self):
         gate_inv = Gate(GateType.Inv, (1,), 2)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import csv
+from itertools import zip_longest
 import math
 from pathlib import Path
 
@@ -25,11 +26,9 @@ files = map(
 )
 
 
-def calc_coverage(target: float, tolerance: float, file: Path):
-    sim = FaultSimulation(file)
+def calc_coverage(target: float, tolerance: float, sim: FaultSimulation):
     total_nets = sim.circuit.net_count()
     total_fault_count = 2 * total_nets
-
     input_length = sim.circuit.input_count()
 
     all_detected_faults = set()
@@ -37,7 +36,6 @@ def calc_coverage(target: float, tolerance: float, file: Path):
 
     data: list[tuple[int, float]] = list()
 
-    print(f'Testing circuit {file}')
     for new_test in util.random_patterns(input_length):
         detected_faults = sim.detect_faults(new_test)
 
@@ -50,9 +48,6 @@ def calc_coverage(target: float, tolerance: float, file: Path):
 
         # save point (num_applied_tests, coverage (%))
         data.append((num_applied_tests, coverage))
-
-        if num_applied_tests % 100 == 0:
-            print(f'Tests: {num_applied_tests:04d} Coverage: {coverage:.05%}')
 
         if math.isclose(coverage, target, rel_tol=tolerance):
             # quit when target reached
@@ -68,8 +63,31 @@ def calc_coverage(target: float, tolerance: float, file: Path):
 for file in files:
     name = file.stem
     out_file = file.parent.parent / 'data' / f'{name}-coverage.csv'
-    data = calc_coverage(target, tolerance, file)
 
-    with open(out_file, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile, quoting=csv.QUOTE_NONNUMERIC)
-        writer.writerows(data)
+    sim = FaultSimulation(file)
+
+    perc_75_avg = 0
+    perc_90_avg = 0
+
+    iterations = 15
+
+    # all_data = []
+    for _ in range(iterations):
+        data = calc_coverage(target, tolerance, sim)
+
+        # all_data.append(data)
+
+        perc_75 = next(num for num, coverage in data if coverage > 0.75)
+        perc_90 = next(num for num, coverage in data if coverage > 0.9)
+
+        perc_75_avg += perc_75 / iterations
+        perc_90_avg += perc_90 / iterations
+
+    # output in format for typst table
+    print(f'[{file.name}], [{sim.circuit.net_count()}], [{perc_75_avg:.1f}], [{perc_90_avg:.1f}],')
+
+    # columns = zip_longest(*all_data, fillvalue=1)
+
+    # with open(out_file, 'w', newline='') as csvfile:
+    #     writer = csv.writer(csvfile, quoting=csv.QUOTE_NONNUMERIC)
+    #     writer.writerows(data)
