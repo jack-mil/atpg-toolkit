@@ -32,7 +32,7 @@ $
 $
 
 == Part (a)
-Below is a summary of the results of detecting faults on the various given circuits. See Appendix A for the entire list
+Below is a summary of the results of detecting faults on the various given circuits. See Appendix B for the entire list
 of faults detected by each test vector.
 
 
@@ -86,8 +86,6 @@ vectors, every trial is different.
 
 #figure(image("coverage_plot.png", width: 80%), caption: [Plot of coverage for each circuit.])
 
-#pagebreak()
+#include "appendix_a.typ"
 
-== Appendix A
-
-#include "appendix.typ"
+#include "appendix_b.typ"
