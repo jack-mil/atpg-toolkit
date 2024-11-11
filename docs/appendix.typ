@@ -1,3 +1,7 @@
+#set table(fill: (x, y) => if calc.odd(x+y) {
+  rgb("EAF2F5")
+})
+
 #block(breakable: false)
 === Circuit: s27
 - Input Vector: `1 1 0 1 1 0 1`

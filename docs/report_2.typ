@@ -24,6 +24,13 @@ faults = sim.detect_faults(vector)
 print(faults)
 ```
 
+The deductive fault simulator propagates a fault list $L$ to output $Z$ according to the equations below.
+$C$ is the set of gate inputs at the controlling value $c$.
+$
+  bold("if") C &= emptyset bold("then") L_Z = {limits(union)_(j in I)L_j} &union {Z "s-a-"(c xor i)} \
+  bold("else") L_Z &= {limits(sect)_(j in C) L_j} - {limits(union)_(j in I-C) L_j} &union {Z "s-a-"(macron(c) xor i)} \
+$
+
 == Part (a)
 Below is a summary of the results of detecting faults on the various given circuits. See Appendix A for the entire list
 of faults detected by each test vector.
@@ -55,9 +62,7 @@ of faults detected by each test vector.
 
 Each netlist was simulated with random vectors to calculate fault coverage
 
-$
-  "coverage" = "found_faults" / N * 100%
-$
+$ "coverage" = "found_faults" / N * 100% $
 
 where $N$ is the total number of possible stuck-at faults in the circuit, $2 * "total_nets"$.
 
