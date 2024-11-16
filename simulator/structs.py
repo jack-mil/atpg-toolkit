@@ -11,9 +11,21 @@ __all__ = ['GateType', 'Logic', 'Gate', 'Fault']
 
 
 class Logic(Enum):
+    """
+    Enum to represent a net logic level (voltage state).
+
+    The bitwise logical operators | & ~ are defined to evaluate boolean logic.
+
+    `High` and `Low` are self-explanatory.
+    Unassigned represents a gate with unknown/no logic level.
+    """
+
     High = True
+    'Logical 1'
     Low = False
+    'Logical 0'
     Unassigned = None
+    """A undefined/unknown logic state"""
 
     def __bool__(self) -> bool:
         """Disable bool() (`not`) to prevent bugs. Use the bitwise operators to combine and evaluate logic values"""
@@ -62,7 +74,9 @@ class Fault:
     """Represent a single stuck-at fault on given net."""
 
     net_id: int
+    """Net (node) id of the fault"""
     stuck_at: Logic
+    """Logic stuck at level (High or Low)"""
 
     def __post_init__(self):
         """Validate the Fault struct at object creation"""
@@ -72,6 +86,7 @@ class Fault:
             raise TypeError('stuck at mush be set to a High or Low Logic value')
 
     def __str__(self) -> str:
+        """String representation (1-sa-0)"""
         return f'{self.net_id}-sa-{self.stuck_at}'
 
 

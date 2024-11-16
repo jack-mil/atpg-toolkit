@@ -19,7 +19,7 @@ class Simulation:
     Given an input vector, use simulate_input(vector) to get the output of the simulated circuit
     """
 
-    def __init__(self, netlist_file: Path | str | list[str]):
+    def __init__(self, netlist: Path | str | list[str]):
         """
         Initialize a new simulation to simulate the circuit defined in `netlist`.
 
@@ -28,9 +28,9 @@ class Simulation:
         """
 
         self.circuit = (
-            Circuit.load_circuit_from_strings(netlist_file)
-            if isinstance(netlist_file, list)
-            else Circuit.load_circuit_from_file(netlist_file)
+            Circuit.load_circuit_from_strings(netlist)
+            if isinstance(netlist, list)
+            else Circuit.load_circuit_from_file(netlist)
         )
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
 

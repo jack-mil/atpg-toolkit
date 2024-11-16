@@ -48,7 +48,7 @@ def simulate(net_file: Path, tests: list[str]):
 
 def deduce(net_file: Path, tests: list[str]):
     """Action for running deductive fault simulator."""
-    # Create the deductive fault simulator from this netlist
+    # Create the deductive fault simulator from this net-list
     sim = FaultSimulation(net_file)
 
     # Run multiple test vectors with the same object

@@ -26,10 +26,10 @@ class Circuit:
         """
 
         self.inputs: list[int] = list()
-        """List of circuit input net ids (order matters)"""
+        """List of in-order circuit input net ids"""
 
         self.outputs: list[int] = list()
-        """List of circuit output net ids (order matters)"""
+        """List of in-order circuit output net ids"""
 
         self.gates: set[Gate] = set()
         """Set of all logic Gates in this circuit"""
@@ -45,7 +45,7 @@ class Circuit:
         The file must have the format:
         ```
           # One or more lines of Gate definitions
-          GATE_TYPE [1-2 input nets] [1 output net]
+          GATE_TYPE [1|2 input nets] [1 output net]
           INV 9 5
           NAND 16 17 14
           # The last two lines are special INPUT and OUTPUT net definitions

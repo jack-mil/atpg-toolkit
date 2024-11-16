@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Basic shell script to run the CLI against all test circuits 
+# and save the output to a file. 
+# Serves as reference for CLI usage of simulator
+
 # Clear files if they exist
 > data/results-sim.txt
 > data/results-faults.txt

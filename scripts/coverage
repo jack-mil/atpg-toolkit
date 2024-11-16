@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+# A quick and dirty script used for generating coverage data to plot in report 2
+# Only intended to run once, and as such is not in a completely working state
+# I modified the script to generate data as I needed it for Excel plots and the report tables
+#
+# This does serve as a good reference of the public simulator API in action
+
 import csv
 from itertools import zip_longest
 import math

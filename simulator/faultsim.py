@@ -17,6 +17,7 @@ class FaultSimulation(Simulation):
         Initialize a new fault simulation to simulate the circuit defined in `netlist`.
 
         Multiple tests can be simulated using the same FaultSimulation object.
+
         Optionally load from a list of strings in the format of net-list file lines (for testing)
         """
         # # initialize base simulation for fault-free execution
