@@ -136,14 +136,7 @@ class TestFaultSimulator(unittest.TestCase):
             'OUTPUT 5 6 -1',
         ]
         sim = FaultSimulation(netlist)
-        reset_state = {
-            1: Logic.X,
-            2: Logic.X,
-            3: Logic.X,
-            4: Logic.X,
-            5: Logic.X,
-            6: Logic.X,
-        }
+        reset_state = dict()
         # check correct initial state
         self.assertDictEqual(reset_state, sim._net_states)
         self.assertFalse(sim.all_nets_assigned())

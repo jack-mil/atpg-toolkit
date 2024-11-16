@@ -37,14 +37,7 @@ class TestSimulator(unittest.TestCase):
             'OUTPUT 5 6 -1',
         ]
         sim = Simulation(netlist)
-        reset_state = {
-            1: Logic.X,
-            2: Logic.X,
-            3: Logic.X,
-            4: Logic.X,
-            5: Logic.X,
-            6: Logic.X,
-        }
+        reset_state = dict() # unset nets don't have a key in the dict
         # check proper init
         self.assertDictEqual(reset_state, sim._net_states)
         self.assertFalse(sim.all_nets_assigned())
@@ -54,6 +47,38 @@ class TestSimulator(unittest.TestCase):
 
         # check proper reset
         self.assertDictEqual(reset_state, sim._net_states)
+
+    def test_5state(self):
+        """Test simulating a circuit with D-Calculus"""
+        netlist = [
+            'INV 1 5',
+            'NAND 2 3 6',
+            'AND 5 2 7',
+            'OR 6 4 8',
+            'NAND 7 8 9',
+            'INPUT 1 2 3 4 -1',
+            'OUTPUT 9 8 -1',
+        ]
+        sim = Simulation(netlist)
+
+        input_vector = [Logic.D, Logic.High, Logic.Low, Logic.X]
+        expected_output = [Logic.D, Logic.High]
+
+        # using internal implementation
+        sim._run_simulation(input_vector)
+        outputs = sim.get_output_states()
+        sim.reset()
+
+        self.assertListEqual(outputs, expected_output)
+
+        input_vector = [Logic.Dbar, Logic.High, Logic.High, Logic.X]
+        expected_output = [Logic.X, Logic.X]
+
+        sim._run_simulation(input_vector)
+        outputs = sim.get_output_states()
+        sim.reset()
+
+        self.assertListEqual(outputs, expected_output)
 
 
 if __name__ == '__main__':

@@ -13,10 +13,12 @@ from .structs import Logic
 
 class Simulation:
     """
-    The Simulation class keeps track of the current fault-free state of all the nets in the circuit.
+    The Simulation class can do a forward 5-state simulation of all nets in a circuit.
     A Simulation object is loaded with a specific circuit definition from a net-list file.
 
-    Given an input vector, use simulate_input(vector) to get the output of the simulated circuit
+    Given an input vector, use simulate_input(vector) to get the output net states.
+    Internally, inputs can be any of the Logic states (HIGH, LOW, D, D̅, X), and
+    the D-Calculus is handled correctly.
     """
 
     def __init__(self, netlist: Path | str | list[str]):
@@ -34,13 +36,14 @@ class Simulation:
         )
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
 
-        self._net_states = {net_id: Logic.X for net_id in self.circuit.nets}
-        """Mapping of all net ids (nodes) in the circuit, and the associated fault-free logic value (HIGH, LOW, X)."""
+        # self._net_states = {net_id: Logic.X for net_id in self.circuit.nets}
+        self._net_states: dict[int, Logic] = dict()
+        """Mapping of all net ids (nodes) in the circuit, and the associated Logic value (HIGH, LOW, D, D̅, X)."""
 
     def simulate_input(self, input_str: str) -> str:
         """
-        Given an input vector, simulate the fault-free circuit
-        and return the resulting output vector.
+        Given an input vector string, simulate the fault-free circuit
+        and return the resulting output vector string.
 
         The input string must be a binary string e.g. "1001010".
         The order of inputs will be matched to the order of inputs from the net-list definition.
@@ -93,10 +96,7 @@ class Simulation:
     def find_ready_gates(self, gates: set[Gate]) -> set[Gate]:
         """Return all gates from `gates` with all input nets assigned"""
 
-        ready_gates = set()
-        for gate in gates:
-            if self.all_nets_assigned(gate.inputs):
-                ready_gates.add(gate)
+        ready_gates = {gate for gate in gates if self.all_nets_assigned(gate.inputs)}
         return ready_gates
 
     def all_nets_assigned(self, net_ids: None | Collection[int] = None) -> bool:
@@ -106,8 +106,9 @@ class Simulation:
         """
 
         if net_ids is None:
-            net_ids = self._net_states.keys()
-        return all(self._net_states[id] != Logic.X for id in net_ids)
+            net_ids = self.circuit.nets  # all nets
+        # net id's missing from the mapping are not assigned yet.
+        return all(id in self._net_states for id in net_ids)
 
     def validate_input_string(self, string: str) -> list[Logic]:
         """
@@ -126,21 +127,20 @@ class Simulation:
             )
 
         # Convert the string to a list of boolean values
-        return [Logic(char == '1') for char in string]
+        # Logic.High and Logic.Low can be constructed from '1' and '0' respectively
+        return [Logic(char) for char in string]
+
+    def get_output_states(self) -> list[Logic]:
+        """List of circuit output values in the order of original net-list"""
+        return [self._net_states.get(net, Logic.X) for net in self.circuit.outputs]
 
     def format_outputs(self) -> str:
         """A string representation of the fault-free circuit output state."""
         output_str = ''
-        for net_id in self.circuit.outputs:
-            match self._net_states[net_id]:
-                case Logic.High:
-                    output_str += '1'
-                case Logic.Low:
-                    output_str += '0'
-                case Logic.X:
-                    output_str += '?'
+        for state in self.get_output_states():
+            output_str += str(state)
         return output_str
 
     def reset(self):
         """Reset the simulation to all circuit nets (nodes) in uninitialized state."""
-        self._net_states = {net_id: Logic.X for net_id in self.circuit.nets}
+        self._net_states.clear()

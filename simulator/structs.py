@@ -5,7 +5,7 @@ Structures and enum data definitions for utility in the simulation module
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import Enum, StrEnum
+from enum import Enum, StrEnum, auto
 
 __all__ = ['GateType', 'Logic', 'Gate', 'Fault']
 
@@ -14,19 +14,23 @@ class Logic(Enum):
     """
     Enum to represent a net logic level (voltage state).
 
-    The bitwise logical operators | & ~ are defined to evaluate 5-valued logic.
+    The bitwise logical operators | & ~ are defined to evaluate 5-state logic.
 
-    `High` and `Low` are self-explanatory.
+    High and Low variants represent 1 and 0
     X : net with unknown/no logic level (NOT "don't care")
     D : faulty net at 0 instead of 1
     D̅ : faulty net at 1 instead of 0
     """
 
-    High = True
-    'Logical 1'
-    Low = False
-    'Logical 0'
-    X = None
+    High = '1'
+    """Logical 1"""
+    Low = '0'
+    """Logical 0"""
+    D = 'D'
+    """Faulty 0 instead of 1 (SA0)"""
+    Dbar = 'D̅'
+    """(D̅) Faulty 1 instead of 0 (SA1)"""
+    X = 'X'
     """A undefined/unknown logic state"""
 
     def __bool__(self) -> bool:
@@ -35,40 +39,72 @@ class Logic(Enum):
 
     def __invert__(self) -> Logic:
         """Bitwise ~ operator. Override to return the opposite Logic value"""
-        if self.value is None:
-            raise ValueError(
-                'Attempted boolean evaluation of unassigned Logic.\n This is probably unintended.'
-            )
-        return Logic(not self.value)
+        match self:
+            case Logic.Low:
+                return Logic.High
+            case Logic.High:
+                return Logic.Low
+            case Logic.D:
+                return Logic.Dbar
+            case Logic.Dbar:
+                return Logic.D
+            case Logic.X:
+                return Logic.X
 
     def __or__(self, other) -> Logic:
         """Bitwise | operator. Override to evaluate OR operations on Logic type"""
         if not isinstance(other, Logic):
             return NotImplemented
-        if self.value is None:
-            raise ValueError(
-                'Attempted boolean evaluation of unassigned Logic.\n This is probably unintended.'
-            )
-        return Logic(self.value or other.value)
+
+        # order of these checks matter
+        # might be clearer & faster with a LUT
+        if (self is Logic.High) or (other is Logic.High):
+            return Logic.High
+
+        if (self is Logic.X) or (other is Logic.X):
+            return Logic.X
+
+        if self is Logic.Low:
+            return Logic(other)
+
+        if other is Logic.Low:
+            return Logic(self)
+
+        if self is other:
+            # both D or both Dbar
+            return Logic(self)
+        else:
+            # one D, one Dbar
+            return Logic.High
 
     def __and__(self, other) -> Logic:
         """Bitwise & operator. Override to evaluate AND operation on Logic type"""
         if not isinstance(other, Logic):
             return NotImplemented
-        if self.value is None:
-            raise ValueError(
-                'Attempted boolean evaluation of unassigned Logic.\n This is probably unintended.'
-            )
-        return Logic(self.value and other.value)
+
+        # order of these checks matter
+        if (self is Logic.Low) or (other is Logic.Low):
+            return Logic.Low
+
+        if (self is Logic.X) or (other is Logic.X):
+            return Logic.X
+
+        if self is Logic.High:
+            return Logic(other)
+
+        if other is Logic.High:
+            return Logic(self)
+
+        if self is other:
+            # Both D or both Dbar
+            return Logic(self)
+        else:
+            # one D, one Dbar
+            return Logic.Low
 
     def __str__(self) -> str:
-        match self:
-            case Logic.High:
-                return '1'
-            case Logic.Low:
-                return '0'
-            case Logic.X:
-                return 'X'
+        """String representation"""
+        return self.value
 
 
 @dataclass(eq=True, frozen=True, order=True)
@@ -84,8 +120,8 @@ class Fault:
         """Validate the Fault struct at object creation"""
         if not isinstance(self.stuck_at, Logic):
             raise TypeError("stuck at value must be a 'Logic' type")
-        if self.stuck_at is Logic.X:
-            raise TypeError('stuck at mush be set to a High or Low Logic value')
+        if (self.stuck_at is not Logic.Low) and (self.stuck_at is not Logic.High):
+            raise TypeError('stuck at must be set to a High or Low Logic value')
 
     def __str__(self) -> str:
         """String representation (1-sa-0)"""
