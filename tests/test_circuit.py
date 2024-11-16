@@ -13,7 +13,7 @@ class TestCircuit(unittest.TestCase):
             'INPUT 1 2 3 -1',
             'OUTPUT 6 -1',
         ]
-        circuit = Circuit.load_circuit_from_strings(netlist)
+        circuit = Circuit.load_strings(netlist)
 
         gates = {
             Gate(GateType.Inv, (1,), 4),

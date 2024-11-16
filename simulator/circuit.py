@@ -16,13 +16,14 @@ class Circuit:
     associated with a particular combinational logic circuit.
 
     - The Circuit object does not hold any simulation state of nodes.
-    - The Circuit is initialized from a net-list file in a particular format using `load_circuit_from_file()`"
+    - The Circuit is initialized from a net-list file in a particular format using `load_file()`"
+    - This class can easily be extended to support other net-list formats
     """
 
     def __init__(self):
         """
         Initialize a Circuit with default (empty) configuration.
-          Use `Circuit.load_circuit_from_file(Path)` to initialize a specific net-list.
+          Use `Circuit.load_from_file(Path)` to initialize a specific net-list.
         """
 
         self.inputs: list[int] = list()
@@ -38,8 +39,9 @@ class Circuit:
         """Set of all net id's (nodes) in this circuit"""
 
     @classmethod
-    def load_circuit_from_file(cls, netlist_file: Path | str) -> Self:
+    def load_file(cls, netlist_file: Path | str) -> Self:
         """
+        ### Factory Method ###
         Initialize and return a Circuit by reading from a net-list file.
 
         The file must have the format:
@@ -63,11 +65,12 @@ class Circuit:
             # prefilter blank lines
             lines = [line.rstrip() for line in f if line]
 
-        return cls.load_circuit_from_strings(lines)
+        return cls.load_strings(lines)
 
     @classmethod
-    def load_circuit_from_strings(cls, netlist: list[str]) -> Self:
+    def load_strings(cls, netlist: list[str]) -> Self:
         """
+        ### Factory Method ###
         Initialize and return a Circuit by from the list gate definitions
 
         Each element should match the format from a file.
@@ -89,11 +92,11 @@ class Circuit:
                 )
 
             elif keyword == 'INPUT':
-                *in_ids, _ = nets
+                *in_ids, _ = nets  # discard end delimiter (-1)
                 circuit.inputs.extend(circuit.ensure_nets_exist(in_ids))
 
             elif keyword == 'OUTPUT':
-                *out_ids, _ = nets
+                *out_ids, _ = nets  # discard end delimiter (-1)
                 circuit.outputs.extend(circuit.ensure_nets_exist(out_ids))
 
             else:
@@ -102,11 +105,11 @@ class Circuit:
         return circuit
 
     def ensure_nets_exist(self, net_ids: Collection[int]) -> Collection[int]:
-        """Check to make sure that all given net_ids exist in this circuit."""
+        """Check to make sure that all given `net_ids` exist in this circuit."""
         missing_keys = set(net_ids).difference(self.nets)
         if missing_keys:
             raise RuntimeError(
-                f'Undefined input net(s) encountered. Nets: "{missing_keys}" not found net-list'
+                f'Undefined input net(s) encountered. Nets: "{missing_keys}" not found in net-list'
             )
         return net_ids
 

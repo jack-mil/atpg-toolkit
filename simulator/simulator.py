@@ -30,9 +30,9 @@ class Simulation:
         """
 
         self.circuit = (
-            Circuit.load_circuit_from_strings(netlist)
+            Circuit.load_strings(netlist)
             if isinstance(netlist, list)
-            else Circuit.load_circuit_from_file(netlist)
+            else Circuit.load_file(netlist)
         )
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
 
