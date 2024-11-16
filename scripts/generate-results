@@ -4,6 +4,8 @@
 # and save the output to a file. 
 # Serves as reference for CLI usage of simulator
 
+echo "Run from top level directory (./scripts/generate-results)"
+
 # Clear files if they exist
 > data/results-sim.txt
 > data/results-faults.txt
