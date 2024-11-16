@@ -14,17 +14,19 @@ class Logic(Enum):
     """
     Enum to represent a net logic level (voltage state).
 
-    The bitwise logical operators | & ~ are defined to evaluate boolean logic.
+    The bitwise logical operators | & ~ are defined to evaluate 5-valued logic.
 
     `High` and `Low` are self-explanatory.
-    Unassigned represents a gate with unknown/no logic level.
+    X : net with unknown/no logic level (NOT "don't care")
+    D : faulty net at 0 instead of 1
+    D̅ : faulty net at 1 instead of 0
     """
 
     High = True
     'Logical 1'
     Low = False
     'Logical 0'
-    Unassigned = None
+    X = None
     """A undefined/unknown logic state"""
 
     def __bool__(self) -> bool:
@@ -65,8 +67,8 @@ class Logic(Enum):
                 return '1'
             case Logic.Low:
                 return '0'
-            case Logic.Unassigned:
-                return 'Unassigned'
+            case Logic.X:
+                return 'X'
 
 
 @dataclass(eq=True, frozen=True, order=True)
@@ -82,7 +84,7 @@ class Fault:
         """Validate the Fault struct at object creation"""
         if not isinstance(self.stuck_at, Logic):
             raise TypeError("stuck at value must be a 'Logic' type")
-        if self.stuck_at is Logic.Unassigned:
+        if self.stuck_at is Logic.X:
             raise TypeError('stuck at mush be set to a High or Low Logic value')
 
     def __str__(self) -> str:

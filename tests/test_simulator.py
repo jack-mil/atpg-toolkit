@@ -38,12 +38,12 @@ class TestSimulator(unittest.TestCase):
         ]
         sim = Simulation(netlist)
         reset_state = {
-            1: Logic.Unassigned,
-            2: Logic.Unassigned,
-            3: Logic.Unassigned,
-            4: Logic.Unassigned,
-            5: Logic.Unassigned,
-            6: Logic.Unassigned,
+            1: Logic.X,
+            2: Logic.X,
+            3: Logic.X,
+            4: Logic.X,
+            5: Logic.X,
+            6: Logic.X,
         }
         # check proper init
         self.assertDictEqual(reset_state, sim._net_states)

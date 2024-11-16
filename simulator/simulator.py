@@ -34,8 +34,8 @@ class Simulation:
         )
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
 
-        self._net_states = {net_id: Logic.Unassigned for net_id in self.circuit.nets}
-        """Mapping of all net ids (nodes) in the circuit, and the associated fault-free logic value (HIGH, LOW, UNASSIGNED)."""
+        self._net_states = {net_id: Logic.X for net_id in self.circuit.nets}
+        """Mapping of all net ids (nodes) in the circuit, and the associated fault-free logic value (HIGH, LOW, X)."""
 
     def simulate_input(self, input_str: str) -> str:
         """
@@ -107,7 +107,7 @@ class Simulation:
 
         if net_ids is None:
             net_ids = self._net_states.keys()
-        return all(self._net_states[id] != Logic.Unassigned for id in net_ids)
+        return all(self._net_states[id] != Logic.X for id in net_ids)
 
     def validate_input_string(self, string: str) -> list[Logic]:
         """
@@ -137,10 +137,10 @@ class Simulation:
                     output_str += '1'
                 case Logic.Low:
                     output_str += '0'
-                case Logic.Unassigned:
+                case Logic.X:
                     output_str += '?'
         return output_str
 
     def reset(self):
         """Reset the simulation to all circuit nets (nodes) in uninitialized state."""
-        self._net_states = {net_id: Logic.Unassigned for net_id in self.circuit.nets}
+        self._net_states = {net_id: Logic.X for net_id in self.circuit.nets}
