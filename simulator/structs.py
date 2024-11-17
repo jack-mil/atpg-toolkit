@@ -109,7 +109,7 @@ class Logic(Enum):
 
 @dataclass(eq=True, frozen=True, order=True)
 class Fault:
-    """Represent a single stuck-at fault on given net."""
+    """Represent a net with a single stuck-at fault."""
 
     net_id: int
     """Net (node) id of the fault"""

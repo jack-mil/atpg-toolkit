@@ -3,11 +3,15 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Collection, Self
+    from typing import Collection, Iterable, Self
 
 from pathlib import Path
 
 from .structs import Gate, GateType
+
+
+class NetlistFormatError(Exception):
+    """Raised when circuit net-list is malformed or invalid"""
 
 
 class Circuit:
@@ -35,6 +39,9 @@ class Circuit:
         self.gates: set[Gate] = set()
         """Set of all logic Gates in this circuit"""
 
+        self.gate_output_nets: set[int] = set()
+        """Set of all nets which are gate outputs"""
+
         self.nets: set[int] = set()
         """Set of all net id's (nodes) in this circuit"""
 
@@ -54,12 +61,15 @@ class Circuit:
           INPUT  1 2 3 4 6 8 10 -1 # <- -1 end deliminator (REQUIRED)
           OUTPUT  7 9 11 5 -1
         ```
+
+        - Raises OSError if the file does not exist.
+        - Raises NetlistFormatError if the net-list is malformed
         """
         if not isinstance(netlist_file, Path):
             netlist_file = Path(netlist_file)
 
         if not netlist_file.exists():
-            raise RuntimeError(f'Net-list file "{netlist_file}" could not be found')
+            raise OSError(f'Net-list file "{netlist_file}" could not be found')
 
         with netlist_file.open() as f:
             # prefilter blank lines
@@ -71,47 +81,90 @@ class Circuit:
     def load_strings(cls, netlist: list[str]) -> Self:
         """
         ### Factory Method ###
-        Initialize and return a Circuit by from the list gate definitions
+        Initialize and return a Circuit from the list of net & gate definitions
 
         Each element should match the format from a file.
+        - Raises NetlistFormatError if the net-list is malformed
         """
         circuit = cls()
-
-        for line in netlist:  # process gate or I/O definition
+        
+        for i, line in enumerate(netlist):  # process gate or I/O definition
             keyword, *nets = line.split()  # split on whitespace
             nets = list(map(int, nets))  # map all net id's to numbers
+            try:
+                if keyword in GateType:
+                    # the last net id in the line is the gate output net
+                    *in_ids, out_id = nets
+                    circuit.add_gate(GateType(keyword), output=out_id, inputs=tuple(in_ids))
+                elif keyword == 'INPUT':
+                    *in_ids, end = nets  # discard end delimiter (-1)
+                    if end != -1:
+                        raise NetlistFormatError('INPUT must be terminated with "-1"')
+                    circuit.add_inputs(in_ids)
+                elif keyword == 'OUTPUT':
+                    *out_ids, end = nets  # discard end delimiter (-1)
+                    if end != -1:
+                        raise NetlistFormatError('OUTPUT must be terminated with "-1"')
+                    circuit.add_outputs(out_ids)
+                else:
+                    raise NetlistFormatError(f'Error in net-list: Unknown gate type "{keyword}"')
 
-            if keyword in GateType:
-                # add each net id we encounter to the set. Some may repeat, that's ok
-                circuit.nets.update(nets)
-                # the last net id in the line is the gate output net
-                *in_ids, out_id = nets
-                # Create a new gate and add it to internal set
-                circuit.gates.add(
-                    Gate(GateType(keyword), output=out_id, inputs=tuple(in_ids)),
-                )
-
-            elif keyword == 'INPUT':
-                *in_ids, _ = nets  # discard end delimiter (-1)
-                circuit.inputs.extend(circuit.ensure_nets_exist(in_ids))
-
-            elif keyword == 'OUTPUT':
-                *out_ids, _ = nets  # discard end delimiter (-1)
-                circuit.outputs.extend(circuit.ensure_nets_exist(out_ids))
-
-            else:
-                raise RuntimeError(f'Unknown gate type {keyword} in line: {line}')
+            except NetlistFormatError as e:
+                e.add_note(f'{i+1} : "{line}" <-- Occurred here')
+                raise
 
         return circuit
 
-    def ensure_nets_exist(self, net_ids: Collection[int]) -> Collection[int]:
-        """Check to make sure that all given `net_ids` exist in this circuit."""
+    def add_gate(self, type: GateType, inputs: tuple[int, ...], output: int):
+        """
+        Add a logic gate with given output and input nets. Records new id's in the set of all nets.
+        
+        Raises NetlistFormatError if the output has already been driven by a previous gate.
+        """
+        if self.is_gate_output(output):
+            # Line already driven by another gate (invalid topology)
+            raise NetlistFormatError(
+                f'Invalid topology: Gate {type} output {output} already driven by another gate.'
+            )
+        # save a separate set of known gate outputs
+        self.gate_output_nets.add(output)
+        # add each net id we encounter to the set. Some may repeat, that's ok
+        self.nets.add(output)
+        self.nets.update(inputs)
+        # Create a new gate and add it to internal set
+        self.gates.add(Gate(type, output=output, inputs=inputs))
+
+    def add_inputs(self, net_ids: Iterable[int]):
+        """
+        Assign one or more existing net_ids as primary inputs.
+
+        Raises NetlistFormatError if the nets haven't been defined as gate inputs.
+        """
         missing_keys = set(net_ids).difference(self.nets)
         if missing_keys:
-            raise RuntimeError(
-                f'Undefined input net(s) encountered. Nets: "{missing_keys}" not found in net-list'
+            raise NetlistFormatError(
+                f'Undefined input net(s) encountered. Nets: "{missing_keys}" not found in net-list.'
             )
-        return net_ids
+        conflicts = self.gate_output_nets.intersection(net_ids)
+        if conflicts:
+            raise NetlistFormatError(f'Invalid input net(s): Primary inputs {conflicts} conflict with existing gate outputs.')
+        self.inputs.extend(net_ids)
+
+    def add_outputs(self, net_ids: Iterable[int]):
+        """Assign one or more existing net_ids as primary outputs."""
+        missing_keys = set(net_ids).difference(self.nets)
+        if missing_keys:
+            raise NetlistFormatError(
+                f'Undefined output net(s) encountered. Nets: "{missing_keys}" not found in net-list.'
+            )
+        self.outputs.extend(net_ids)
+
+    def is_gate_output(self, net_id: int) -> bool:
+        """
+        Returns true if the given net id is driven by a gate.
+        (i.e., not a primary input)
+        """
+        return net_id in self.gate_output_nets
 
     def net_count(self) -> int:
         """Total number of nets (nodes) in this circuit"""

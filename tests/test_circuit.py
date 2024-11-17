@@ -3,6 +3,8 @@ import unittest
 from simulator import Circuit, Gate
 from simulator.structs import GateType
 
+from simulator.circuit import NetlistFormatError
+
 
 class TestCircuit(unittest.TestCase):
     def test_load_circuit(self):
@@ -24,6 +26,85 @@ class TestCircuit(unittest.TestCase):
         self.assertSetEqual({1, 2, 3, 4, 5, 6}, circuit.nets)
         self.assertListEqual([1, 2, 3], circuit.inputs)
         self.assertListEqual([6], circuit.outputs)
+
+    def test_unknown_gate(self):
+        unknown_gate = [
+            'BAR 1 2 3',  # <-
+            'INPUT 1 2  -1',
+            'OUTPUT 3 -1',
+        ]
+        with self.assertRaises(NetlistFormatError) as cm:
+            _ = Circuit.load_strings(unknown_gate)
+        print(cm.exception)
+
+    def test_undefined_io_nets(self):
+        unknown_gate = [
+            'AND 1 2 3',
+            'OR 3 4 5',
+            'INPUT 10 11  -1',  # <- 10 11 don't exist
+            'OUTPUT 3 -1',
+        ]
+        with self.assertRaises(NetlistFormatError) as cm:
+            _ = Circuit.load_strings(unknown_gate)
+        print(cm.exception)
+
+    def test_conflicting_IO(self):
+        inputs_are_gate_outputs = [
+            'AND 1 2 3',
+            'OR 4 5 6',
+            'INPUT 1 2 6 -1',  # <- net 6 is output of OR gate
+            'OUTPUT 3 -1',
+        ]
+        with self.assertRaises(NetlistFormatError) as cm:
+            _ = Circuit.load_strings(inputs_are_gate_outputs)
+        print(cm.exception)
+
+        PI_is_PO = [
+            'AND 1 2 3',
+            'OR 3 2 6',
+            'INPUT 1 2 -1',
+            'OUTPUT 1 6 -1',  # <- net 1 is both input and output. weird but allowed
+        ]
+        circuit = Circuit.load_strings(PI_is_PO)
+        self.assertListEqual([1, 2], circuit.inputs)
+        self.assertListEqual([1, 6], circuit.outputs)
+
+    def test_missing_parts(self):
+        # no_input = [
+        #     'AND 1 2 3',
+        #     'OUTPUT 3 -1',
+        # ]
+        # with self.assertRaises(NetlistFormatError) as cm:
+        #     _ = Circuit.load_strings(no_input)
+        # print(cm.exception)
+
+        # no_output = [
+        #     'AND 1 2 3',
+        #     'INPUT 1 2 -1',
+        # ]
+        # with self.assertRaises(NetlistFormatError) as cm:
+        #     _ = Circuit.load_strings(no_output)
+        # print(cm.exception)
+
+        missing_end = [
+            'AND 1 2 3',
+            'INPUT 1 2',  # <- missing -1
+            'OUTPUT 3 -1',
+        ]
+        with self.assertRaises(NetlistFormatError) as cm:
+            _ = Circuit.load_strings(missing_end)
+        print(cm.exception)
+
+    def test_multiple_drivers(self):
+        conflicting_gate_outputs = [
+            'AND 1 2 4',  # <-
+            'NAND 2 3 4',  # <-
+            'INPUT 1 2 3 -1',
+            'OUTPUT 4 -1',
+        ]
+        with self.assertRaises(NetlistFormatError) as cm:
+            _ = Circuit.load_strings(conflicting_gate_outputs)
+        print(cm.exception)
 
 
 if __name__ == '__main__':
