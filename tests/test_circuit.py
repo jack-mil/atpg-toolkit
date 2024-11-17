@@ -1,9 +1,8 @@
 import unittest
 
 from simulator import Circuit, Gate
-from simulator.structs import GateType
-
 from simulator.circuit import NetlistFormatError
+from simulator.structs import GateType
 
 
 class TestCircuit(unittest.TestCase):
@@ -26,6 +25,31 @@ class TestCircuit(unittest.TestCase):
         self.assertSetEqual({1, 2, 3, 4, 5, 6}, circuit.nets)
         self.assertListEqual([1, 2, 3], circuit.inputs)
         self.assertListEqual([6], circuit.outputs)
+
+    def test_load_circuit_str_nets(self):
+        """Testing the generic net naming support (combination str and int)"""
+        netlist = [
+            'INV a 2',
+            'AND b 2 3',
+            'NAND c 2 5',
+            'OR 5 3 7',
+            'NOR 7 6 out',
+            'INPUT a b c -1',
+            'OUTPUT out -1',
+        ]
+        circuit = Circuit.load_strings(netlist)
+
+        gates = {
+            Gate(GateType.Inv, ('a',), 2),
+            Gate(GateType.And, ('b', 2), 3),
+            Gate(GateType.Nand, ('c', 2), 5),
+            Gate(GateType.Or, (5, 3), 7),
+            Gate(GateType.Nor, (7, 6), 'out'),
+        }
+        self.assertSetEqual(gates, circuit.gates)
+        self.assertSetEqual({'a', 'b', 'c', 'out', 2, 3, 5, 6, 7}, circuit.nets)
+        self.assertListEqual(['a', 'b', 'c'], circuit.inputs)
+        self.assertListEqual(['out'], circuit.outputs)
 
     def test_unknown_gate(self):
         unknown_gate = [

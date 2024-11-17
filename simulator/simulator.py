@@ -4,8 +4,9 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from pathlib import Path
-    from typing import Collection
-    from .structs import Gate
+    from typing import Iterable
+
+    from .structs import Gate, NetId
 
 from .circuit import Circuit
 from .structs import Logic
@@ -37,7 +38,7 @@ class Simulation:
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
 
         # self._net_states = {net_id: Logic.X for net_id in self.circuit.nets}
-        self._net_states: dict[int, Logic] = dict()
+        self._net_states: dict[NetId, Logic] = dict()
         """Mapping of all net ids (nodes) in the circuit, and the associated Logic value (HIGH, LOW, D, D̅, X)."""
 
     def simulate_input(self, input_str: str) -> str:
@@ -99,7 +100,7 @@ class Simulation:
         ready_gates = {gate for gate in gates if self.all_nets_assigned(gate.inputs)}
         return ready_gates
 
-    def all_nets_assigned(self, net_ids: None | Collection[int] = None) -> bool:
+    def all_nets_assigned(self, net_ids: None | Iterable[NetId] = None) -> bool:
         """
         Return true if all given net ids are assigned a logic value.
         If collection is empty or none, check all known net's
@@ -132,7 +133,13 @@ class Simulation:
 
     def get_output_states(self) -> list[Logic]:
         """List of circuit output values in the order of original net-list"""
-        return [self._net_states.get(net, Logic.X) for net in self.circuit.outputs]
+        return [self.get_net_state(net) for net in self.circuit.outputs]
+
+    def get_net_state(self, id: NetId) -> Logic:
+        """Return the value of the net with `id` at this step in the simulation."""
+        # if the net id doesn't exist in the mapping,
+        # it has not been assigned (yet)
+        return self._net_states.get(id, Logic.X)
 
     def format_outputs(self) -> str:
         """A string representation of the fault-free circuit output state."""

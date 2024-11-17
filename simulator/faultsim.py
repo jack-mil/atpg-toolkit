@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from pathlib import Path
-    from .structs import Gate, Logic
+    from .structs import Gate, Logic, NetId
 
 from .simulator import Simulation
 from .structs import Fault
@@ -23,7 +23,7 @@ class FaultSimulation(Simulation):
         # # initialize base simulation for fault-free execution
         super().__init__(netlist)
 
-        self._fault_lists: dict[int, set[Fault]] = dict()
+        self._fault_lists: dict[NetId, set[Fault]] = dict()
         """Mapping of all net ids (nodes) in the circuit and their fault list"""
 
     def detect_faults(self, test_vector: str) -> set[Fault]:

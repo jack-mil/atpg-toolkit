@@ -3,7 +3,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Collection, Iterable, Self
+    from typing import Iterable, Self
+
+    from .structs import NetId
 
 from pathlib import Path
 
@@ -12,6 +14,14 @@ from .structs import Gate, GateType
 
 class NetlistFormatError(Exception):
     """Raised when circuit net-list is malformed or invalid"""
+
+
+def try_as_int(value: NetId):
+    """Backwards compatibility from when net id's where always Int"""
+    try:
+        return int(value)
+    except ValueError:
+        return value
 
 
 class Circuit:
@@ -30,19 +40,19 @@ class Circuit:
           Use `Circuit.load_from_file(Path)` to initialize a specific net-list.
         """
 
-        self.inputs: list[int] = list()
+        self.inputs: list[NetId] = list()
         """List of in-order circuit input net ids"""
 
-        self.outputs: list[int] = list()
+        self.outputs: list[NetId] = list()
         """List of in-order circuit output net ids"""
 
         self.gates: set[Gate] = set()
         """Set of all logic Gates in this circuit"""
 
-        self.gate_output_nets: set[int] = set()
+        self.gate_output_nets: set[NetId] = set()
         """Set of all nets which are gate outputs"""
 
-        self.nets: set[int] = set()
+        self.nets: set[NetId] = set()
         """Set of all net id's (nodes) in this circuit"""
 
     @classmethod
@@ -72,7 +82,7 @@ class Circuit:
             raise OSError(f'Net-list file "{netlist_file}" could not be found')
 
         with netlist_file.open() as f:
-            # prefilter blank lines
+            # pre-filter blank lines
             lines = [line.rstrip() for line in f if line]
 
         return cls.load_strings(lines)
@@ -87,10 +97,10 @@ class Circuit:
         - Raises NetlistFormatError if the net-list is malformed
         """
         circuit = cls()
-        
+
         for i, line in enumerate(netlist):  # process gate or I/O definition
             keyword, *nets = line.split()  # split on whitespace
-            nets = list(map(int, nets))  # map all net id's to numbers
+            nets = list(map(try_as_int, nets))  # use int or str as net ids
             try:
                 if keyword in GateType:
                     # the last net id in the line is the gate output net
@@ -98,12 +108,12 @@ class Circuit:
                     circuit.add_gate(GateType(keyword), output=out_id, inputs=tuple(in_ids))
                 elif keyword == 'INPUT':
                     *in_ids, end = nets  # discard end delimiter (-1)
-                    if end != -1:
+                    if str(end) != '-1':
                         raise NetlistFormatError('INPUT must be terminated with "-1"')
                     circuit.add_inputs(in_ids)
                 elif keyword == 'OUTPUT':
                     *out_ids, end = nets  # discard end delimiter (-1)
-                    if end != -1:
+                    if str(end) != '-1':
                         raise NetlistFormatError('OUTPUT must be terminated with "-1"')
                     circuit.add_outputs(out_ids)
                 else:
@@ -115,10 +125,10 @@ class Circuit:
 
         return circuit
 
-    def add_gate(self, type: GateType, inputs: tuple[int, ...], output: int):
+    def add_gate(self, type: GateType, inputs: tuple[NetId, ...], output: NetId):
         """
         Add a logic gate with given output and input nets. Records new id's in the set of all nets.
-        
+
         Raises NetlistFormatError if the output has already been driven by a previous gate.
         """
         if self.is_gate_output(output):
@@ -134,7 +144,7 @@ class Circuit:
         # Create a new gate and add it to internal set
         self.gates.add(Gate(type, output=output, inputs=inputs))
 
-    def add_inputs(self, net_ids: Iterable[int]):
+    def add_inputs(self, net_ids: Iterable[NetId]):
         """
         Assign one or more existing net_ids as primary inputs.
 
@@ -147,10 +157,12 @@ class Circuit:
             )
         conflicts = self.gate_output_nets.intersection(net_ids)
         if conflicts:
-            raise NetlistFormatError(f'Invalid input net(s): Primary inputs {conflicts} conflict with existing gate outputs.')
+            raise NetlistFormatError(
+                f'Invalid input net(s): Primary inputs {conflicts} conflict with existing gate outputs.'
+            )
         self.inputs.extend(net_ids)
 
-    def add_outputs(self, net_ids: Iterable[int]):
+    def add_outputs(self, net_ids: Iterable[NetId]):
         """Assign one or more existing net_ids as primary outputs."""
         missing_keys = set(net_ids).difference(self.nets)
         if missing_keys:
@@ -159,7 +171,7 @@ class Circuit:
             )
         self.outputs.extend(net_ids)
 
-    def is_gate_output(self, net_id: int) -> bool:
+    def is_gate_output(self, net_id: NetId) -> bool:
         """
         Returns true if the given net id is driven by a gate.
         (i.e., not a primary input)

@@ -4,10 +4,18 @@ Structures and enum data definitions for utility in the simulation module
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from enum import Enum, StrEnum, auto
+from typing import TYPE_CHECKING
 
-__all__ = ['GateType', 'Logic', 'Gate', 'Fault']
+if TYPE_CHECKING:
+    from typing import Literal
+
+from dataclasses import dataclass
+from enum import Enum, StrEnum
+
+__all__ = ['Logic', 'Gate', 'GateType', 'Fault', 'NetId']
+
+type NetId = int | str
+"""A net can be referred to by a integer or a string"""
 
 
 class Logic(Enum):
@@ -111,7 +119,7 @@ class Logic(Enum):
 class Fault:
     """Represent a net with a single stuck-at fault."""
 
-    net_id: int
+    net_id: NetId
     """Net (node) id of the fault"""
     stuck_at: Logic
     """Logic stuck at level (High or Low)"""
@@ -168,8 +176,8 @@ class Gate:
     """
 
     type_: GateType
-    inputs: tuple[int, ...]
-    output: int
+    inputs: tuple[NetId, ...]
+    output: NetId
 
     def evaluate(self, *input_states: Logic) -> Logic:
         """
