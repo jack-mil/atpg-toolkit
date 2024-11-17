@@ -110,6 +110,21 @@ class Logic(Enum):
             # one D, one Dbar
             return Logic.Low
 
+    def __xor__(self, other) -> Literal[Logic.Low, Logic.High]:
+        if not isinstance(other, Logic):
+            return NotImplemented
+
+        if self is not Logic.Low and self is not Logic.High:
+            return NotImplemented
+
+        if other is not Logic.Low and other is not Logic.High:
+            return NotImplemented
+
+        if self is other:
+            return Logic.Low
+        else:
+            return Logic.High
+
     def __str__(self) -> str:
         """String representation"""
         return self.value

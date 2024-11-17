@@ -39,9 +39,22 @@ class TestGate(unittest.TestCase):
         with self.assertRaises(TypeError):
             gate.evaluate(Logic.High)
 
+    def test_logic_xor(self):
+
+        # only for literal High and Low values (for now)
+        self.assertTrue((Logic.High ^ Logic.Low) is Logic.High)
+        self.assertTrue((Logic.Low ^ Logic.Low) is Logic.Low)
+        self.assertTrue((Logic.High ^ Logic.High) is Logic.Low)
+
+        # should error
+        with self.assertRaises(TypeError):
+            _ = Logic.D ^ Logic.Low
+        with self.assertRaises(TypeError):
+            _ = Logic.High ^ Logic.X
+
     def test_dcalc_logic(self):
         # fmt: off
-        
+
         # 5 state inversion
         self.assertTrue( ~ Logic.X    is Logic.X   )
         self.assertTrue( ~ Logic.D    is Logic.Dbar)
@@ -79,7 +92,7 @@ class TestGate(unittest.TestCase):
         self.assertTrue((Logic.D    | Logic.Dbar) is Logic.High )
         self.assertTrue((Logic.D    | Logic.D   ) is Logic.D    )
         self.assertTrue((Logic.Dbar | Logic.Dbar) is Logic.Dbar )
-        
+
         with self.assertRaises(TypeError):
             _ = Logic.D   | False
         with self.assertRaises(TypeError):
