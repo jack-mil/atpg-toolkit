@@ -2,6 +2,8 @@
 
 ## More docs WIP
 
+Reference: 
+> Miron Abramovici, M. A. Breuer, and A. D. Friedman, *Digital Systems Testing and Testable Design*. Wiley-IEEE Press, 1994.
 
 > *This project implements textbook concepts for a course on digital 
 > systems test generation. It is not recommended for any critical or 
