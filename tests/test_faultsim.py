@@ -126,27 +126,6 @@ class TestFaultSimulator(unittest.TestCase):
         faults = sim.detect_faults(vector)
         self.assertSetEqual(faults, expected_faults)
 
-    def test_can_do_regular_sim(self):
-        """Ensure that the FaultSimulation class preserves functionality of parent class"""
-        netlist = [
-            'INV 1 4',
-            'NAND 2 3 5',
-            'OR 4 5 6',
-            'INPUT 1 2 3 -1',
-            'OUTPUT 5 6 -1',
-        ]
-        sim = FaultSimulation(netlist)
-        reset_state = dict()
-        # check correct initial state
-        self.assertDictEqual(reset_state, sim._net_states)
-        self.assertFalse(sim.all_nets_assigned())
-
-        # check correct output
-        self.assertEqual(sim.simulate_input('111'), '00')
-
-        # check proper reset
-        self.assertDictEqual(reset_state, sim._net_states)
-        self.assertDictEqual(dict(), sim._fault_lists)
 
 
 if __name__ == '__main__':

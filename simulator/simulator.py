@@ -12,14 +12,31 @@ from .circuit import Circuit
 from .structs import Logic
 
 
-class Simulation:
+def bitstring_to_logic(string: str) -> list[Logic]:
     """
-    The Simulation class can do a forward 5-state simulation of all nets in a circuit.
-    A Simulation object is loaded with a specific circuit definition from a net-list file.
+    Check if the string contains only '0's and '1's.
+    Return the input vector string as a list of Logic values
+    """
 
-    Given an input vector, use simulate_input(vector) to get the output net states.
+    if not all(char in '01' for char in string):
+        raise TypeError("Input string must contain only '0's and '1's.")
+
+    # Convert the string to a list of boolean values
+    # Logic.High and Logic.Low can be constructed from '1' and '0' respectively
+    return [Logic(char) for char in string]
+
+
+class BaseSim:
+    """
+    The BaseSim class can do a forward 5-state simulation of all nets in a circuit.
+    Used by fault free Simulation, deductive fault simulator, and PODEM implication routines.
+
+    A BaseSim object is loaded with a specific circuit definition from a net-list file.
+
     Internally, inputs can be any of the Logic states (HIGH, LOW, D, D̅, X), and
     the D-Calculus is handled correctly.
+
+    Subclasses should implement _process_ready_gate() to control what happens at each step in the simulation
     """
 
     def __init__(self, netlist: Path | str | list[str]):
@@ -41,62 +58,57 @@ class Simulation:
         self._net_states: dict[NetId, Logic] = dict()
         """Mapping of all net ids (nodes) in the circuit, and the associated Logic value (HIGH, LOW, D, D̅, X)."""
 
-    def simulate_input(self, input_str: str) -> str:
+    def _simulate_input(self, vector: list[Logic]):
         """
-        Given an input vector string, simulate the fault-free circuit
-        and return the resulting output vector string.
-
-        The input string must be a binary string e.g. "1001010".
-        The order of inputs will be matched to the order of inputs from the net-list definition.
+        Perform a forward simulation with the given primary input assignments.
+        Does not return, only updates internal state of the nets
         """
 
-        # convert the input string to internal representation,
-        vector = self.validate_input_string(input_str)
-        # and run the simulation to final state
-        self._run_simulation(vector)
-
-        # All nets have been evaluated. Save the output state to return
-        output_result = self.format_outputs()
-
-        # Reset the net-list state so we can evaluate a new input vector later
-        self.reset()
-        return output_result
-
-    def _run_simulation(self, vector: list[Logic]):
-        """Internal implementation that does not reset the simulated state"""
+        if len(vector) != len(self.circuit.inputs):
+            raise ValueError(
+                f'Input vector length must match the number of input nets ({len(self.circuit.inputs)})'
+            )
 
         # Initialize the input nets with the input vector values
         for net_id, state in zip(self.circuit.inputs, vector, strict=True):
             self._net_states[net_id] = state
 
+        self._make_implications()
+
+    def _make_implications(self):
+        """
+        Do a forward simulation of any gates whose output can be determined by 5-valued D-Calculus
+        This method alone is used by PODEM to simulate by incrementally making primary input assignments.
+        """
         gates_to_process = self.circuit.gates.copy()
         # Simulate until every gate has been evaluated
         while len(gates_to_process) > 0:
             ready_gates = self.find_ready_gates(gates_to_process)
             for gate in ready_gates:
-                self._eval_ready_gate(gate)
+                new_state = self._process_ready_gate(gate)
+                self._net_states[gate.output] = new_state
 
             # Remove the ready gates from the list of gates yet to be processed
             gates_to_process.difference_update(ready_gates)
 
-    def _eval_ready_gate(self, gate: Gate):
+    def _process_ready_gate(self, gate: Gate, *args, **kwargs) -> Logic:
         """
-        Using the current net-list state,
-        evaluate what the output net state should be for the given gate.
+        Process a gate that has all inputs assigned, and return the output value.
+
+        Override in derived classes to do extra functionality when each node is processed
         """
-
-        # sanity check to ensure only valid gates get evaluated
-        if not self.all_nets_assigned(gate.inputs):
-            raise TypeError('Cannot evaluate a gate with unassigned inputs.')
-
         # evaluate the result of the gate inputs and update the net-list state
-        input_states = tuple(self._net_states[net_id] for net_id in gate.inputs)
+        input_states = self.gate_input_values(gate)
         output_state = gate.evaluate(*input_states)
-        self._net_states[gate.output] = output_state
+        return output_state
+
+    def gate_input_values(self, gate: Gate) -> tuple[Logic, ...]:
+        """Return the net values for all inputs of this `gate`"""
+        input_values = tuple(self._net_states[net_id] for net_id in gate.inputs)
+        return input_values
 
     def find_ready_gates(self, gates: set[Gate]) -> set[Gate]:
         """Return all gates from `gates` with all input nets assigned"""
-
         ready_gates = {gate for gate in gates if self.all_nets_assigned(gate.inputs)}
         return ready_gates
 
@@ -111,43 +123,66 @@ class Simulation:
         # net id's missing from the mapping are not assigned yet.
         return all(id in self._net_states for id in net_ids)
 
-    def validate_input_string(self, string: str) -> list[Logic]:
-        """
-        Check if the string contains only '0's and '1's,
-        and matches the number of expected input nets.
-
-        Return the input vector string as a list of Logic values
-        """
-
-        if not all(char in '01' for char in string):
-            raise RuntimeError("Input string must contain only '0's and '1's.")
-
-        if len(string) != len(self.circuit.inputs):
-            raise RuntimeError(
-                f'Input vector length must match the number of input nets ({len(self.circuit.inputs)})'
-            )
-
-        # Convert the string to a list of boolean values
-        # Logic.High and Logic.Low can be constructed from '1' and '0' respectively
-        return [Logic(char) for char in string]
-
     def get_output_states(self) -> list[Logic]:
         """List of circuit output values in the order of original net-list"""
-        return [self.get_net_state(net) for net in self.circuit.outputs]
+        return [self.get_state(net) for net in self.circuit.outputs]
 
-    def get_net_state(self, id: NetId) -> Logic:
+    def get_state(self, id: NetId) -> Logic:
         """Return the value of the net with `id` at this step in the simulation."""
         # if the net id doesn't exist in the mapping,
         # it has not been assigned (yet)
         return self._net_states.get(id, Logic.X)
 
+    def reset(self):
+        """Reset the simulation by setting all nets (nodes) uninitialized."""
+        self._net_states.clear()
+
+
+class Simulation(BaseSim):
+    """
+    The Simulation class is for fault-free simulation of a logic circuit
+    using fully defined input values (1 or 0)
+
+    Simulation provides `simulate_input(test_vector)` to perform a full
+    simulation and return the string representation of the primary outputs
+    """
+
+    def simulate_input(self, input_str: str) -> str:
+        """
+        Given an input vector string, simulate the fault-free circuit
+        and return the resulting output vector string.
+
+        The input string must be a binary string e.g. "1001010".
+        The order of inputs will be matched to the order of inputs from the net-list definition.
+        """
+
+        # convert the input string to machine representation
+        vector = bitstring_to_logic(input_str)
+
+        # and run the simulation to final state
+        self._simulate_input(vector)
+
+        # All nets have been evaluated. Save the output state to return
+        output_result = self.format_outputs()
+
+        # Reset the net-list state so we can evaluate a new input vector later
+        self.reset()
+        return output_result
+
+    def _process_ready_gate(self, gate: Gate) -> Logic:
+        """
+        Using the current net-list state, evaluate what the
+        fault-free output net value should be for the given gate.
+
+        Parent class override
+        """
+        # sanity check to ensure only valid gates get evaluated
+        if not self.all_nets_assigned(gate.inputs):
+            raise ValueError('Cannot evaluate a gate with unassigned inputs.')
+
+        return super()._process_ready_gate(gate)
+
     def format_outputs(self) -> str:
         """A string representation of the fault-free circuit output state."""
-        output_str = ''
-        for state in self.get_output_states():
-            output_str += str(state)
+        output_str = ''.join(str(v) for v in self.get_output_states())
         return output_str
-
-    def reset(self):
-        """Reset the simulation to all circuit nets (nodes) in uninitialized state."""
-        self._net_states.clear()

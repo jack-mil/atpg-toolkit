@@ -1,15 +1,17 @@
 from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from pathlib import Path
+
     from .structs import Gate, Logic, NetId
 
-from .simulator import Simulation
+from .simulator import BaseSim, bitstring_to_logic
 from .structs import Fault
 
 
-class FaultSimulation(Simulation):
+class FaultSimulation(BaseSim):
     """A circuit simulation that can determine stuck-at faults detected by test vectors"""
 
     def __init__(self, netlist: Path | str | list[str]):
@@ -28,13 +30,21 @@ class FaultSimulation(Simulation):
 
     def detect_faults(self, test_vector: str) -> set[Fault]:
         """
-        Return the set of all faults detected by a test vector.
-        Faults are simulated on the circuit defined for this simulation.
+        Return the set of all faults detected by a given test vector.
+        Faults are propagated through the circuit defined for this simulation.
+
+        The input string must be a binary string e.g. "1001010".
+        The order of inputs will be matched to the order of inputs from the net-list definition.
         """
-        # convert the input string to internal representation,
-        vector = self.validate_input_string(test_vector)
+        # convert the input string to machine representation,
+        vector = bitstring_to_logic(test_vector)
+
+        # Initialize the initial input net fault lists with their opposite stuck-at fault
+        for net_id, state in zip(self.circuit.inputs, vector, strict=True):
+            self._fault_lists[net_id] = {Fault(net_id, ~state)}
+
         # and propagate input faults through the netlist
-        self._deduce_faults(vector)
+        self._simulate_input(vector)
 
         # detected faults is the union of all fault lists on all output nets
         output_faults = set.union(
@@ -44,35 +54,17 @@ class FaultSimulation(Simulation):
         self.reset()
         return output_faults
 
-    def _deduce_faults(self, vector: list[Logic]):
+    def _process_ready_gate(self, gate: Gate) -> Logic:
         """
-        Run a fault free simulation concurrently at the same time as propagating the faults.
-        TODO: Some code is duplicated from Simulation, I would like to fix that
-        """
-
-        # Initialize the initial input net fault lists with their opposite stuck-at fault
-        for net_id, state in zip(self.circuit.inputs, vector, strict=True):
-            self._net_states[net_id] = state
-            self._fault_lists[net_id] = {Fault(net_id, ~state)}
-
-        gates_to_process = self.circuit.gates.copy()
-        # Simulate until every gate has been evaluated and faults propagated
-        while len(gates_to_process) > 0:
-            ready_gates = self.find_ready_gates(gates_to_process)
-            for gate in ready_gates:
-                self._propagate_ready_gate(gate)
-
-            # Remove the ready gates from the list of gates yet to be processed
-            gates_to_process.difference_update(ready_gates)
-
-    def _propagate_ready_gate(self, gate: Gate):
-        """
-        Using current fault-free net-list state and net fault lists,
+        Using current fault-free net-list state and fault lists,
         propagate all detected faults from gate inputs to the output,
         and evaluate & update the fault-free output.
+
+        See docs/deductive_sim_fault_propagation.png for textbook equation used here
+
+        Base class override, called by internal _simulate_input()
         """
-        # see docs/deductive_sim_fault_propagation.png for textbook equation used here
-        input_states = tuple(self._net_states[net_id] for net_id in gate.inputs)
+        input_states = self.gate_input_values(gate)
 
         control_value = gate.control_value()
         # Inverts and Buffers don't have a controlling value, and so this set is empty for them
@@ -93,14 +85,17 @@ class FaultSimulation(Simulation):
             )
             propagated = exclusive_faults - propagated
 
-        # evaluate the result of the gate inputs and update the net-list state
-        output_state = gate.evaluate(*input_states)
-        self._net_states[gate.output] = output_state
+        # evaluate the result of the gate inputs
+        output_state = super()._process_ready_gate(gate)
 
         # include the local output fault, and record the propagated faults
         propagated.add(Fault(gate.output, ~output_state))
         self._fault_lists[gate.output] = propagated
 
+        # return output for use by BaseSim
+        return output_state
+
     def reset(self):
+        """Reset the base sim and the fault lists"""
         super().reset()
         self._fault_lists = dict()

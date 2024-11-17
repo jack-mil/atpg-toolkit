@@ -1,7 +1,42 @@
 import unittest
 from pathlib import Path
 
-from simulator import Logic, Simulation
+from simulator.simulator import Simulation, BaseSim
+from simulator.structs import Logic
+
+
+class TestBaseSim(unittest.TestCase):
+    def test_5state(self):
+        """Test using the BaseSim forward simulation with D-Calculus"""
+        netlist = [
+            'INV 1 5',
+            'NAND 2 3 6',
+            'AND 5 2 7',
+            'OR 6 4 8',
+            'NAND 7 8 9',
+            'INPUT 1 2 3 4 -1',
+            'OUTPUT 9 8 -1',
+        ]
+
+        input_vector = [Logic.D, Logic.High, Logic.Low, Logic.X]
+        expected_output = [Logic.D, Logic.High]
+
+        sim = BaseSim(netlist)
+        # using internal implementation
+        sim._simulate_input(input_vector)
+        outputs = sim.get_output_states()
+        sim.reset()
+
+        self.assertListEqual(outputs, expected_output)
+
+        input_vector = [Logic.Dbar, Logic.High, Logic.High, Logic.X]
+        expected_output = [Logic.X, Logic.X]
+
+        sim._simulate_input(input_vector)
+        outputs = sim.get_output_states()
+        sim.reset()
+
+        self.assertListEqual(outputs, expected_output)
 
 
 class TestSimulator(unittest.TestCase):
@@ -37,7 +72,7 @@ class TestSimulator(unittest.TestCase):
             'OUTPUT 5 6 -1',
         ]
         sim = Simulation(netlist)
-        reset_state = dict() # unset nets don't have a key in the dict
+        reset_state = dict()  # unset nets don't have a key in the dict
         # check proper init
         self.assertDictEqual(reset_state, sim._net_states)
         self.assertFalse(sim.all_nets_assigned())
@@ -47,38 +82,6 @@ class TestSimulator(unittest.TestCase):
 
         # check proper reset
         self.assertDictEqual(reset_state, sim._net_states)
-
-    def test_5state(self):
-        """Test simulating a circuit with D-Calculus"""
-        netlist = [
-            'INV 1 5',
-            'NAND 2 3 6',
-            'AND 5 2 7',
-            'OR 6 4 8',
-            'NAND 7 8 9',
-            'INPUT 1 2 3 4 -1',
-            'OUTPUT 9 8 -1',
-        ]
-        sim = Simulation(netlist)
-
-        input_vector = [Logic.D, Logic.High, Logic.Low, Logic.X]
-        expected_output = [Logic.D, Logic.High]
-
-        # using internal implementation
-        sim._run_simulation(input_vector)
-        outputs = sim.get_output_states()
-        sim.reset()
-
-        self.assertListEqual(outputs, expected_output)
-
-        input_vector = [Logic.Dbar, Logic.High, Logic.High, Logic.X]
-        expected_output = [Logic.X, Logic.X]
-
-        sim._run_simulation(input_vector)
-        outputs = sim.get_output_states()
-        sim.reset()
-
-        self.assertListEqual(outputs, expected_output)
 
 
 if __name__ == '__main__':
