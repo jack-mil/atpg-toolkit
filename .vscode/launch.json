@@ -2,29 +2,29 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Fault-Free Sim Entrypoint",
+            "name": "Debug Sim",
             "type": "debugpy",
             "request": "launch",
-            "program": "run.py",
+            "program": "cli.py",
             "console": "internalConsole",
             "args": [
                 "simulate",
                 "${workspaceFolder}/circuits/s27.net",
                 "-f",
-                "${workspaceFolder}/tests/s27.in"
+                "${workspaceFolder}/scripts/data/s27.in"
             ]
         },
         {
-            "name": "Deductive Fault Sim Entrypoint",
+            "name": "Debug Deductive Fault Sim",
             "type": "debugpy",
             "request": "launch",
-            "program": "run.py",
+            "program": "cli.py",
             "console": "internalConsole",
             "args": [
                 "faults",
                 "${workspaceFolder}/circuits/s27.net",
                 "-f",
-                "${workspaceFolder}/tests/s27.in"
+                "${workspaceFolder}/scripts/data/s27.in"
             ]
         }
     ]
