@@ -168,6 +168,7 @@ class GateType(StrEnum):
         return f'<{self.name}>'
 
     def control_value(self):
+        """Mapping of controlling value for types of gates"""
         match self:
             case GateType.And | GateType.Nand:
                 return Logic.Low
@@ -177,6 +178,14 @@ class GateType(StrEnum):
                 return None
             case _:
                 raise TypeError(f'Gate type unknown: {self}')
+
+    def inversion(self):
+        """Mapping of inversion parity for types of gates"""
+        match self:
+            case GateType.And | GateType.Or | GateType.Buf:
+                return Logic.Low
+            case GateType.Nand | GateType.Nor | GateType.Inv:
+                return Logic.High
 
 
 @dataclass(eq=True, frozen=True)
@@ -215,5 +224,14 @@ class Gate:
             case _:
                 raise TypeError(f'Could not evaluate gate {self}')
 
-    def control_value(self):
+    def control_value(self) -> None | Literal[Logic.Low, Logic.High]:
+        """Get the control value for this type of Gate. None if it doesn't have one."""
         return self.type_.control_value()
+
+    def inversion(self) -> Literal[Logic.Low, Logic.High]:
+        """
+        Get the inversion value for this type of Gate.
+        - AND, OR, and BUF have parity 0
+        - NAND, NOR, and INV have parity 1
+        """
+        return self.type_.inversion()
