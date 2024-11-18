@@ -120,7 +120,7 @@ class Circuit:
                     raise NetlistFormatError(f'Error in net-list: Unknown gate type "{keyword}"')
 
             except NetlistFormatError as e:
-                e.add_note(f'{i+1} : "{line}" <-- Occurred here')
+                e.add_note(f'line {i+1} : "{line}" <-- Occurred here')
                 raise
 
         return circuit
@@ -142,7 +142,10 @@ class Circuit:
         self.nets.add(output)
         self.nets.update(inputs)
         # Create a new gate and add it to internal set
-        self.gates.add(Gate(type, output=output, inputs=inputs))
+        try:
+            self.gates.add(Gate(type, output=output, inputs=inputs))
+        except TypeError as e:
+            raise NetlistFormatError("Error adding gate: Invalid Gate definition.") from e
 
     def add_inputs(self, net_ids: Iterable[NetId]):
         """

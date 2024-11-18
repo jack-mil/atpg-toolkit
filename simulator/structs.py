@@ -22,7 +22,9 @@ class Logic(Enum):
     """
     Enum to represent a net logic level (voltage state).
 
-    The bitwise logical operators | & ~ are defined to evaluate 5-state logic.
+    - Bitwise logical operators | & ~ are defined to evaluate 5-state logic.
+
+    - Bitwise ^ (XOR) is defined for High and Low variants only.
 
     High and Low variants represent 1 and 0
     X : net with unknown/no logic level (NOT "don't care")
@@ -136,15 +138,15 @@ class Fault:
 
     net_id: NetId
     """Net (node) id of the fault"""
-    stuck_at: Logic
+    stuck_at: Literal[Logic.Low, Logic.High]
     """Logic stuck at level (High or Low)"""
 
     def __post_init__(self):
         """Validate the Fault struct at object creation"""
         if not isinstance(self.stuck_at, Logic):
-            raise TypeError("stuck at value must be a 'Logic' type")
+            raise TypeError('Stuck at value must be a "Logic" type')
         if (self.stuck_at is not Logic.Low) and (self.stuck_at is not Logic.High):
-            raise TypeError('stuck at must be set to a High or Low Logic value')
+            raise TypeError('Stuck at must be set to a High or Low Logic value')
 
     def __str__(self) -> str:
         """String representation (1-sa-0)"""
@@ -166,6 +168,14 @@ class GateType(StrEnum):
 
     def __repr__(self):
         return f'<{self.name}>'
+
+    def min_inputs(self):
+        """Mapping of minimum inputs for types of gates"""
+        match self:
+            case GateType.Inv | GateType.Buf:
+                return 1
+            case _:
+                return 2
 
     def control_value(self):
         """Mapping of controlling value for types of gates"""
@@ -202,6 +212,11 @@ class Gate:
     type_: GateType
     inputs: tuple[NetId, ...]
     output: NetId
+
+    def __post_init__(self):
+        """Validate the Gate struct at object creation"""
+        if len(self.inputs) < (n := self.type_.min_inputs()):
+            raise TypeError(f'Gate of type {self.type_} must have >= {n} inputs')
 
     def evaluate(self, *input_states: Logic) -> Logic:
         """

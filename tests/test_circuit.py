@@ -93,7 +93,6 @@ class TestCircuit(unittest.TestCase):
         self.assertListEqual([1, 2], circuit.inputs)
         self.assertListEqual([1, 6], circuit.outputs)
 
-    def test_missing_parts(self):
         # no_input = [
         #     'AND 1 2 3',
         #     'OUTPUT 3 -1',
@@ -101,15 +100,17 @@ class TestCircuit(unittest.TestCase):
         # with self.assertRaises(NetlistFormatError) as cm:
         #     _ = Circuit.load_strings(no_input)
         # print(cm.exception)
+    def test_bad_gate(self):
+        bad_gate_nets = [
+            'AND 1 3', # <- invalid one-input AND gate
+            'INPUT 1 -1',
+            'OUTPUT 3 -1'
+        ]
+        with self.assertRaises(NetlistFormatError) as cm:
+            _ = Circuit.load_strings(bad_gate_nets)
+        print(cm.exception)
 
-        # no_output = [
-        #     'AND 1 2 3',
-        #     'INPUT 1 2 -1',
-        # ]
-        # with self.assertRaises(NetlistFormatError) as cm:
-        #     _ = Circuit.load_strings(no_output)
-        # print(cm.exception)
-
+    def test_bad_delimter(self):
         missing_end = [
             'AND 1 2 3',
             'INPUT 1 2',  # <- missing -1
