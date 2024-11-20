@@ -129,4 +129,4 @@ class TestSimplePodem(unittest.TestCase):
         for fault, expected_tests in tests_for_faults.items():
             with self.subTest(test=str(fault)):
                 found_test = podem.generate_test(fault)
-            self.assertIn(found_test, expected_tests)
+                self.assertIn(found_test, expected_tests)

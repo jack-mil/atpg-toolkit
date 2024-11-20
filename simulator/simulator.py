@@ -41,7 +41,6 @@ class BaseSim:
         )
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
 
-        # self._net_states = {net_id: Logic.X for net_id in self.circuit.nets}
         self._net_states: dict[NetId, Logic] = dict()
         """Mapping of all net ids (nodes) in the circuit, and the associated Logic value (HIGH, LOW, D, D̅, X)."""
 
@@ -73,7 +72,7 @@ class BaseSim:
             ready_gates = self.find_ready_gates(gates_to_process)
             for gate in ready_gates:
                 new_state = self._process_ready_gate(gate)
-                self._net_states[gate.output] = new_state
+                self.set_state(gate.output, new_state)
 
             # Remove the ready gates from the list of gates yet to be processed
             gates_to_process.difference_update(ready_gates)
@@ -91,7 +90,7 @@ class BaseSim:
 
     def gate_input_values(self, gate: Gate) -> tuple[Logic, ...]:
         """Return the net values for all inputs of this `gate`"""
-        input_values = tuple(self._net_states[net_id] for net_id in gate.inputs)
+        input_values = tuple(self.get_state(id) for id in gate.inputs)
         return input_values
 
     def find_ready_gates(self, gates: set[Gate]) -> set[Gate]:
@@ -115,6 +114,10 @@ class BaseSim:
         # if the net id doesn't exist in the mapping,
         # it has not been assigned (yet)
         return self._net_states.get(id, Logic.X)
+    
+    def set_state(self, id:NetId, value: Logic):
+        """Assign logic `value` to net with `id`"""
+        self._net_states[id] = value
 
     def get_out_values(self) -> list[Logic]:
         """List of circuit output values in the order of original net-list"""
