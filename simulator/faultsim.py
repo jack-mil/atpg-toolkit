@@ -70,7 +70,7 @@ class FaultSimulation(BaseSim):
         control_value = gate.control_value()
         # Inverts and Buffers don't have a controlling value, and so this set is empty for them
         controlling_inputs = {
-            net for net, state in zip(gate.inputs, input_states) if state is control_value
+            net for net, state in zip(gate.inputs, input_states, strict=True) if state is control_value
         }
         non_controlling_inputs = set(gate.inputs) - controlling_inputs
 

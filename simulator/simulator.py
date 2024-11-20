@@ -3,14 +3,14 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
     from pathlib import Path
-    from typing import Iterable
 
     from .structs import Gate, NetId
 
+from . import util
 from .circuit import Circuit
 from .structs import Logic
-from . import util
 
 
 class BaseSim:
@@ -23,7 +23,8 @@ class BaseSim:
     Internally, inputs can be any of the Logic states (HIGH, LOW, D, D̅, X), and
     the D-Calculus is handled correctly.
 
-    Subclasses should implement _process_ready_gate() to control what happens at each step in the simulation
+    Subclasses should implement _process_ready_gate()
+    to control what happens at each step in the simulation
     """
 
     def __init__(self, netlist: Path | str | list[str]):
@@ -114,8 +115,8 @@ class BaseSim:
         # if the net id doesn't exist in the mapping,
         # it has not been assigned (yet)
         return self._net_states.get(id, Logic.X)
-    
-    def set_state(self, id:NetId, value: Logic):
+
+    def set_state(self, id: NetId, value: Logic):
         """Assign logic `value` to net with `id`"""
         self._net_states[id] = value
 

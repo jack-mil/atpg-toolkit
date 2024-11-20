@@ -1,5 +1,6 @@
 import unittest
 from dataclasses import FrozenInstanceError
+
 from simulator.structs import Gate, GateType, Logic
 
 
@@ -40,7 +41,6 @@ class TestGate(unittest.TestCase):
             gate.evaluate(Logic.High)
 
     def test_logic_xor(self):
-
         # only for literal High and Low values (for now)
         self.assertTrue((Logic.High ^ Logic.Low) is Logic.High)
         self.assertTrue((Logic.Low ^ Logic.Low) is Logic.Low)

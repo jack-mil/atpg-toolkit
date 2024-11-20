@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 
-from simulator.simulator import Simulation, BaseSim
+from simulator.simulator import BaseSim, Simulation
 from simulator.structs import Logic
 
 

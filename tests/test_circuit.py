@@ -100,11 +100,12 @@ class TestCircuit(unittest.TestCase):
         # with self.assertRaises(NetlistFormatError) as cm:
         #     _ = Circuit.load_strings(no_input)
         # print(cm.exception)
+
     def test_bad_gate(self):
         bad_gate_nets = [
-            'AND 1 3', # <- invalid one-input AND gate
+            'AND 1 3',  # <- invalid one-input AND gate
             'INPUT 1 -1',
-            'OUTPUT 3 -1'
+            'OUTPUT 3 -1',
         ]
         with self.assertRaises(NetlistFormatError) as cm:
             _ = Circuit.load_strings(bad_gate_nets)

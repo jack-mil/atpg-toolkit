@@ -7,11 +7,10 @@
 # This does serve as a good reference of the public simulator API in action
 
 import csv
-from itertools import zip_longest
 import math
-from pathlib import Path
-
 import sys
+from itertools import zip_longest
+from pathlib import Path
 
 # Import Path manipulation so script can live in a subfolder
 this_dir = Path(__file__).parent

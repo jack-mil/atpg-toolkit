@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Script for the data to include in report 2 for project part 2."""
 
-from pathlib import Path
-
 import sys
+from pathlib import Path
 
 # Import Path manipulation so script can live in a subfolder
 this_dir = Path(__file__).parent
@@ -24,16 +23,16 @@ test_cases = [
 ]
 
 for file, test in test_cases:
-    file = Path(file)
-    sim = FaultSimulation(file)
+    path = Path(file)
+    sim = FaultSimulation(path)
     faults = sim.detect_faults(test)
     # output in format for typst table
     # print(f'[{file.name}], [{test}], [{len(faults)}],')
 
-    print(f'=== Circuit: {file.stem}')
+    print(f'=== Circuit: {path.stem}')
     print(f'- Input Vector: `{" ".join(test)}`')
     print(f'- Detected Faults: {len(faults)}')
-    print(f'#figure(caption:[{file.stem} (`{"".join(test)}`)],')
+    print(f'#figure(caption:[{path.stem} (`{"".join(test)}`)],')
     print('table(columns:9,')
     for f in sorted(faults):
         print(f'[{f.net_id} s-a-{f.stuck_at}],')

@@ -127,6 +127,5 @@ class TestFaultSimulator(unittest.TestCase):
         self.assertSetEqual(faults, expected_faults)
 
 
-
 if __name__ == '__main__':
     unittest.main(verbosity=2)

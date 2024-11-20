@@ -4,14 +4,15 @@ This module shows how to use the `simulator` and `circuit` module API.
 """
 
 from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from argparse import Namespace
     from pathlib import Path
 
-from .simulator import Simulation
 from .faultsim import FaultSimulation
+from .simulator import Simulation
 
 
 def main():

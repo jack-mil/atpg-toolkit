@@ -3,7 +3,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Iterable, Self
+    from collections.abc import Iterable
+    from typing import Self
 
     from .structs import NetId
 
@@ -145,7 +146,7 @@ class Circuit:
         try:
             self.gates.add(Gate(type, output=output, inputs=inputs))
         except TypeError as e:
-            raise NetlistFormatError("Error adding gate: Invalid Gate definition.") from e
+            raise NetlistFormatError('Error adding gate: Invalid Gate definition.') from e
 
     def add_inputs(self, net_ids: Iterable[NetId]):
         """
