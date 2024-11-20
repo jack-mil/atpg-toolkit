@@ -24,7 +24,7 @@ class TestBaseSim(unittest.TestCase):
         sim = BaseSim(netlist)
         # using internal implementation
         sim._simulate_input(input_vector)
-        outputs = sim.get_output_states()
+        outputs = sim.get_out_values()
         sim.reset()
 
         self.assertListEqual(outputs, expected_output)
@@ -33,7 +33,7 @@ class TestBaseSim(unittest.TestCase):
         expected_output = [Logic.X, Logic.X]
 
         sim._simulate_input(input_vector)
-        outputs = sim.get_output_states()
+        outputs = sim.get_out_values()
         sim.reset()
 
         self.assertListEqual(outputs, expected_output)

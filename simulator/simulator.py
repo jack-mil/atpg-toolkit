@@ -10,20 +10,7 @@ if TYPE_CHECKING:
 
 from .circuit import Circuit
 from .structs import Logic
-
-
-def bitstring_to_logic(string: str) -> list[Logic]:
-    """
-    Check if the string contains only '0's and '1's.
-    Return the input vector string as a list of Logic values
-    """
-
-    if not all(char in '01' for char in string):
-        raise TypeError("Input string must contain only '0's and '1's.")
-
-    # Convert the string to a list of boolean values
-    # Logic.High and Logic.Low can be constructed from '1' and '0' respectively
-    return [Logic(char) for char in string]
+from . import util
 
 
 class BaseSim:
@@ -123,15 +110,19 @@ class BaseSim:
         # net id's missing from the mapping are not assigned yet.
         return all(id in self._net_states for id in net_ids)
 
-    def get_output_states(self) -> list[Logic]:
-        """List of circuit output values in the order of original net-list"""
-        return [self.get_state(net) for net in self.circuit.outputs]
-
     def get_state(self, id: NetId) -> Logic:
         """Return the value of the net with `id` at this step in the simulation."""
         # if the net id doesn't exist in the mapping,
         # it has not been assigned (yet)
         return self._net_states.get(id, Logic.X)
+
+    def get_out_values(self) -> list[Logic]:
+        """List of circuit output values in the order of original net-list"""
+        return [self.get_state(net) for net in self.circuit.outputs]
+
+    def get_in_values(self) -> list[Logic]:
+        """List of circuit input values in the order of original net-list"""
+        return [self.get_state(net) for net in self.circuit.inputs]
 
     def reset(self):
         """Reset the simulation by setting all nets (nodes) uninitialized."""
@@ -157,13 +148,13 @@ class Simulation(BaseSim):
         """
 
         # convert the input string to machine representation
-        vector = bitstring_to_logic(input_str)
+        vector = util.bitstring_to_logic(input_str)
 
         # and run the simulation to final state
         self._simulate_input(vector)
 
         # All nets have been evaluated. Save the output state to return
-        output_result = self.format_outputs()
+        output_result = util.logic_to_bitstring(self.get_out_values())
 
         # Reset the net-list state so we can evaluate a new input vector later
         self.reset()
@@ -181,8 +172,3 @@ class Simulation(BaseSim):
             raise ValueError('Cannot evaluate a gate with unassigned inputs.')
 
         return super()._process_ready_gate(gate)
-
-    def format_outputs(self) -> str:
-        """A string representation of the fault-free circuit output state."""
-        output_str = ''.join(str(v) for v in self.get_output_states())
-        return output_str

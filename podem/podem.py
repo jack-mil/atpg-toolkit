@@ -7,6 +7,7 @@ if TYPE_CHECKING:
 
     from simulator.structs import Fault, Gate, NetId
 
+from simulator import util
 from simulator.simulator import BaseSim
 from simulator.structs import Gate, Logic
 
@@ -42,28 +43,13 @@ class ErrorSim(BaseSim):
         for net_id in self.circuit.inputs:
             self._net_states[net_id] = Logic.X
 
-    def get_input_states(self) -> list[Logic]:
-        """List of circuit input values in the order of original net-list"""
-        inputs = [self.get_state(net) for net in self.circuit.inputs]
-
-        return inputs
-
-    def format_inputs(self) -> str:
-        """A string representation of the circuit input assignments"""
-        inputs = self.get_input_states()
-        inputs = [Logic.High if v is Logic.D else v for v in inputs]
-        inputs = [Logic.Low if v is Logic.Dbar else v for v in inputs]
-        input_str = ''.join(str(v) for v in inputs)
-        
-        return input_str
-
     def simulate_input_assignment(self, pi_net: NetId, value: Logic):
         """Assign a single primary input the given logic value."""
         if pi_net not in self.circuit.inputs:
             raise ValueError(f'Net {pi_net} is not a Primary Input (PI)')
 
         # save the previous input assignments before resetting internal assignments
-        prev_inputs = self.get_input_states()
+        prev_inputs = self.get_in_values()
         self.reset()
         # assign old input values
         for net_id, state in zip(self.circuit.inputs, prev_inputs, strict=True):
@@ -126,7 +112,7 @@ class TestGenerator:
         # recursively execute the PODEM algorithm
         if self.podem(fault):
             # succeeded, return test as a string
-            test_vector = self.sim.format_inputs()
+            test_vector = util.logic_to_bitstring(self.sim.get_in_values())
             return test_vector
 
         # undetectable fault

@@ -7,7 +7,8 @@ if TYPE_CHECKING:
 
     from .structs import Gate, Logic, NetId
 
-from .simulator import BaseSim, bitstring_to_logic
+from . import util
+from .simulator import BaseSim
 from .structs import Fault
 
 
@@ -37,7 +38,7 @@ class FaultSimulation(BaseSim):
         The order of inputs will be matched to the order of inputs from the net-list definition.
         """
         # convert the input string to machine representation,
-        vector = bitstring_to_logic(test_vector)
+        vector = util.bitstring_to_logic(test_vector)
 
         # Initialize the initial input net fault lists with their opposite stuck-at fault
         for net_id, state in zip(self.circuit.inputs, vector, strict=True):
