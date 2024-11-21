@@ -1,6 +1,8 @@
 import unittest
+from pathlib import Path
 
 from podem import TestGenerator
+from simulator.faultsim import FaultSimulation
 from simulator.structs import Fault, Gate, GateType, Logic
 
 
@@ -127,6 +129,97 @@ class TestSimplePodem(unittest.TestCase):
         podem = TestGenerator(netlist)
 
         for fault, expected_tests in tests_for_faults.items():
-            with self.subTest(test=str(fault)):
+            with self.subTest(msg=str(fault)):
                 found_test = podem.generate_test(fault)
                 self.assertIn(found_test, expected_tests)
+
+    def test_small_circuit(self):
+        netlist = [
+            'NAND B C E',
+            'NAND A E F',
+            'NAND C E G',
+            'NAND D E I',
+            'NAND F G H',
+            'INPUT A B C D -1',
+            'OUTPUT H I -1',
+        ]
+        fault_tests = {
+            Fault('G', 0): {'X111', ...},  # probably more, idk
+            Fault('B', 0): {'X111', ...},  # probably more, idk
+            Fault('I', 0): {'X111', 'XXX0', ...},  # probably more, idk
+            Fault('E', 1): {'X111', ...},
+            Fault('H', 0): {'10XX', ...},
+        }
+        podem = TestGenerator(netlist)
+        for fault, expected_tests in fault_tests.items():
+            with self.subTest(msg=str(fault)):
+                found_test = podem.generate_test(fault)
+                self.assertIn(found_test, expected_tests)
+
+    @unittest.skip('Requires multi-input gate support')
+    def test_circuit_hand(self):
+        """Test the circuit and fault from Textbook Figure 6.24 (see docs/)"""
+        netlist = [
+            'NAND a b c g',
+            "INV d d'",
+            "INV e e'",
+            "INV f f'",
+            "NAND a d' h",
+            'NAND d g i',
+            "NAND b e' j",
+            'NAND e g k',
+            "NAND c f' l",
+            'NAND f g m',
+            'NOR h i j k l m n',
+            'INPUT a b c d e f -1',
+            'OUTPUT n -1',
+        ]
+
+        fault = Fault('a', stuck_at=1)
+        expected_test = '011111'
+
+        podem = TestGenerator(netlist)
+
+        found_test = podem.generate_test(fault)
+
+        self.assertEqual(found_test, expected_test)
+
+
+class TestPodemComplete(unittest.TestCase):
+    def setUp(self):
+        # Nelist files and corresponding expected outputs for each input vector
+        self.test_cases = [
+            # (netlist file, target fault, expected test)
+            ('circuits/s27.net', Fault(16, 0), 'X0X10X0'),
+            ('circuits/s27.net', Fault(18, 1), '11X101X'),
+            ('circuits/s298f_2.net', Fault(70, 1), '01X1XXXXXXXXXX0XX'),
+            ('circuits/s298f_2.net', Fault(92, 0), 'X10101XXXXXX0X0XX'),
+            ('circuits/s344f_2.net', Fault(166, 0), '01X00XXXXX011XX0XXXXXXXX'),
+            ('circuits/s344f_2.net', Fault(91, 1), '111XXXXXXXXXXXXXXXXXXXXX'),
+            ('circuits/s349f_2.net', Fault(25, 1), 'XXXXXXXXXXXXXXX1XXXXXXXX'),
+            ('circuits/s349f_2.net', Fault(7, 0), 'XXXXXX1XXXXXXXXXXXXXXXXX'),
+        ]
+
+    def test_comprehensive(self):
+        """
+        Run a integration test for the matrix of netlists and target faults against
+        the detected faults from feeding the test into the simulator
+        """
+        for netlist_file, target_fault, expected_test in self.test_cases:
+            _, _, stub = netlist_file.partition('/')
+            with self.subTest(msg=f'{stub} : {target_fault}'):
+                atpg = TestGenerator(Path(netlist_file))
+                test = atpg.generate_test(target_fault)
+
+                self.assertIsNotNone(test)
+
+                sim = FaultSimulation(Path(netlist_file))
+                detected_faults = sim.detect_faults(test)
+
+                self.assertIn(target_fault, detected_faults)
+
+                # exact match will sometimes work, sometimes not,
+                # because of arbitrary path selection and multiple
+                # correct tests to detect a single fault
+                # with self.subTest(msg='Exact match'):
+                #     self.assertEqual(test, expected_test)

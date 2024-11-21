@@ -57,7 +57,8 @@ class TestSimulator(unittest.TestCase):
     def test_comprehensive(self):
         """Run a integration test for the matrix of netlists and input vectors against expected output strings"""
         for netlist_file, input_vector, expected_output in self.test_cases:
-            with self.subTest(netlist=netlist_file, vector=input_vector):
+            _, _, stub = netlist_file.partition('/')
+            with self.subTest(msg=f'{stub} : {input_vector}'):
                 sim = Simulation(Path(netlist_file))
                 output = sim.simulate_input(input_vector)
                 self.assertEqual(output, expected_output)
