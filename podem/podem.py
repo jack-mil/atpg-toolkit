@@ -1,3 +1,6 @@
+# TODO document
+# TODO move to common package
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -23,7 +26,13 @@ def filter_errors(vector: list[Logic]) -> str:
 
 
 class ErrorSim(BaseSim):
-    """TODO: docs"""
+    """
+    Used internally by TestGenerator only.
+    
+    Special configuration of a 5-valued logic simulation customized for use in PODEM
+    Is assigned a target fault, and injects D/Dbar error values in the net states
+    as the simulation proceeds.
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -95,10 +104,9 @@ class ErrorSim(BaseSim):
 
 class TestGenerator:
     """
-    Use the PODEM (Path-Oriented Decision Making)
-    Automatic Test Pattern Generation algorithm
-    to generate test vectors for specific stuck-at faults
-    on a given net-list of combinational logic gates.
+    Use the PODEM (Path-Oriented Decision Making) Automatic Test Pattern Generation
+    algorithm to generate test vectors for specific stuck-at faults on a given 
+    circuit of combinational logic gates.
 
     The class uses the same Circuit and Simulation primitives as the fault simulator.
     """
@@ -112,15 +120,15 @@ class TestGenerator:
         """
 
         self.sim = ErrorSim(netlist)
-        """TODO: add docs"""
+        """Internal circuit simulation and state"""
 
-        self.d_frontier: set[Gate] = set()
-        """Gates whose output is unset (X) and at-least one input is D or D̅"""
+        self.d_frontier: set[Gate] = set() # TODO: should be part of ErrorSim?
+        """Gates whose output is unset (X) and at-least one input is D or D̅ """
 
         self.output_to_gate = {gate.output: gate for gate in self.sim.circuit.gates}
         """Mapping of a particular net to the Gate driving it."""
 
-    def generate_test(self, fault: Fault):
+    def generate_test(self, fault: Fault) -> str | None:
         """
         Generate a test that detects the given fault
 
@@ -130,10 +138,10 @@ class TestGenerator:
         Return None if the fault is undetectable.
         """
         # reset and prepare forward-simulation engine
-        self.sim.start_state(fault)
+        self.sim.start_state(fault) # TODO: find better solution for setting up the target fault (pass as args?)
 
         # recursively execute the PODEM algorithm
-        success = self.podem(fault)
+        success = self.podem(fault) # TODO: be consistent with what uses instance state and what passed into functions
         if success:
             # succeeded, replace D/Dbar in inputs with 0/1 and return test as a string
             test_vector = filter_errors(self.sim.get_in_values())
@@ -166,6 +174,7 @@ class TestGenerator:
         return False
 
     def imply(self, pi_net: NetId, value: Logic):
+        # TODO: remove and replace with method on ErrorSim
         # first simulate
         self.sim.simulate_input_assignment(pi_net, value)
 

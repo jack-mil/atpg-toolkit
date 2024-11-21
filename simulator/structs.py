@@ -155,7 +155,7 @@ class Fault:
 
     net_id: str | int
     """Net (node) id of the fault"""
-    stuck_at: str | int | bool | Logic = field()
+    stuck_at: Logic = field()
     """Logic stuck at level (High or Low)"""
 
     def __post_init__(self):
