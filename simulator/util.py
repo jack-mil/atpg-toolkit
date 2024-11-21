@@ -38,8 +38,8 @@ def bitstring_to_logic(string: str) -> list[Logic]:
     Return the input vector string as a list of Logic values
     """
 
-    if not all(char in '01' for char in string):
-        raise TypeError("Input string must contain only '0's and '1's.")
+    if not all(char in '01X' for char in string):
+        raise TypeError("Input string must contain only '0's, '1's and X's")
 
     # Convert the string to a list of boolean values
     # Logic.High and Logic.Low can be constructed from '1' and '0' respectively

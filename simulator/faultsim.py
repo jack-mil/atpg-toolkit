@@ -5,11 +5,11 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from pathlib import Path
 
-    from .structs import Gate, Logic, NetId
+    from .structs import Gate, NetId
 
 from . import util
 from .simulator import BaseSim
-from .structs import Fault
+from .structs import Fault, Logic
 
 
 class FaultSimulation(BaseSim):
@@ -34,15 +34,15 @@ class FaultSimulation(BaseSim):
         Return the set of all faults detected by a given test vector.
         Faults are propagated through the circuit defined for this simulation.
 
-        The input string must be a binary string e.g. "1001010".
+        The input string must be a binary string e.g. "1X01XX0" with X's as don't care conditions
         The order of inputs will be matched to the order of inputs from the net-list definition.
         """
         # convert the input string to machine representation,
         vector = util.bitstring_to_logic(test_vector)
 
         # Initialize the initial input net fault lists with their opposite stuck-at fault
-        for net_id, state in zip(self.circuit.inputs, vector, strict=True):
-            self._fault_lists[net_id] = {Fault(net_id, ~state)}
+        for net_id, state in zip(self.circuit.inputs, vector):
+            self._fault_lists[net_id] = set() if state is Logic.X else {Fault(net_id, ~state)} 
 
         # and propagate input faults through the netlist
         self._simulate_input(vector)
@@ -90,7 +90,8 @@ class FaultSimulation(BaseSim):
         output_state = super()._process_ready_gate(gate)
 
         # include the local output fault, and record the propagated faults
-        propagated.add(Fault(gate.output, ~output_state))
+        if output_state is not Logic.X:
+            propagated.add(Fault(gate.output, ~output_state))
         self._fault_lists[gate.output] = propagated
 
         # return output for use by BaseSim
