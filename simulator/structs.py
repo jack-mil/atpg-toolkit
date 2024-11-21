@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import Literal
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum, StrEnum
 
 __all__ = ['Logic', 'Gate', 'GateType', 'Fault', 'NetId']
@@ -18,7 +18,18 @@ type NetId = int | str
 """A net can be referred to by a integer or a string"""
 
 
-class Logic(Enum):
+class MultiValueEnum(Enum):
+    # https://docs.python.org/3/howto/enum.html#multivalueenum
+    # requires Python 3.13
+    def __new__(cls, value, *values):
+        it = object.__new__(cls)
+        it._value_ = value
+        for v in values:
+            it._add_value_alias_(v)
+        return it
+
+
+class Logic(MultiValueEnum):
     """
     Enum to represent a net logic level (voltage state).
 
@@ -32,9 +43,9 @@ class Logic(Enum):
     D̅ : faulty net at 1 instead of 0
     """
 
-    High = '1'
+    High = '1', 1, True
     """Logical 1"""
-    Low = '0'
+    Low = '0', 0, False
     """Logical 0"""
     D = 'D'
     """Faulty 0 instead of 1 (SA0)"""
@@ -134,19 +145,29 @@ class Logic(Enum):
 
 @dataclass(eq=True, frozen=True, order=True)
 class Fault:
-    """Represent a net with a single stuck-at fault."""
+    """
+    Represent a net with a single stuck-at fault.
+    TODO: Make this a regular class instead of dataclass,
+    just implement hashable and order, etc.
+    Less complicated than working around dataclass validation.
+    Would also simplify constructing Logic type
+    """
 
-    net_id: NetId
+    net_id: str | int
     """Net (node) id of the fault"""
-    stuck_at: Literal[Logic.Low, Logic.High]
+    stuck_at: str | int | bool | Logic = field()
     """Logic stuck at level (High or Low)"""
 
     def __post_init__(self):
-        """Validate the Fault struct at object creation"""
+        """
+        Validate the Fault struct at object creation
+        See: https://docs.python.org/3/library/dataclasses.html#frozen-instances
+        """
         if not isinstance(self.stuck_at, Logic):
-            raise TypeError('Stuck at value must be a "Logic" type')
+            object.__setattr__(self, 'stuck_at', Logic(self.stuck_at))
         if (self.stuck_at is not Logic.Low) and (self.stuck_at is not Logic.High):
             raise TypeError('Stuck at must be set to a High or Low Logic value')
+        pass
 
     def __str__(self) -> str:
         """String representation (1-sa-0)"""
@@ -237,7 +258,7 @@ class Gate:
             case GateType.Nand, (state_a, state_b):
                 return ~(state_a & state_b)
             case _:
-                raise TypeError(f'Could not evaluate gate {self}')
+                raise TypeError(f'Gate {self} not supported')
 
     def control_value(self) -> None | Literal[Logic.Low, Logic.High]:
         """Get the control value for this type of Gate. None if it doesn't have one."""
