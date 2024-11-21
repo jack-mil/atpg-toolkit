@@ -20,7 +20,7 @@ class TestFaultsSingleGates(unittest.TestCase):
         sim = FaultSimulation(netlist)
 
         for test, correct_faults in and_faults.items():
-            with self.subTest(test=test):
+            with self.subTest(msg=test):
                 found_faults = sim.detect_faults(test)
                 print(found_faults)
                 self.assertSetEqual(found_faults, correct_faults)
@@ -41,7 +41,7 @@ class TestFaultsSingleGates(unittest.TestCase):
         sim = FaultSimulation(netlist)
 
         for test, correct_faults in or_faults.items():
-            with self.subTest(test=test):
+            with self.subTest(msg=test):
                 found_faults = sim.detect_faults(test)
                 print(found_faults)
                 self.assertSetEqual(found_faults, correct_faults)
@@ -62,7 +62,7 @@ class TestFaultsSingleGates(unittest.TestCase):
         sim = FaultSimulation(netlist)
 
         for test, correct_faults in nor_faults.items():
-            with self.subTest(test=test):
+            with self.subTest(msg=test):
                 found_faults = sim.detect_faults(test)
                 print(found_faults)
                 self.assertSetEqual(found_faults, correct_faults)
@@ -83,7 +83,7 @@ class TestFaultsSingleGates(unittest.TestCase):
         sim = FaultSimulation(netlist)
 
         for test, correct_faults in nand_faults.items():
-            with self.subTest(test=test):
+            with self.subTest(msg=test):
                 found_faults = sim.detect_faults(test)
                 print(found_faults)
                 self.assertSetEqual(found_faults, correct_faults)
@@ -102,12 +102,39 @@ class TestFaultsSingleGates(unittest.TestCase):
         sim = FaultSimulation(netlist)
 
         for test, correct_faults in inv_faults.items():
-            with self.subTest(test=test):
+            with self.subTest(msg=test):
                 found_faults = sim.detect_faults(test)
                 self.assertSetEqual(found_faults, correct_faults)
 
 
 class TestFaultSimulator(unittest.TestCase):
+    def test_x_inputs(self):
+        """
+        Test detecting faults with X inputs
+        Circuit from Textbook Figure 6.58(a)
+        """
+        netlist = [
+            'NAND B C E',
+            'NAND A E F',
+            'NAND C E G',
+            'NAND D E I',
+            'NAND F G H',
+            'INPUT A B C D -1',
+            'OUTPUT H I -1',
+        ]
+        wild_faults = {
+            'X111': {Fault('E', 1)},
+            '10XX' : {Fault('H', 0)}
+        }
+        sim = FaultSimulation(netlist)
+
+        for test, expected_faults in wild_faults.items():
+            with self.subTest(msg=test):
+                found_faults = sim.detect_faults(test)
+                print(f'{test=}')
+                print(*(f for f in found_faults))
+                self.assertLessEqual(expected_faults, found_faults)
+
     def test_small_netlist(self):
         """Find all faults in small circuit and check exact output"""
         expected_faults = {
