@@ -1,4 +1,4 @@
-Circuit: circuits\s27.net
+Circuit: circuits/s27.net
 Input Vector: 1 1 1 0 1 0 1
 ------ Detected Faults (8) ------
    1 stuck at 0
@@ -10,7 +10,7 @@ Input Vector: 1 1 1 0 1 0 1
   12 stuck at 0
   13 stuck at 0
 
-Circuit: circuits\s27.net
+Circuit: circuits/s27.net
 Input Vector: 0 0 0 1 0 1 0
 ------ Detected Faults (11) ------
    2 stuck at 1
@@ -25,7 +25,7 @@ Input Vector: 0 0 0 1 0 1 0
   16 stuck at 0
   17 stuck at 0
 
-Circuit: circuits\s27.net
+Circuit: circuits/s27.net
 Input Vector: 1 0 1 0 1 0 1
 ------ Detected Faults (8) ------
    1 stuck at 0
@@ -37,7 +37,7 @@ Input Vector: 1 0 1 0 1 0 1
   12 stuck at 0
   13 stuck at 0
 
-Circuit: circuits\s27.net
+Circuit: circuits/s27.net
 Input Vector: 0 1 1 0 1 1 1
 ------ Detected Faults (8) ------
    1 stuck at 1
@@ -49,7 +49,7 @@ Input Vector: 0 1 1 0 1 1 1
   11 stuck at 1
   12 stuck at 1
 
-Circuit: circuits\s27.net
+Circuit: circuits/s27.net
 Input Vector: 1 0 1 0 0 0 1
 ------ Detected Faults (10) ------
    1 stuck at 0
@@ -64,7 +64,7 @@ Input Vector: 1 0 1 0 0 0 1
   20 stuck at 1
 
 
-Circuit: circuits\s298f_2.net
+Circuit: circuits/s298f_2.net
 Input Vector: 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1
 ------ Detected Faults (82) ------
    3 stuck at 0
@@ -150,7 +150,7 @@ Input Vector: 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1
  186 stuck at 1
  188 stuck at 0
 
-Circuit: circuits\s298f_2.net
+Circuit: circuits/s298f_2.net
 Input Vector: 0 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1
 ------ Detected Faults (58) ------
    1 stuck at 1
@@ -212,7 +212,7 @@ Input Vector: 0 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1
  173 stuck at 0
  181 stuck at 0
 
-Circuit: circuits\s298f_2.net
+Circuit: circuits/s298f_2.net
 Input Vector: 1 1 1 1 1 0 0 0 0 0 1 1 1 1 0 0 0
 ------ Detected Faults (98) ------
    1 stuck at 0
@@ -314,7 +314,7 @@ Input Vector: 1 1 1 1 1 0 0 0 0 0 1 1 1 1 0 0 0
  180 stuck at 1
  181 stuck at 1
 
-Circuit: circuits\s298f_2.net
+Circuit: circuits/s298f_2.net
 Input Vector: 1 1 1 0 0 0 0 1 1 1 0 0 0 1 1 0 0
 ------ Detected Faults (79) ------
    2 stuck at 0
@@ -397,7 +397,7 @@ Input Vector: 1 1 1 0 0 0 0 1 1 1 0 0 0 1 1 0 0
  182 stuck at 1
  183 stuck at 1
 
-Circuit: circuits\s298f_2.net
+Circuit: circuits/s298f_2.net
 Input Vector: 0 1 1 1 1 0 1 1 1 1 0 0 0 0 0 0 0
 ------ Detected Faults (118) ------
    1 stuck at 1
@@ -520,7 +520,7 @@ Input Vector: 0 1 1 1 1 0 1 1 1 1 0 0 0 0 0 0 0
  188 stuck at 1
 
 
-Circuit: circuits\s344f_2.net
+Circuit: circuits/s344f_2.net
 Input Vector: 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 1 1 1 1 1 1 1
 ------ Detected Faults (101) ------
    1 stuck at 0
@@ -625,7 +625,7 @@ Input Vector: 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 1 1 1 1 1 1 1
  189 stuck at 1
  190 stuck at 1
 
-Circuit: circuits\s344f_2.net
+Circuit: circuits/s344f_2.net
 Input Vector: 0 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0
 ------ Detected Faults (72) ------
    2 stuck at 0
@@ -701,7 +701,7 @@ Input Vector: 0 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0
  149 stuck at 0
  154 stuck at 0
 
-Circuit: circuits\s344f_2.net
+Circuit: circuits/s344f_2.net
 Input Vector: 1 1 1 1 1 0 0 0 0 0 1 1 1 1 0 0 0 1 1 1 1 1 1 1
 ------ Detected Faults (133) ------
    1 stuck at 0
@@ -838,7 +838,7 @@ Input Vector: 1 1 1 1 1 0 0 0 0 0 1 1 1 1 0 0 0 1 1 1 1 1 1 1
  188 stuck at 0
  189 stuck at 0
 
-Circuit: circuits\s344f_2.net
+Circuit: circuits/s344f_2.net
 Input Vector: 1 1 1 0 0 0 0 1 1 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0
 ------ Detected Faults (131) ------
    1 stuck at 0
@@ -973,7 +973,7 @@ Input Vector: 1 1 1 0 0 0 0 1 1 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0
  188 stuck at 0
  189 stuck at 0
 
-Circuit: circuits\s344f_2.net
+Circuit: circuits/s344f_2.net
 Input Vector: 0 1 1 1 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1
 ------ Detected Faults (135) ------
    1 stuck at 1
@@ -1113,7 +1113,7 @@ Input Vector: 0 1 1 1 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1
  187 stuck at 1
 
 
-Circuit: circuits\s349f_2.net
+Circuit: circuits/s349f_2.net
 Input Vector: 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 1 1 1 1 1 1 1
 ------ Detected Faults (101) ------
    1 stuck at 0
@@ -1218,7 +1218,7 @@ Input Vector: 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 1 1 1 1 1 1 1
  188 stuck at 1
  189 stuck at 1
 
-Circuit: circuits\s349f_2.net
+Circuit: circuits/s349f_2.net
 Input Vector: 0 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0
 ------ Detected Faults (71) ------
    2 stuck at 0
@@ -1293,7 +1293,7 @@ Input Vector: 0 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0
  169 stuck at 0
  173 stuck at 0
 
-Circuit: circuits\s349f_2.net
+Circuit: circuits/s349f_2.net
 Input Vector: 1 1 1 1 1 0 0 0 0 0 1 1 1 1 0 0 0 1 1 1 1 1 1 1
 ------ Detected Faults (134) ------
    1 stuck at 0
@@ -1431,7 +1431,7 @@ Input Vector: 1 1 1 1 1 0 0 0 0 0 1 1 1 1 0 0 0 1 1 1 1 1 1 1
  187 stuck at 0
  188 stuck at 0
 
-Circuit: circuits\s349f_2.net
+Circuit: circuits/s349f_2.net
 Input Vector: 1 1 1 0 0 0 0 1 1 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0
 ------ Detected Faults (132) ------
    1 stuck at 0
@@ -1567,7 +1567,7 @@ Input Vector: 1 1 1 0 0 0 0 1 1 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0
  187 stuck at 0
  188 stuck at 0
 
-Circuit: circuits\s349f_2.net
+Circuit: circuits/s349f_2.net
 Input Vector: 0 1 1 1 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1
 ------ Detected Faults (136) ------
    1 stuck at 1
@@ -1706,3 +1706,5 @@ Input Vector: 0 1 1 1 1 0 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1
  183 stuck at 1
  185 stuck at 1
  186 stuck at 1
+
+
