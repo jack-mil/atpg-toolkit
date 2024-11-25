@@ -160,6 +160,23 @@ class TestSimplePodem(unittest.TestCase):
                     detected_faults = sim.detect_faults(found_test)
                     self.assertIn(target_fault, detected_faults)
 
+    def test_undetectable_faults(self):
+        netlist = [
+            'BUF a d',
+            'BUF a e',
+            'NAND b d f',
+            'OR c f g',
+            'AND g e i',
+            'INPUT a b c -1',
+            'OUTPUT i -1',
+        ]
+
+        podem = TestGenerator(netlist)
+        all_faults = podem.sim.circuit.all_faults()
+        results = {str(fault): podem.generate_test(fault) for fault in all_faults}
+        self.assertIsNone(results['d-sa-1'])
+
+
     @unittest.skip('Requires multi-input gate support')
     def test_circuit_hand(self):
         """Test the circuit and fault from Textbook Figure 6.24 (see docs/)."""

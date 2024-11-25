@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 from pathlib import Path
 
-from .structs import Gate, GateType
+from .structs import Fault, Gate, GateType, Logic
 from .util import try_as_int
 
 
@@ -184,3 +184,12 @@ class Circuit:
     def output_count(self) -> int:
         """Get number of output nets (nodes) in this circuit."""
         return len(self.outputs)
+
+    def all_faults(self) -> set[Fault]:
+        """Get the set of all possible faults in this circuit. (2*# nets)."""
+
+        all_faults = set()
+        for net in self.nets:
+            all_faults.add(Fault(net, Logic.High))
+            all_faults.add(Fault(net, Logic.Low))
+        return all_faults
