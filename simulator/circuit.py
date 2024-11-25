@@ -11,18 +11,11 @@ if TYPE_CHECKING:
 from pathlib import Path
 
 from .structs import Gate, GateType
+from .util import try_as_int
 
 
 class NetlistFormatError(Exception):
     """Raised when circuit net-list is malformed or invalid"""
-
-
-def try_as_int(value: NetId):
-    """Backwards compatibility from when net id's where always Int"""
-    try:
-        return int(value)
-    except ValueError:
-        return value
 
 
 class Circuit:
