@@ -4,11 +4,14 @@
 # and save the output to a file. 
 # Serves as reference for CLI usage of simulator
 
+PYTHON=${PYTHON:-python3}
+
 echo "Run from top level directory (./scripts/generate-results)"
 
 # Clear files if they exist
 > data/results-sim.txt
 > data/results-faults.txt
+> data/results-podem.txt
 
 # Loop over all files in the circuits directory
 for circuit_file in circuits/*.net; do
@@ -16,14 +19,26 @@ for circuit_file in circuits/*.net; do
     base_name=$(basename "$circuit_file" .net)
 
     # Construct the corresponding test file name
-    test_file="scripts/data/${base_name}.in"
+    test_file="scripts/data/${base_name}-tests.txt"
+    fault_file="scripts/data/${base_name}-faults.txt"
 
     # Check if the test file exists
     if [[ -f "$test_file" ]]; then
-        # Run the Python script and append the output to results.txt
-        python3 cli.py simulate "$circuit_file" -f "$test_file" >> data/results-sim.txt
-        python3 cli.py faults   "$circuit_file" -f "$test_file" >> data/results-faults.txt
+        set -x
+        # Run the Python script and append the output to results for each circuit
+        ${PYTHON} cli.py simulate "$circuit_file" -f "$test_file" >> data/results-sim.txt
+        ${PYTHON} cli.py faults   "$circuit_file" -f "$test_file" >> data/results-faults.txt
+        { set +x; } &> /dev/null
     else
         echo "Test file $test_file not found, skipping $circuit_file" 1>&2
+    fi
+
+    # Check if the file of faults exists
+    if [[ -f "$fault_file" ]]; then
+        set -x
+        ${PYTHON} cli.py generate "$circuit_file" $(<"$fault_file") >> data/results-podem.txt
+        { set +x; } &> /dev/null
+    else
+        echo "Fault file $fault_file not found, skipping $circuit_file" 1>&2
     fi
 done
