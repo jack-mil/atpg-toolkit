@@ -151,10 +151,16 @@ class TestSimplePodem(unittest.TestCase):
             Fault('H', 0): {'10XX', ...},
         }
         podem = TestGenerator(netlist)
-        for fault, expected_tests in fault_tests.items():
-            with self.subTest(msg=str(fault)):
-                found_test = podem.generate_test(fault)
-                self.assertIn(found_test, expected_tests)
+        sim = FaultSimulation(netlist)
+        for target_fault, expected_tests in fault_tests.items():
+            with self.subTest(msg=str(target_fault)):
+                found_test = podem.generate_test(target_fault)
+                # unreliable because I don't have every test that detects given fault
+                # self.assertIn(found_test, expected_tests)
+
+                detected_faults = sim.detect_faults(found_test)
+
+                self.assertIn(target_fault, detected_faults)
 
     @unittest.skip('Requires multi-input gate support')
     def test_circuit_hand(self):
