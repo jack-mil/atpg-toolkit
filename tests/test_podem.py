@@ -1,8 +1,7 @@
 import unittest
 from pathlib import Path
 
-from podem import TestGenerator
-from simulator.faultsim import FaultSimulation
+from simulator import TestGenerator, FaultSimulation
 from simulator.structs import Fault, Gate, GateType, Logic
 
 

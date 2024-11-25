@@ -13,7 +13,6 @@ if TYPE_CHECKING:
 from simulator.simulator import BaseSim
 from simulator.structs import Gate, Logic
 
-
 def filter_errors(vector: list[Logic]) -> str:
     """
     Convert a list of Logic values into a bitstring representation
@@ -137,6 +136,11 @@ class TestGenerator:
 
         Return None if the fault is undetectable.
         """
+
+        if fault.net_id not in self.sim.circuit.nets:
+            print(f'Error: Net {fault.net_id!r} for Fault {fault} does not exist in the circuit.')
+            return None
+
         # reset and prepare forward-simulation engine
         self.sim.start_state(fault) # TODO: find better solution for setting up the target fault (pass as args?)
 
