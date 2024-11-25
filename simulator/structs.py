@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 from dataclasses import dataclass, field
 from enum import Enum, StrEnum
 
-__all__ = ['Logic', 'Gate', 'GateType', 'Fault', 'NetId']
+__all__ = ['Fault', 'Gate', 'GateType', 'Logic', 'NetId']
 
 type NetId = int | str
 """A net can be referred to by a integer or a string"""
@@ -25,7 +25,7 @@ class MultiValueEnum(Enum):
         it = object.__new__(cls)
         it._value_ = value
         for v in values:
-            it._add_value_alias_(v)
+            it._add_value_alias_(v) # type: ignore
         return it
 
 
@@ -260,7 +260,7 @@ class Gate:
             case _:
                 raise TypeError(f'Gate {self} not supported')
 
-    def control_value(self) -> None | Literal[Logic.Low, Logic.High]:
+    def control_value(self) -> Literal[Logic.Low, Logic.High] | None:
         """Get the control value for this type of Gate. None if it doesn't have one."""
         return self.type_.control_value()
 

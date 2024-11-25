@@ -99,7 +99,7 @@ class BaseSim:
         ready_gates = {gate for gate in gates if self.all_nets_assigned(gate.inputs)}
         return ready_gates
 
-    def all_nets_assigned(self, net_ids: None | Iterable[NetId] = None) -> bool:
+    def all_nets_assigned(self, net_ids: Iterable[NetId] | None = None) -> bool:
         """
         Return true if all given net ids are assigned a logic value.
         If collection is empty or none, check all known net's

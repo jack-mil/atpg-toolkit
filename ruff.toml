@@ -4,7 +4,6 @@ format.quote-style = "single"
 lint.extend-select = [
   "UP",   # https://docs.astral.sh/ruff/rules/#pyupgrade-up
   "PERF", # https://docs.astral.sh/ruff/rules/#perflint-perf
-  "PL",   # https://docs.astral.sh/ruff/rules/#pylint-pl
   "RSE",  # https://docs.astral.sh/ruff/rules/#flake8-raise-rse
   "RUF",  # https://docs.astral.sh/ruff/rules/#ruff-specific-rules-ruf
   "TCH",  # https://docs.astral.sh/ruff/rules/#flake8-type-checking-tch
