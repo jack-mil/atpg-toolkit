@@ -1,8 +1,7 @@
 import unittest
 from pathlib import Path
 
-from atpg_toolkit import FaultSimulation, TestGenerator
-from atpg_toolkit.structs import Fault, Gate, GateType, Logic
+from atpg_toolkit import Fault, FaultSimulation, Gate, GateType, Logic, TestGenerator
 
 
 class TestPodemUnits(unittest.TestCase):
@@ -175,7 +174,6 @@ class TestSimplePodem(unittest.TestCase):
         all_faults = podem.sim.circuit.all_faults()
         results = {str(fault): podem.generate_test(fault) for fault in all_faults}
         self.assertIsNone(results['d-sa-1'])
-
 
     @unittest.skip('Requires multi-input gate support')
     def test_circuit_hand(self):

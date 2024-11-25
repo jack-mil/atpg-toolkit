@@ -10,7 +10,8 @@ if TYPE_CHECKING:
 
 from pathlib import Path
 
-from .structs import Fault, Gate, GateType, Logic
+from .gates import Gate, GateType
+from .logic import Fault, Logic
 from .util import try_as_int
 
 

@@ -1,9 +1,9 @@
 from argparse import ArgumentParser
 
 from .._version import __version__
-from .faults import faults_cmd
-from .generate import generate_cmd
-from .simulate import simulate_cmd
+from .fault_app import faults_cmd
+from .podem_app import generate_cmd
+from .simulate_app import simulate_cmd
 
 
 def main():

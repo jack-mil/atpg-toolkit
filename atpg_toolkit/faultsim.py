@@ -3,12 +3,12 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .structs import Gate
+    from .gates import Gate
     from .types import NetId, StrPath
 
 from . import util
+from .logic import Fault, Logic
 from .simulator import BaseSim
-from .structs import Fault, Logic
 
 
 class FaultSimulation(BaseSim):

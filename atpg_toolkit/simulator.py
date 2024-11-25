@@ -5,12 +5,12 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from collections.abc import Iterable
 
-    from .structs import Gate
+    from .gates import Gate
     from .types import NetId, StrPath
 
 from . import util
 from .circuit import Circuit
-from .structs import Logic
+from .gates import Logic
 
 
 class BaseSim:

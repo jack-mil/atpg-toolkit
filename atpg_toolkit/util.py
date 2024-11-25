@@ -6,27 +6,26 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from collections.abc import Generator
-    from typing import Any
 
-    from .structs import Logic
+    from .logic import Fault, Logic
 
 import re
 
-from . import structs as _structs
+from . import gates as _structs
 
 FAULT_REGEX = re.compile(r'^(\S+)-sa-([01])$')
 """Pattern to validate a string representation of a fault"""
 
 
-def try_as_int(value: int | Any):
-    """Backwards compatibility from when net id's where always Int."""
+def try_as_int(value: int | str) -> int | str:
+    """Compatibility from when net id's where always Int."""
     try:
         return int(value)
     except ValueError:
         return value
 
 
-def str_to_fault(fault_str: str):
+def str_to_fault(fault_str: str) -> Fault | None:
     """Convert a string of format [net-id]-sa[0|1] to a valid Fault object."""
     result = FAULT_REGEX.match(fault_str)
     if result is None:

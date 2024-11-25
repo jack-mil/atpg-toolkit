@@ -6,11 +6,12 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .structs import Fault, Gate
+    from .gates import Gate
+    from .logic import Fault
     from .types import NetId, StrPath
 
+from .logic import Logic
 from .simulator import BaseSim
-from .structs import Gate, Logic
 
 
 def filter_errors(vector: list[Logic]) -> str:
