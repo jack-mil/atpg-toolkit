@@ -1,7 +1,7 @@
 import unittest
 from dataclasses import FrozenInstanceError
 
-from simulator.structs import Gate, GateType, Logic
+from atpg_toolkit.structs import Gate, GateType, Logic
 
 
 class TestGate(unittest.TestCase):

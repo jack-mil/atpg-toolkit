@@ -1,6 +1,6 @@
 import unittest
 
-from simulator import Fault, FaultSimulation, Logic
+from atpg_toolkit import Fault, FaultSimulation, Logic
 
 
 class TestFaultsSingleGates(unittest.TestCase):

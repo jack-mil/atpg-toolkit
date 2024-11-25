@@ -1,8 +1,8 @@
 import unittest
 from pathlib import Path
 
-from simulator import FaultSimulation, TestGenerator
-from simulator.structs import Fault, Gate, GateType, Logic
+from atpg_toolkit import FaultSimulation, TestGenerator
+from atpg_toolkit.structs import Fault, Gate, GateType, Logic
 
 
 class TestPodemUnits(unittest.TestCase):

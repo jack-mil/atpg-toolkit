@@ -1,8 +1,8 @@
 import unittest
 from pathlib import Path
 
-from simulator.simulator import BaseSim, Simulation
-from simulator.structs import Logic
+from atpg_toolkit.simulator import BaseSim, Simulation
+from atpg_toolkit.structs import Logic
 
 
 class TestBaseSim(unittest.TestCase):

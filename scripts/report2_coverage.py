@@ -16,7 +16,7 @@ from pathlib import Path
 this_dir = Path(__file__).parent
 sys.path.append(str(this_dir.parent))
 
-from simulator import FaultSimulation, util  # noqa: E402
+from atpg_toolkit import FaultSimulation, util  # noqa: E402
 
 target = 1.0  # 100% coverage
 tolerance = 5e-3  # within 0.5%

@@ -8,7 +8,7 @@ from pathlib import Path
 this_dir = Path(__file__).parent
 sys.path.append(str(this_dir.parent))
 
-from simulator import FaultSimulation  # noqa: E402
+from atpg_toolkit import FaultSimulation  # noqa: E402
 
 test_cases = [
     # (netlist file, input vector)
