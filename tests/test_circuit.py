@@ -27,7 +27,7 @@ class TestCircuit(unittest.TestCase):
         self.assertListEqual([6], circuit.outputs)
 
     def test_load_circuit_str_nets(self):
-        """Testing the generic net naming support (combination str and int)"""
+        """Testing the generic net naming support (combination str and int)."""
         netlist = [
             'INV a 2',
             'AND b 2 3',
@@ -72,7 +72,7 @@ class TestCircuit(unittest.TestCase):
             _ = Circuit.load_strings(unknown_gate)
         print(cm.exception)
 
-    def test_conflicting_IO(self):
+    def test_conflicting_io(self):
         inputs_are_gate_outputs = [
             'AND 1 2 3',
             'OR 4 5 6',
@@ -83,13 +83,13 @@ class TestCircuit(unittest.TestCase):
             _ = Circuit.load_strings(inputs_are_gate_outputs)
         print(cm.exception)
 
-        PI_is_PO = [
+        pi_in_po = [
             'AND 1 2 3',
             'OR 3 2 6',
             'INPUT 1 2 -1',
             'OUTPUT 1 6 -1',  # <- net 1 is both input and output. weird but allowed
         ]
-        circuit = Circuit.load_strings(PI_is_PO)
+        circuit = Circuit.load_strings(pi_in_po)
         self.assertListEqual([1, 2], circuit.inputs)
         self.assertListEqual([1, 6], circuit.outputs)
 

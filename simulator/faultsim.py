@@ -3,9 +3,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from pathlib import Path
-
-    from .structs import Gate, NetId
+    from .structs import Gate
+    from .types import NetId, StrPath
 
 from . import util
 from .simulator import BaseSim
@@ -13,9 +12,9 @@ from .structs import Fault, Logic
 
 
 class FaultSimulation(BaseSim):
-    """A circuit simulation that can determine stuck-at faults detected by test vectors"""
+    """A circuit simulation that can determine stuck-at faults detected by test vectors."""
 
-    def __init__(self, netlist: Path | str | list[str]):
+    def __init__(self, netlist: StrPath | list[str]):
         """
         Initialize a new fault simulation to simulate the circuit defined in `netlist`.
 
@@ -42,22 +41,20 @@ class FaultSimulation(BaseSim):
 
         # Initialize the initial input net fault lists with their opposite stuck-at fault
         for net_id, state in zip(self.circuit.inputs, vector):
-            self._fault_lists[net_id] = set() if state is Logic.X else {Fault(net_id, ~state)} 
+            self._fault_lists[net_id] = set() if state is Logic.X else {Fault(net_id, ~state)}
 
         # and propagate input faults through the netlist
         self._simulate_input(vector)
 
         # detected faults is the union of all fault lists on all output nets
-        output_faults = set.union(
-            *(self._fault_lists[output_net] for output_net in self.circuit.outputs), set()
-        )
+        output_faults = set.union(*(self._fault_lists[output_net] for output_net in self.circuit.outputs), set())
         # Reset the net-list state so we can evaluate a new input vector later
         self.reset()
         return output_faults
 
     def _process_ready_gate(self, gate: Gate) -> Logic:
         """
-        Using current fault-free net-list state and fault lists,
+        Use current fault-free net-list state and fault lists to
         propagate all detected faults from gate inputs to the output,
         and evaluate & update the fault-free output.
 
@@ -81,9 +78,7 @@ class FaultSimulation(BaseSim):
             # only propagate faults that affect all inputs at a controlling value,
             # and don't affect the previous non-controlling input faults
             # (see textbook)
-            exclusive_faults = set.intersection(
-                *(self._fault_lists[net] for net in controlling_inputs)
-            )
+            exclusive_faults = set.intersection(*(self._fault_lists[net] for net in controlling_inputs))
             propagated = exclusive_faults - propagated
 
         # evaluate the result of the gate inputs
@@ -98,6 +93,6 @@ class FaultSimulation(BaseSim):
         return output_state
 
     def reset(self):
-        """Reset the base sim and the fault lists"""
+        """Reset the base sim and the fault lists."""
         super().reset()
         self._fault_lists = dict()

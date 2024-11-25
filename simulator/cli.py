@@ -39,7 +39,8 @@ def main():
 
 
 def simulate(net_file: Path, tests: list[str]):
-    """Action for running fault-free circuit simulator."""
+    """Run fault-free circuit simulator."""
+
     # Create the simulation object for this circuit
     circuit = Simulation(net_file)
 
@@ -54,7 +55,8 @@ def simulate(net_file: Path, tests: list[str]):
 
 
 def deduce(net_file: Path, tests: list[str]):
-    """Action for running deductive fault simulator."""
+    """Run deductive fault simulator."""
+
     # Create the deductive fault simulator for this circuit
     sim = FaultSimulation(net_file)
 
@@ -72,7 +74,7 @@ def deduce(net_file: Path, tests: list[str]):
 
 
 def generate(net_file: Path, target_faults: list[str]):
-    """Generate a test vector for fault in format '[net-id]-sa-[0 | 1]'. e.g. 2-sa-0"""
+    """Generate a test vector for fault in format '[net-id]-sa-[0 | 1]'. e.g. 2-sa-0."""
 
     import sys
 
@@ -89,6 +91,7 @@ def generate(net_file: Path, target_faults: list[str]):
             exit(1)
         faults.append(fault)
     faults.sort()
+
     # Create the PODEM ATP Generator for this net-circuit
     gen = TestGenerator(net_file)
 
@@ -102,12 +105,12 @@ def generate(net_file: Path, target_faults: list[str]):
 
 
 def parse_args() -> Namespace:
-    """Command line interface definition for interactive usage"""
+    """Command line interface definition for interactive usage."""
 
     from argparse import ArgumentParser, ArgumentTypeError
     from pathlib import Path
 
-    def valid_path(name):
+    def valid_path(name) -> Path:
         p = Path(name)
         if not p.is_file():
             raise ArgumentTypeError(f'file "{name}" does not exist')
@@ -115,9 +118,7 @@ def parse_args() -> Namespace:
 
     parser = ArgumentParser(description='Perform simulation or find detected faults.')
 
-    subparsers = parser.add_subparsers(
-        dest='command', required=True, description='The action to perform.'
-    )
+    subparsers = parser.add_subparsers(dest='command', required=True, description='The action to perform.')
 
     def add_common_arguments(parser):
         parser.add_argument('net_file', type=valid_path, help='Net-list file (circuit) to simulate')
@@ -148,13 +149,9 @@ def parse_args() -> Namespace:
     add_common_arguments(faults_parser)
 
     # Subcommand 'generate'
-    podem_parser = subparsers.add_parser(
-        'generate', help='Find a test vector that detects the given fault'
-    )
+    podem_parser = subparsers.add_parser('generate', help='Find a test vector that detects the given fault')
     podem_parser.add_argument('net_file', type=valid_path, help='Net-list file (circuit) to test')
-    podem_parser.add_argument(
-        'faults', nargs='+', help='One or more faults to generate tests for (5-sa0)'
-    )
+    podem_parser.add_argument('faults', nargs='+', help='One or more faults to generate tests for (5-sa0)')
 
     return parser.parse_args()
 

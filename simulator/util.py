@@ -1,4 +1,4 @@
-"""Standalone utility functions and techniques useful for testing"""
+"""Standalone utility functions and techniques useful for testing."""
 
 from __future__ import annotations
 
@@ -10,16 +10,16 @@ if TYPE_CHECKING:
 
     from .structs import Logic
 
-from . import structs as _structs
-
 import re
+
+from . import structs as _structs
 
 FAULT_REGEX = re.compile(r'^(\S+)-sa-([01])$')
 """Pattern to validate a string representation of a fault"""
 
 
 def try_as_int(value: int | Any):
-    """Backwards compatibility from when net id's where always Int"""
+    """Backwards compatibility from when net id's where always Int."""
     try:
         return int(value)
     except ValueError:
@@ -27,7 +27,7 @@ def try_as_int(value: int | Any):
 
 
 def str_to_fault(fault_str: str):
-    """Convert a string of format [net-id]-sa[0|1] to a valid Fault object"""
+    """Convert a string of format [net-id]-sa[0|1] to a valid Fault object."""
     result = FAULT_REGEX.match(fault_str)
     if result is None:
         return None
@@ -38,9 +38,10 @@ def str_to_fault(fault_str: str):
 
 def random_patterns(length: int) -> Generator[str]:
     """
-    Simple Linear Congruential generator to generate all possible bitstring patterns with `length`
-    https://en.wikipedia.org/wiki/Linear_congruential_generator
-    https://stackoverflow.com/a/65753338
+    Generate all possible bitstring patterns of `length` using a simple Linear Congruential generator.
+
+    - https://en.wikipedia.org/wiki/Linear_congruential_generator
+    - https://stackoverflow.com/a/65753338
 
     Parameters are chosen to ensure a period of length n, with no repeats.
     """
@@ -59,7 +60,7 @@ def random_patterns(length: int) -> Generator[str]:
 def bitstring_to_logic(string: str) -> list[Logic]:
     """
     Check if the string contains only '0's and '1's.
-    Return the input vector string as a list of Logic values
+    Return the input vector string as a list of Logic values.
     """
 
     if not all(char in '01X' for char in string):
@@ -72,7 +73,7 @@ def bitstring_to_logic(string: str) -> list[Logic]:
 
 def logic_to_bitstring(vector: list[Logic]) -> str:
     """
-    Convert a list of Logic values into a bitstring representation
+    Convert a list of Logic values into a bitstring representation.
     String should contain only '0', '1' or 'X'.
     """
     output_str = ''.join(str(v) for v in vector)

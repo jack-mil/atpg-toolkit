@@ -6,17 +6,17 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from pathlib import Path
+    from .structs import Fault, Gate
+    from .types import NetId, StrPath
 
-    from simulator.structs import Fault, Gate, NetId
+from .simulator import BaseSim
+from .structs import Gate, Logic
 
-from simulator.simulator import BaseSim
-from simulator.structs import Gate, Logic
 
 def filter_errors(vector: list[Logic]) -> str:
     """
-    Convert a list of Logic values into a bitstring representation
-    Replaces D or Dbar with their 1/0 non-errored counterparts
+    Convert a list of Logic values into a bitstring representation.
+    Replaces D or Dbar with their 1/0 non-errored counterparts.
     """
     bitstring = ''.join(str(v) for v in vector)
     bitstring = bitstring.replace(str(Logic.Dbar), str(Logic.Low))
@@ -27,18 +27,18 @@ def filter_errors(vector: list[Logic]) -> str:
 class ErrorSim(BaseSim):
     """
     Used internally by TestGenerator only.
-    
+
     Special configuration of a 5-valued logic simulation customized for use in PODEM
     Is assigned a target fault, and injects D/Dbar error values in the net states
     as the simulation proceeds.
     """
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fault: Fault = None
+    def __init__(self, netlist: StrPath | list[str]):
+        super().__init__(netlist)
+        self.fault: Fault | None = None
 
     def set_state(self, id: NetId, value: Logic):
-        """Override BaseSim method to inject a D/Dbar if target fault is every activated"""
+        """Override BaseSim method to inject a D/Dbar if target fault is every activated."""
         new_val = value
         # (one of inputs) is target fault line
         if self.fault and id == self.fault.net_id:
@@ -55,7 +55,7 @@ class ErrorSim(BaseSim):
         return super().set_state(id, new_val)
 
     def start_state(self, fault: Fault):
-        """Set internal state ready to do simulations for PODEM"""
+        """Set internal state ready to do simulations for PODEM."""
         self.fault = fault
         self.reset()
         # explicitly give X values to the all primary inputs
@@ -66,7 +66,7 @@ class ErrorSim(BaseSim):
     def simulate_input_assignment(self, pi_net: NetId, value: Logic):
         """
         Assign a single primary input the given logic value.
-        Retains any previous input assignments, and reruns the entire forward simulation
+        Retains any previous input assignments, and reruns the entire forward simulation.
         """
         if pi_net not in self.circuit.inputs:
             raise ValueError(f'Net {pi_net} is not a Primary Input (PI)')
@@ -89,7 +89,7 @@ class ErrorSim(BaseSim):
         """
         Return all gates that currently have unset (X) output,
         but one or more D/D̅ values on inputs.
-        TODO: find better place to optimize this, instead of full loop over all gates every iteration
+        TODO: find better place to optimize this, instead of full loop over all gates every iteration.
         """
         d_frontier = set()
         for gate in self.circuit.gates:
@@ -104,13 +104,13 @@ class ErrorSim(BaseSim):
 class TestGenerator:
     """
     Use the PODEM (Path-Oriented Decision Making) Automatic Test Pattern Generation
-    algorithm to generate test vectors for specific stuck-at faults on a given 
+    algorithm to generate test vectors for specific stuck-at faults on a given
     circuit of combinational logic gates.
 
     The class uses the same Circuit and Simulation primitives as the fault simulator.
     """
 
-    def __init__(self, netlist: Path | str | list[str]):
+    def __init__(self, netlist: StrPath | list[str]):
         """
         Initialize a new test generator for the circuit in file `netlist`.
 
@@ -121,7 +121,7 @@ class TestGenerator:
         self.sim = ErrorSim(netlist)
         """Internal circuit simulation and state"""
 
-        self.d_frontier: set[Gate] = set() # TODO: should be part of ErrorSim?
+        self.d_frontier: set[Gate] = set()  # TODO: should be part of ErrorSim?
         """Gates whose output is unset (X) and at-least one input is D or D̅ """
 
         self.output_to_gate = {gate.output: gate for gate in self.sim.circuit.gates}
@@ -129,7 +129,7 @@ class TestGenerator:
 
     def generate_test(self, fault: Fault) -> str | None:
         """
-        Generate a test that detects the given fault
+        Generate a test that detects the given fault.
 
         Return the string representation of the input assignments to detect the fault.
         Order of inputs will match the order of inputs in the netlist-under-test.
@@ -142,10 +142,10 @@ class TestGenerator:
             return None
 
         # reset and prepare forward-simulation engine
-        self.sim.start_state(fault) # TODO: find better solution for setting up the target fault (pass as args?)
+        self.sim.start_state(fault)  # TODO: find better solution for setting up the target fault (pass as args?)
 
         # recursively execute the PODEM algorithm
-        success = self.podem(fault) # TODO: be consistent with what uses instance state and what passed into functions
+        success = self.podem(fault)  # TODO: be consistent with what uses instance state and what passed into functions
         if success:
             # succeeded, replace D/Dbar in inputs with 0/1 and return test as a string
             test_vector = filter_errors(self.sim.get_in_values())
@@ -230,7 +230,7 @@ class TestGenerator:
         return net, state
 
     def check_success(self) -> bool:
-        """Return True if the fault has been detected"""
+        """Return True if the fault has been detected."""
         # succeed if a primary output has a D or D̅
         if any(value is Logic.D or value is Logic.Dbar for value in self.sim.get_out_values()):
             return True
@@ -239,7 +239,7 @@ class TestGenerator:
         return False
 
     def check_failure(self, fault: Fault) -> bool:
-        """Return True if detecting the fault is impossible"""
+        """Return True if detecting the fault is impossible."""
         # faulty net cannot be activate
         if self.sim.get_state(fault.net_id) is fault.stuck_at:
             return True
@@ -255,6 +255,6 @@ class TestGenerator:
         return False
 
     def pick_unset_input(self, gate: Gate) -> NetId:
-        """Get an arbitrary net with unassigned value from `gate`"""
+        """Get an arbitrary net with unassigned value from `gate`."""
         net = next(input for input in gate.inputs if self.sim.get_state(input) is Logic.X)
         return net

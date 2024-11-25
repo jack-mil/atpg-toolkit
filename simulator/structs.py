@@ -1,5 +1,5 @@
 """
-Structures and enum data definitions for utility in the simulation module
+Structures and enum data definitions for utility in the simulation module.
 """
 
 from __future__ import annotations
@@ -9,13 +9,12 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import Literal
 
+    from .types import NetId
+
 from dataclasses import dataclass, field
 from enum import Enum, StrEnum
 
-__all__ = ['Fault', 'Gate', 'GateType', 'Logic', 'NetId']
-
-type NetId = int | str
-"""A net can be referred to by a integer or a string"""
+__all__ = ['Fault', 'Gate', 'GateType', 'Logic']
 
 
 class MultiValueEnum(Enum):
@@ -25,7 +24,7 @@ class MultiValueEnum(Enum):
         it = object.__new__(cls)
         it._value_ = value
         for v in values:
-            it._add_value_alias_(v) # type: ignore
+            it._add_value_alias_(v)  # type: ignore
         return it
 
 
@@ -55,11 +54,11 @@ class Logic(MultiValueEnum):
     """A undefined/unknown logic state"""
 
     def __bool__(self) -> bool:
-        """Disable bool() (`not`) to prevent bugs. Use the bitwise operators to combine and evaluate logic values"""
+        """Disable bool() (`not`) to prevent bugs. Use the bitwise operators to combine and evaluate logic values."""
         return NotImplemented
 
     def __invert__(self) -> Logic:
-        """Bitwise ~ operator. Override to return the opposite Logic value"""
+        """Bitwise ~ operator. Override to return the opposite Logic value."""
         match self:
             case Logic.Low:
                 return Logic.High
@@ -73,7 +72,7 @@ class Logic(MultiValueEnum):
                 return Logic.X
 
     def __or__(self, other) -> Logic:
-        """Bitwise | operator. Override to evaluate OR operations on Logic type"""
+        """Bitwise | operator. Override to evaluate OR operations on Logic type."""
         if not isinstance(other, Logic):
             return NotImplemented
 
@@ -99,7 +98,7 @@ class Logic(MultiValueEnum):
             return Logic.High
 
     def __and__(self, other) -> Logic:
-        """Bitwise & operator. Override to evaluate AND operation on Logic type"""
+        """Bitwise & operator. Override to evaluate AND operation on Logic type."""
         if not isinstance(other, Logic):
             return NotImplemented
 
@@ -139,7 +138,7 @@ class Logic(MultiValueEnum):
             return Logic.High
 
     def __str__(self) -> str:
-        """String representation"""
+        """String representation."""  # noqa: D401
         return self.value
 
 
@@ -150,7 +149,7 @@ class Fault:
     TODO: Make this a regular class instead of dataclass,
     just implement hashable and order, etc.
     Less complicated than working around dataclass validation.
-    Would also simplify constructing Logic type
+    Would also simplify constructing Logic type.
     """
 
     net_id: str | int
@@ -160,8 +159,8 @@ class Fault:
 
     def __post_init__(self):
         """
-        Validate the Fault struct at object creation
-        See: https://docs.python.org/3/library/dataclasses.html#frozen-instances
+        Validate the Fault struct at object creation.
+        See: https://docs.python.org/3/library/dataclasses.html#frozen-instances.
         """
         if not isinstance(self.stuck_at, Logic):
             object.__setattr__(self, 'stuck_at', Logic(self.stuck_at))
@@ -170,7 +169,7 @@ class Fault:
         pass
 
     def __str__(self) -> str:
-        """String representation (1-sa-0)"""
+        """Format a Fault as a string (1-sa-0)."""
         return f'{self.net_id}-sa-{self.stuck_at}'
 
 
@@ -191,7 +190,7 @@ class GateType(StrEnum):
         return f'<{self.name}>'
 
     def min_inputs(self):
-        """Mapping of minimum inputs for types of gates"""
+        """Get the minimum number of inputs for each type of gates."""
         match self:
             case GateType.Inv | GateType.Buf:
                 return 1
@@ -199,7 +198,7 @@ class GateType(StrEnum):
                 return 2
 
     def control_value(self):
-        """Mapping of controlling value for types of gates"""
+        """Get the controlling value for each type of gate."""
         match self:
             case GateType.And | GateType.Nand:
                 return Logic.Low
@@ -211,7 +210,7 @@ class GateType(StrEnum):
                 raise TypeError(f'Gate type unknown: {self}')
 
     def inversion(self):
-        """Mapping of inversion parity for types of gates"""
+        """Get the inversion parity for each types of gate."""
         match self:
             case GateType.And | GateType.Or | GateType.Buf:
                 return Logic.Low
@@ -235,7 +234,7 @@ class Gate:
     output: NetId
 
     def __post_init__(self):
-        """Validate the Gate struct at object creation"""
+        """Validate the Gate struct at object creation."""
         if len(self.inputs) < (n := self.type_.min_inputs()):
             raise TypeError(f'Gate of type {self.type_} must have >= {n} inputs')
 
@@ -268,6 +267,6 @@ class Gate:
         """
         Get the inversion value for this type of Gate.
         - AND, OR, and BUF have parity 0
-        - NAND, NOR, and INV have parity 1
+        - NAND, NOR, and INV have parity 1.
         """
         return self.type_.inversion()

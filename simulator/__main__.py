@@ -1,4 +1,4 @@
-"""Entry point for executing as module"""
+"""Entry point for executing as module."""
 
 from .cli import main
 

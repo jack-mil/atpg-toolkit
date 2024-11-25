@@ -4,9 +4,9 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
-    from pathlib import Path
 
-    from .structs import Gate, NetId
+    from .structs import Gate
+    from .types import NetId, StrPath
 
 from . import util
 from .circuit import Circuit
@@ -27,7 +27,7 @@ class BaseSim:
     to control what happens at each step in the simulation
     """
 
-    def __init__(self, netlist: Path | str | list[str]):
+    def __init__(self, netlist: StrPath | list[str]):
         """
         Initialize a new simulation to simulate the circuit defined in `netlist`.
 
@@ -35,11 +35,7 @@ class BaseSim:
         Optionally load from a list of strings in the format of net-list file lines (for testing)
         """
 
-        self.circuit = (
-            Circuit.load_strings(netlist)
-            if isinstance(netlist, list)
-            else Circuit.load_file(netlist)
-        )
+        self.circuit = Circuit.load_strings(netlist) if isinstance(netlist, list) else Circuit.load_file(netlist)
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
 
         self._net_states: dict[NetId, Logic] = dict()
@@ -48,13 +44,11 @@ class BaseSim:
     def _simulate_input(self, vector: list[Logic]):
         """
         Perform a forward simulation with the given primary input assignments.
-        Does not return, only updates internal state of the nets
+        Does not return, only updates internal state of the nets.
         """
 
         if len(vector) != len(self.circuit.inputs):
-            raise ValueError(
-                f'Input vector length must match the number of input nets ({len(self.circuit.inputs)})'
-            )
+            raise ValueError(f'Input vector length must match the number of input nets ({len(self.circuit.inputs)})')
 
         # Initialize the input nets with the input vector values
         for net_id, state in zip(self.circuit.inputs, vector, strict=True):
@@ -90,19 +84,19 @@ class BaseSim:
         return output_state
 
     def gate_input_values(self, gate: Gate) -> tuple[Logic, ...]:
-        """Return the net values for all inputs of this `gate`"""
+        """Return the net values for all inputs of this `gate`."""
         input_values = tuple(self.get_state(id) for id in gate.inputs)
         return input_values
 
     def find_ready_gates(self, gates: set[Gate]) -> set[Gate]:
-        """Return all gates from `gates` with all input nets assigned"""
+        """Return all gates from `gates` with all input nets assigned."""
         ready_gates = {gate for gate in gates if self.all_nets_assigned(gate.inputs)}
         return ready_gates
 
     def all_nets_assigned(self, net_ids: Iterable[NetId] | None = None) -> bool:
         """
         Return true if all given net ids are assigned a logic value.
-        If collection is empty or none, check all known net's
+        If collection is empty or none, check all known net's.
         """
 
         if net_ids is None:
@@ -117,15 +111,15 @@ class BaseSim:
         return self._net_states.get(id, Logic.X)
 
     def set_state(self, id: NetId, value: Logic):
-        """Assign logic `value` to net with `id`"""
+        """Assign logic `value` to net with `id`."""
         self._net_states[id] = value
 
     def get_out_values(self) -> list[Logic]:
-        """List of circuit output values in the order of original net-list"""
+        """List of circuit output values in the order of original net-list."""
         return [self.get_state(net) for net in self.circuit.outputs]
 
     def get_in_values(self) -> list[Logic]:
-        """List of circuit input values in the order of original net-list"""
+        """List of circuit input values in the order of original net-list."""
         return [self.get_state(net) for net in self.circuit.inputs]
 
     def reset(self):
@@ -136,7 +130,7 @@ class BaseSim:
 class Simulation(BaseSim):
     """
     The Simulation class is for fault-free simulation of a logic circuit
-    using fully defined input values (1 or 0)
+    using fully defined input values (1 or 0).
 
     Simulation provides `simulate_input(test_vector)` to perform a full
     simulation and return the string representation of the primary outputs
@@ -166,10 +160,10 @@ class Simulation(BaseSim):
 
     def _process_ready_gate(self, gate: Gate) -> Logic:
         """
-        Using the current net-list state, evaluate what the
+        Use the current net-list state to evaluate what the
         fault-free output net value should be for the given gate.
 
-        Parent class override
+        Extends BaseSim per-gate processing with error checking.
         """
         # sanity check to ensure only valid gates get evaluated
         if not self.all_nets_assigned(gate.inputs):

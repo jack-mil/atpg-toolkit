@@ -10,8 +10,10 @@
     "python.testing.unittestEnabled": true,
     "cSpell.words": [
         "combinational",
+        "Congruential",
         "Dbar",
         "NAND",
+        "Netlist",
         "PODEM"
     ],
 }

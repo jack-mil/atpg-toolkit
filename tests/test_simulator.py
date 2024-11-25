@@ -7,7 +7,7 @@ from simulator.structs import Logic
 
 class TestBaseSim(unittest.TestCase):
     def test_5state(self):
-        """Test using the BaseSim forward simulation with D-Calculus"""
+        """Test using the BaseSim forward simulation with D-Calculus."""
         netlist = [
             'INV 1 5',
             'NAND 2 3 6',
@@ -55,7 +55,7 @@ class TestSimulator(unittest.TestCase):
         ]
 
     def test_comprehensive(self):
-        """Run a integration test for the matrix of netlists and input vectors against expected output strings"""
+        """Run a integration test for the matrix of netlists and input vectors against expected output strings."""
         for netlist_file, input_vector, expected_output in self.test_cases:
             _, _, stub = netlist_file.partition('/')
             with self.subTest(msg=f'{stub} : {input_vector}'):
@@ -64,7 +64,7 @@ class TestSimulator(unittest.TestCase):
                 self.assertEqual(output, expected_output)
 
     def test_simple_case(self):
-        """Test a simple circuit net-list made by hand"""
+        """Test a simple circuit net-list made by hand."""
         netlist = [
             'INV 1 4',
             'NAND 2 3 5',

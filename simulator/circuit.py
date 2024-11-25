@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
     from typing import Self
 
-    from .structs import NetId
+    from .types import NetId, StrPath
 
 from pathlib import Path
 
@@ -15,7 +15,7 @@ from .util import try_as_int
 
 
 class NetlistFormatError(Exception):
-    """Raised when circuit net-list is malformed or invalid"""
+    """Raised when circuit net-list is malformed or invalid."""
 
 
 class Circuit:
@@ -50,7 +50,7 @@ class Circuit:
         """Set of all net id's (nodes) in this circuit"""
 
     @classmethod
-    def load_file(cls, netlist_file: Path | str) -> Self:
+    def load_file(cls, netlist_file: StrPath) -> Self:
         """
         ### Factory Method ###
         Initialize and return a Circuit by reading from a net-list file.
@@ -85,7 +85,7 @@ class Circuit:
     def load_strings(cls, netlist: list[str]) -> Self:
         """
         ### Factory Method ###
-        Initialize and return a Circuit from the list of net & gate definitions
+        Initialize and return a Circuit from the list of net & gate definitions.
 
         Each element should match the format from a file.
         - Raises NetlistFormatError if the net-list is malformed
@@ -127,9 +127,7 @@ class Circuit:
         """
         if self.is_gate_output(output):
             # Line already driven by another gate (invalid topology)
-            raise NetlistFormatError(
-                f'Invalid topology: Gate {type} output {output} already driven by another gate.'
-            )
+            raise NetlistFormatError(f'Invalid topology: Gate {type} output {output} already driven by another gate.')
         # save a separate set of known gate outputs
         self.gate_output_nets.add(output)
         # add each net id we encounter to the set. Some may repeat, that's ok
@@ -170,19 +168,19 @@ class Circuit:
 
     def is_gate_output(self, net_id: NetId) -> bool:
         """
-        Returns true if the given net id is driven by a gate.
-        (i.e., not a primary input)
+        Return True if the given net id is driven by a gate.
+        (i.e., not a primary input).
         """
         return net_id in self.gate_output_nets
 
     def net_count(self) -> int:
-        """Total number of nets (nodes) in this circuit"""
+        """Get total number of nets (nodes) in this circuit."""
         return len(self.nets)
 
     def input_count(self) -> int:
-        """Number of input nets (nodes) in this circuit"""
+        """Get number of input nets (nodes) in this circuit."""
         return len(self.inputs)
 
     def output_count(self) -> int:
-        """Number of output nets (nodes) in this circuit"""
+        """Get number of output nets (nodes) in this circuit."""
         return len(self.outputs)

@@ -5,7 +5,7 @@ from simulator import Fault, FaultSimulation, Logic
 
 class TestFaultsSingleGates(unittest.TestCase):
     def test_and_gate(self):
-        """Test a single AND gate"""
+        """Test a single AND gate."""
         netlist = [
             'AND 1 2 3',
             'INPUT 1 2 -1',
@@ -26,7 +26,7 @@ class TestFaultsSingleGates(unittest.TestCase):
                 self.assertSetEqual(found_faults, correct_faults)
 
     def test_or_gate(self):
-        """Test a single OR gate"""
+        """Test a single OR gate."""
         netlist = [
             'OR 1 2 3',
             'INPUT 1 2 -1',
@@ -47,7 +47,7 @@ class TestFaultsSingleGates(unittest.TestCase):
                 self.assertSetEqual(found_faults, correct_faults)
 
     def test_nor_gate(self):
-        """Test a single NOR gate"""
+        """Test a single NOR gate."""
         netlist = [
             'NOR 1 2 3',
             'INPUT 1 2 -1',
@@ -68,7 +68,7 @@ class TestFaultsSingleGates(unittest.TestCase):
                 self.assertSetEqual(found_faults, correct_faults)
 
     def test_nand_gate(self):
-        """Test a single NAND gate"""
+        """Test a single NAND gate."""
         netlist = [
             'NAND 1 2 3',
             'INPUT 1 2 -1',
@@ -89,7 +89,7 @@ class TestFaultsSingleGates(unittest.TestCase):
                 self.assertSetEqual(found_faults, correct_faults)
 
     def test_inverter(self):
-        """Test a single inverter"""
+        """Test a single inverter."""
         netlist = [
             'INV 1 2',
             'INPUT 1 -1',
@@ -110,8 +110,8 @@ class TestFaultsSingleGates(unittest.TestCase):
 class TestFaultSimulator(unittest.TestCase):
     def test_x_inputs(self):
         """
-        Test detecting faults with X inputs
-        Circuit from Textbook Figure 6.58(a)
+        Test detecting faults with X inputs.
+        Circuit from Textbook Figure 6.58(a).
         """
         netlist = [
             'NAND B C E',
@@ -124,7 +124,7 @@ class TestFaultSimulator(unittest.TestCase):
         ]
         wild_faults = {
             'X111': {Fault('E', 1)},
-            '10XX' : {Fault('H', 0)}
+            '10XX': {Fault('H', 0)},
         }
         sim = FaultSimulation(netlist)
 
@@ -136,7 +136,7 @@ class TestFaultSimulator(unittest.TestCase):
                 self.assertLessEqual(expected_faults, found_faults)
 
     def test_small_netlist(self):
-        """Find all faults in small circuit and check exact output"""
+        """Find all faults in small circuit and check exact output."""
         expected_faults = {
             Fault(1, Logic.Low),
             Fault(3, Logic.Low),
