@@ -2,7 +2,7 @@
 
 """Entrypoint for convenience when running directly."""
 
-from simulator.cli import main
+from simulator.__main__ import main
 
 if __name__ == '__main__':
     main()
