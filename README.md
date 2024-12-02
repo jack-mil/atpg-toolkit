@@ -1,6 +1,6 @@
 # PODEM Automatic Test Pattern Generator and Deductive Fault Simulator in Python
 
-:info: Requires Python 3.13!
+:warning: Requires Python 3.13!
 
 ## More docs WIP
 

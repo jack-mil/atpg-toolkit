@@ -12,11 +12,8 @@ from pathlib import Path
 
 from .gates import Gate, GateType
 from .logic import Fault, Logic
+from .types import NetlistFormatError
 from .util import try_as_int
-
-
-class NetlistFormatError(Exception):
-    """Raised when circuit net-list is malformed or invalid."""
 
 
 class Circuit:

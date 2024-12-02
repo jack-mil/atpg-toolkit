@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 import re
 
-from . import gates as _structs
+from . import logic as _logic
 
 FAULT_REGEX = re.compile(r'^(\S+)-sa-([01])$')
 """Pattern to validate a string representation of a fault"""
@@ -31,7 +31,7 @@ def str_to_fault(fault_str: str) -> Fault | None:
     if result is None:
         return None
     net_id, value = result.groups()
-    fault = _structs.Fault(try_as_int(net_id), value)  # type: ignore
+    fault = _logic.Fault(try_as_int(net_id), value)  # type: ignore
     return fault
 
 
@@ -67,7 +67,7 @@ def bitstring_to_logic(string: str) -> list[Logic]:
 
     # Convert the string to a list of boolean values
     # Logic.High and Logic.Low can be constructed from '1' and '0' respectively
-    return [_structs.Logic(char) for char in string]
+    return [_logic.Logic(char) for char in string]
 
 
 def logic_to_bitstring(vector: list[Logic]) -> str:

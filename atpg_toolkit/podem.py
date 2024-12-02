@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 
 from .logic import Logic
 from .simulator import BaseSim
+from .types import InvalidNetError
 
 
 def filter_errors(vector: list[Logic]) -> str:
@@ -139,8 +140,7 @@ class TestGenerator:
         """
 
         if fault.net_id not in self.sim.circuit.nets:
-            print(f'Error: Net {fault.net_id!r} for Fault {fault} does not exist in the circuit.')
-            return None
+            raise InvalidNetError(f'Error: Net {fault.net_id!r} for Fault {fault} does not exist in the circuit.')
 
         # reset and prepare forward-simulation engine
         self.sim.start_state(fault)  # TODO: find better solution for setting up the target fault (pass as args?)

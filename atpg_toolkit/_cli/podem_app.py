@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 from argparse import ArgumentParser
 
 from .. import util
-from ..podem import TestGenerator
+from ..podem import InvalidNetError, TestGenerator
 from ._helpers import add_action, extend_from_file, max_len, valid_path
 
 # subcommand 'generate'
@@ -30,7 +30,7 @@ generate_cmd.add_argument(
 generate_cmd.add_argument(
     'faults',
     nargs='*',
-    help='One or more faults to generate tests for (e.g. 5-sa0)',
+    help='One or more faults to generate tests for (e.g. 5-sa-0)',
 )
 
 
@@ -66,6 +66,10 @@ def generate(net_file: Path, faults: list[str], file: Path | None, **kwargs):
     print('Fault'.ljust(width) + ' | Test')
 
     for fault in fault_list:
-        test = gen.generate_test(fault)
-        print(f'{f"{fault}":<{width}} | {test if test else "UNDETECTABLE"}')
+        try:
+            test = gen.generate_test(fault)
+        except InvalidNetError:
+            print(f'{f"{fault}":<{width}} | NON-EXISTENT')
+        else:
+            print(f'{f"{fault}":<{width}} | {test if test else "UNDETECTABLE"}')
     print(flush=True)

@@ -5,6 +5,7 @@
 # Serves as reference for CLI usage of simulator
 
 PYTHON=${PYTHON:-python3}
+PROG=atpg-toolkit
 
 echo "Run from top level directory (./scripts/generate-results)"
 
@@ -26,8 +27,8 @@ for circuit_file in circuits/*.net; do
     if [[ -f "$test_file" ]]; then
         set -x
         # Run the Python script and append the output to results for each circuit
-        ${PYTHON} cli.py simulate "$circuit_file" -f "$test_file" >> data/results-sim.txt
-        ${PYTHON} cli.py faults   "$circuit_file" -f "$test_file" >> data/results-faults.txt
+        ${PYTHON} ${PROG} simulate "$circuit_file" -f "$test_file" >> data/results-sim.txt
+        ${PYTHON} ${PROG} faults   "$circuit_file" -f "$test_file" >> data/results-faults.txt
         { set +x; } &> /dev/null
     else
         echo "Test file $test_file not found, skipping $circuit_file" 1>&2
@@ -36,7 +37,7 @@ for circuit_file in circuits/*.net; do
     # Check if the file of faults exists
     if [[ -f "$fault_file" ]]; then
         set -x
-        ${PYTHON} cli.py generate "$circuit_file" $(<"$fault_file") >> data/results-podem.txt
+        ${PYTHON} ${PROG} generate "$circuit_file" $(<"$fault_file") >> data/results-podem.txt
         { set +x; } &> /dev/null
     else
         echo "Fault file $fault_file not found, skipping $circuit_file" 1>&2

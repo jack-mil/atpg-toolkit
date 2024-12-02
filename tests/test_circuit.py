@@ -1,8 +1,8 @@
 import unittest
 
 from atpg_toolkit import Circuit, Gate
-from atpg_toolkit.circuit import NetlistFormatError
 from atpg_toolkit.gates import GateType
+from atpg_toolkit.types import NetlistFormatError
 
 
 class TestCircuit(unittest.TestCase):
