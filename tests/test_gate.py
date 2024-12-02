@@ -2,6 +2,24 @@ import unittest
 from dataclasses import FrozenInstanceError
 
 from atpg_toolkit.gates import Gate, GateType, Logic
+from atpg_toolkit.util import str_to_fault
+
+
+class TestFaults(unittest.TestCase):
+    def test_string_conversion(self):
+        strings = [
+            "1-sa-0",
+            "a-sa-1",
+            "net1-sa-0",
+            "404-sa-1",
+            "test 0",
+            "a 0",
+            "9\t0",
+            "56        1",
+        ]
+        for fault in strings:
+            success = str_to_fault(fault)
+            self.assertIsNotNone(success)
 
 
 class TestGate(unittest.TestCase):

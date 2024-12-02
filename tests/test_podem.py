@@ -175,6 +175,12 @@ class TestSimplePodem(unittest.TestCase):
         results = {str(fault): podem.generate_test(fault) for fault in all_faults}
         self.assertIsNone(results['d-sa-1'])
 
+        from atpg_toolkit.podem import InvalidNetError
+        from atpg_toolkit.util import str_to_fault
+
+        with self.assertRaises(InvalidNetError):
+            podem.generate_test(str_to_fault('404-sa-0'))
+
     @unittest.skip('Requires multi-input gate support')
     def test_circuit_hand(self):
         """Test the circuit and fault from Textbook Figure 6.24 (see docs/)."""

@@ -14,7 +14,8 @@ import re
 from . import logic as _logic
 
 FAULT_REGEX = re.compile(r'^(\S+)-sa-([01])$')
-"""Pattern to validate a string representation of a fault"""
+"""Patterns to validate a string representation of a fault"""
+ALT_FAULT_REGEX = re.compile(r'^(\S+)\s+([01])$')
 
 
 def try_as_int(value: int | str) -> int | str:
@@ -27,8 +28,11 @@ def try_as_int(value: int | str) -> int | str:
 
 def str_to_fault(fault_str: str) -> Fault | None:
     """Convert a string of format [net-id]-sa[0|1] to a valid Fault object."""
-    result = FAULT_REGEX.match(fault_str)
-    if result is None:
+    for pat in (FAULT_REGEX, ALT_FAULT_REGEX):
+        result = pat.match(fault_str)
+        if result is not None:
+            break
+    else:
         return None
     net_id, value = result.groups()
     fault = _logic.Fault(try_as_int(net_id), value)  # type: ignore
