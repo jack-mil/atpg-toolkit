@@ -59,7 +59,7 @@ Actions:
     simulate (s)        Perform fault-free simulation with a given net-list and test       
                         vector(s)
 
-jack-mil (2024) https://github.com/jack-mil/logic-test-generator
+jack-mil (2024) https://github.com/jack-mil/atpg-toolkit
 ```
 
 ### Examples:

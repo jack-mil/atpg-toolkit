@@ -9,7 +9,7 @@ from .simulate_app import simulate_cmd
 def main():
     parser = ArgumentParser(
         description='Generate test patterns or simulate faults on digital logic circuits.',
-        epilog='jack-mil (2024) https://github.com/jack-mil/logic-test-generator',
+        epilog='jack-mil (2024) https://github.com/jack-mil/atpg-toolkit',
     )
     parser.add_argument('-v', '--version', action='version', version=f'%(prog)s {__version__}')
     subparses = parser.add_subparsers(title='Actions', required=True)
