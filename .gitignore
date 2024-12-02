@@ -1,6 +1,10 @@
 # ignore generated data
 data/*.csv
 
+.vscode/
+
+docs/assigned/
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
