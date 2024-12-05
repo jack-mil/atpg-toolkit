@@ -111,7 +111,7 @@ class TestCircuit(unittest.TestCase):
             _ = Circuit.load_strings(bad_gate_nets)
         print(cm.exception)
 
-    def test_bad_delimter(self):
+    def test_bad_delimiter(self):
         missing_end = [
             'AND 1 2 3',
             'INPUT 1 2',  # <- missing -1

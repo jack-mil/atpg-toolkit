@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# used for demonstrating the CLI with on-damand fault generation
 set -x
 ./atpg-toolkit generate circuits/s349f_2.net 185-sa-1
 ./atpg-toolkit faults circuits/s349f_2.net 01XX11XXXX1XXXX0XXXXXXXX

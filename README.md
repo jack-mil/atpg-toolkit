@@ -11,6 +11,14 @@ Implements the 5-valued "D-Calculus" logic simulation (0,1,D,D̅,X).
 - D : faulty net at 0 instead of 1
 - D̅ : faulty net at 1 instead of 0
 
+
+## Limitations
+- Only 2-input AND/OR/NAND/NOR and 1-input inverters & buffers are supported
+- No XOR gates
+- The `Circuit` class can be extended to support parsing netlists in other, more standard formats.
+
+The groundwork is here, I would like to revisit and add these features one day™
+
 ## Library Usage
 ```py
 from atpg_toolkit import TestGenerator, FaultSimulation, Fault
