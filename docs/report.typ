@@ -112,7 +112,7 @@ vectors, every trial is different.
   ),
 )
 
-#figure(image("coverage_plot.png", width: 80%), caption: [Plot of coverage for each circuit])
+#figure(image("images/coverage_plot.png", width: 80%), caption: [Plot of coverage for each circuit])
 
 = PODEM Test Pattern Generator
 

@@ -58,7 +58,7 @@ class FaultSimulation(BaseSim):
         propagate all detected faults from gate inputs to the output,
         and evaluate & update the fault-free output.
 
-        See docs/deductive_sim_fault_propagation.png for textbook equation used here
+        See docs/images/deductive_sim_fault_propagation.png for textbook equation used here
 
         Base class override, called by internal _simulate_input()
         """
