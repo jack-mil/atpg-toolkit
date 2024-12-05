@@ -108,3 +108,5 @@ Inputs  | Outputs
 ## Reference
 
 > Miron Abramovici, M. A. Breuer, and A. D. Friedman, *Digital Systems Testing and Testable Design*. Wiley-IEEE Press, 1994.
+
+> P. Goel and B. C. Rosales, "PODEM-X: An Automatic Test Generation System for VLSI Logic Structures," Proc. 18th Design Automation conf., pp. 260-268, June, 1981.

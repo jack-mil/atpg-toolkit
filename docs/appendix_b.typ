@@ -1,13 +1,13 @@
 #set table(fill: (x, y) => if calc.odd(x + y) {
-  rgb("EAF2F5")
+  luma(240)
 })
+#show table.cell: set text(size: 9pt)
 
-#pagebreak()
-= Appendix B: Deductive Fault Simulator Results
+= Deductive Fault Simulator Results
 
 #block(
   breakable: false,
-  [=== Circuit: s27
+  [== Circuit: s27
     - Input Vector: `1 1 0 1 1 0 1`
     - Detected Faults: 9],
 )
@@ -19,7 +19,7 @@
   ),
 )
 
-=== Circuit: s27
+== Circuit: s27
 - Input Vector: `0 1 0 1 0 0 1`
 - Detected Faults: 13
 #figure(
@@ -33,7 +33,7 @@
 
 #block(
   breakable: false,
-  [ === Circuit: s298f_2
+  [ == Circuit: s298f_2
     - Input Vector: `1 0 1 0 1 0 1 1 1 1 0 0 1 0 1 0 1`
     - Detected Faults: 87 ],
 )
@@ -58,7 +58,7 @@
 
 #block(
   breakable: false,
-  [=== Circuit: s298f_2
+  [== Circuit: s298f_2
     - Input Vector: `1 1 1 0 1 1 1 0 1 0 1 1 1 0 1 1 1`
     - Detected Faults: 53],
 )
@@ -78,7 +78,7 @@
 
 #block(
   breakable: false,
-  [=== Circuit: s344f_2
+  [== Circuit: s344f_2
     - Input Vector: `1 0 1 0 1 0 1 0 1 0 1 0 1 1 1 1 0 1 1 1 1 1 1 1`
     - Detected Faults: 82],
 )
@@ -102,7 +102,7 @@
 
 #block(
   breakable: false,
-  [=== Circuit: s344f_2
+  [== Circuit: s344f_2
     - Input Vector: `1 1 1 0 1 0 1 1 1 0 1 0 1 0 1 0 1 0 0 0 1 1 0 0`
     - Detected Faults: 132],
 )
@@ -131,7 +131,7 @@
 
 #block(
   breakable: false,
-  [=== Circuit: s349f_2
+  [== Circuit: s349f_2
     - Input Vector: `1 0 1 0 0 0 0 0 0 0 1 0 1 0 1 0 1 1 1 1 1 1 1 1`
     - Detected Faults: 97],
 )
@@ -156,7 +156,7 @@
 
 #block(
   breakable: false,
-  [=== Circuit: s349f_2
+  [== Circuit: s349f_2
     - Input Vector: `1 1 1 1 1 1 1 0 1 0 1 0 1 0 1 0 1 0 0 0 1 1 1 1`
     - Detected Faults: 137],
 )

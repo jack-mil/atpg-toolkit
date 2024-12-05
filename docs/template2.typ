@@ -1,4 +1,13 @@
-//From: https://github.com/talal/ilm
+// From: https://github.com/talal/ilm 
+//     & https://github.com/mbollmann/typst-kunskap
+
+// Colors used across the template.
+#let link-color = rgb("#3282B8")
+#let muted-color = luma(160)
+#let block-bg-color = luma(240)
+
+#let stroke-color = luma(200)
+#let fill-color = luma(250)
 
 // Workaround for the lack of an `std` scope.
 #let std-bibliography = bibliography
@@ -9,10 +18,6 @@
 // characters. Default tracking is 0pt.
 #let smallcaps(body) = std-smallcaps(text(tracking: 0.6pt, body))
 #let upper(body) = std-upper(text(tracking: 0.6pt, body))
-
-// Colors used across the template.
-#let stroke-color = luma(200)
-#let fill-color = luma(250)
 
 // This function gets your whole document as its `body`.
 #let ilm(
@@ -29,12 +34,19 @@
   // The value needs to be of the 'datetime' type.
   // More info: https://typst.app/docs/reference/foundations/datetime/
   // Example: datetime(year: 2024, month: 03, day: 17)
-  date: none,
+  date: datetime.today(),
 
   // Format in which the date will be displayed on cover page.
   // More info: https://typst.app/docs/reference/foundations/datetime/#format
   // The default format will display date as: MMMM DD, YYYY
   date-format: "[month repr:long] [day padding:zero], [year repr:full]",
+
+  // Fonts
+  body-font: ("Noto Serif"),
+  body-font-size: 12pt,
+  raw-font: ("Cascadia Code", "Fira Mono"),
+  raw-font-size: 9pt,
+  headings-font: ("Noto Serif"),
 
   // An abstract for your work. Can be omitted if you don't have one.
   abstract: none,
@@ -92,17 +104,35 @@
   set document(title: title, author: author)
 
   // Set the body font.
-  set text(size: 12pt) // default is 11pt
+  set text(font: body-font, size: body-font-size)
 
   // Set raw text font.
   // Default is Fira Mono at 8.8pt
-  show raw: set text(font: ("Iosevka", "Fira Mono"), size: 9pt)
+  show raw: set text(font: raw-font, size: raw-font-size)
 
   // Configure page size and margins.
   set page(
     paper: paper-size,
     margin: (bottom: 1.75cm, top: 2.25cm),
   )
+
+  // Set title block
+  // {
+  //     v(26pt)
+  //     text(font: headings-font, weight: "medium", size: 22pt, title)
+  //     linebreak()
+  //     v(16pt)
+  //     if type(author) == array {
+  //         text(font: body-font, style: "italic", author.join(", "))
+  //     } else {
+  //         text(font: body-font, style: "italic", author)
+  //     }
+  //     if date != none {
+  //         v(2pt)
+  //         text(font: body-font, date.display(date-format))
+  //     }
+  //     v(5em)
+  // }
 
   // Cover page.
   page(
@@ -136,13 +166,30 @@
   // Default spacing is 1.2em.
   set par(leading: 0.7em, spacing: 1.35em, justify: true, linebreaks: "optimized")
 
-  // Add vertical space after headings.
   show heading: it => {
+    // Add vertical space before headings
+    if it.level == 1 {
+        v(6%, weak: true)
+    } else {
+        v(4%, weak: true)
+    }
+    // Set headings font
+    set text(weight: "medium")
+    // set text(font: headings-font, weight: "medium")
     it
-    v(2%, weak: true)
+
+    // Add vertical space after headings.
+    v(3%, weak: true)
   }
   // Do not hyphenate headings.
   show heading: set text(hyphenate: false)
+
+  // show heading.where(level: 3): it => text(
+  //   font: headings-font,
+  //   // size: body-font-size,
+  //   weight: "medium",
+  //   it.body + h(1em),
+  // )
 
   // Show a small maroon circle next to external links.
   show link: it => {
@@ -215,24 +262,35 @@
     radius: 2pt,
   )
 
-  // Display block code with padding.
-  show raw.where(block: true): block.with(inset: (x: 5pt))
+  // Display block code with padding and shaded background
+  show raw.where(block: true): block.with(
+    inset: (x:1.5em, y: 5pt),
+    outset: (x: -1em),
+    width: 100%,
+    fill: block-bg-color,
+    stroke: stroke-color
+  )
 
   // Break large tables across pages.
   show figure.where(kind: table): set block(breakable: true)
+  show figure: set figure.caption(position: top)
   set table(
     // Increase the table cell's padding
-    inset: 7pt, // default is 5pt
-    stroke: (0.5pt + stroke-color)
+    inset: 5pt, // default is 5pt
+    stroke: (0.5pt + stroke-color),
+    fill: (_, y) => if calc.odd(y) {
+      block-bg-color
+    },
   )
   // Use smallcaps for table header row.
-  show table.cell.where(y: 0): smallcaps
+  // show table.cell.where(y: 0): smallcaps
+  show table.cell: set text(11pt)
 
   // Wrap `body` in curly braces so that it has its own context. This way show/set rules
   // will only apply to body.
   {
     // Configure heading numbering.
-    set heading(numbering: "1.")
+    // set heading(numbering: "1.")
 
     // Start chapters on a new page.
     show heading.where(level: 1): it => {
@@ -249,7 +307,7 @@
     pagebreak()
     heading(level: 1)[#appendix.at("title", default: "Appendix")]
 
-    // For heading prefixes in the appendix, the standard convention is A.1.1.
+    // // For heading prefixes in the appendix, the standard convention is A.1.1.
     let num-fmt = appendix.at("heading-numbering-format", default: "A.1.1.")
 
     counter(heading).update(0)

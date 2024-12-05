@@ -1,0 +1,71 @@
+#show figure: set block(breakable: false)
+#show table.cell: set text(11pt)
+#grid(
+  columns: 2, rows:2, column-gutter: 2em,
+    figure(
+      caption: [Circuit s27 generated tests],
+      table(
+        columns: 2,
+        align: (left, left),
+        table.header([Fault], [Test]),
+        [6-sa-1], [X0X10X0],
+        [10-sa-1], [100XXX0],
+        [11-sa-0], [X10XXXX],
+        [12-sa-0], [1XXX1XX],
+        [13-sa-0], [1XXX1XX],
+        [16-sa-0], [X0X10X0],
+        [17-sa-1], [10X00X0],
+        [18-sa-1], [11X101X],
+      ),
+    ),
+    figure(
+      caption: [Circuit s298 generated tests],
+      table(
+        columns: 2,
+        align: (left, left),
+        table.header("Fault", "Test"),
+        [3-sa-1 ], [ 10001XXXXX0XXX0XX],
+        [26-sa-1 ], [ XX1X1XXX0XXXXXXXX],
+        [38-sa-0 ], [ 01X0XXXXXXXXXX0XX],
+        [46-sa-1 ], [ X1010XXXXXXX0X0XX],
+        [68-sa-0 ], [ X1XX1XXXXXXXX00XX],
+        [70-sa-1 ], [ 01X1XXXXXXXXXX0XX],
+        [73-sa-0 ], [ 111XXXXXXXXXXX0XX],
+        [92-sa-0 ], [ X10101XXXXXX0X0XX],
+      ),
+    ),
+    figure(
+      caption: [Circuit s344 generated tests],
+      table(
+        columns: 2,
+        align: (left, left),
+        table.header([Fault], [Test]),
+        [5-sa-1 ], [ XXXX0XXXXXXXXXXXXXXXXXXX],
+        [16-sa-0 ], [ 10XX0XXXXXXXXXX1XXXXXXXX],
+        [38-sa-0 ], [ X1XXXXXXXXXXX1XXXXXXXXXX],
+        [71-sa-1 ], [ 10XXXXXXXXXXXXXXXXXXXXXX],
+        [91-sa-1 ], [ 111XXXXXXXXXXXXXXXXXXXXX],
+        [91-sa-0 ], [ 10XXXXXXXXXXXXXXXXXXXXXX],
+        [138-sa-0 ], [ 01XX00XXXX0X11X0XXXXXXXX],
+        [166-sa-0 ], [ 01X00XXXXX011XX0XXXXXXXX],
+      ),
+    ),
+    figure(
+      caption: [Circuit s349 generated tests],
+      table(
+        columns: 2,
+        align: (left, left),
+        table.header([Fault], [Test]),
+        [7-sa-0 ], [ XXXXXX1XXXXXXXXXXXXXXXXX],
+        [25-sa-1 ], [ XXXXXXXXXXXXXXX1XXXXXXXX],
+        [51-sa-0 ], [ 00XXXXXXXXXXXXX0XXXXXXXX],
+        [83-sa-1 ], [ 01XX000XXX0X0X10XXXXXXXX],
+        [92-sa-0 ], [ 01XXX01XXX0XX1X0XXXXXXXX],
+        [105-sa-1 ], [ 01X1000XXX01XX10XXXXXXXX],
+        [105-sa-0 ], [ 01X1XXXXXX1XXXX0XXXXXXXX],
+        [179-sa-0 ], [ 101XXXXXXXXXXXX0XXXXXXXX],
+        [179-sa-1 ], [ UNDETECTABLE],
+        [180-sa-0 ], [ 011XXXXXXXXXXXX0XXXXXXXX],
+      ),
+    )
+)
