@@ -1,4 +1,4 @@
-// From: https://github.com/talal/ilm 
+// From: https://github.com/talal/ilm
 //     & https://github.com/mbollmann/typst-kunskap
 
 // Colors used across the template.
@@ -23,43 +23,35 @@
 #let ilm(
   // The title for your work.
   title: [Your Title],
-
   // Author's name.
   author: "Author",
-
   // The paper size to use.
-  paper-size: "a4",
-
+  paper-size: "us-letter",
   // Date that will be displayed on cover page.
   // The value needs to be of the 'datetime' type.
   // More info: https://typst.app/docs/reference/foundations/datetime/
   // Example: datetime(year: 2024, month: 03, day: 17)
   date: datetime.today(),
-
   // Format in which the date will be displayed on cover page.
   // More info: https://typst.app/docs/reference/foundations/datetime/#format
   // The default format will display date as: MMMM DD, YYYY
   date-format: "[month repr:long] [day padding:zero], [year repr:full]",
-
+  header:"",
   // Fonts
-  body-font: ("Noto Serif"),
+  body-font: "Noto Serif",
   body-font-size: 12pt,
   raw-font: ("Cascadia Code", "Fira Mono"),
-  raw-font-size: 9pt,
-  headings-font: ("Noto Serif"),
-
+  raw-font-size: 11pt,
+  headings-font: "Source Sans 3",
   // An abstract for your work. Can be omitted if you don't have one.
   abstract: none,
-
   // The contents for the preface page. This will be displayed after the cover page. Can
   // be omitted if you don't have one.
   preface: none,
-
   // The result of a call to the `outline` function or `none`.
   // Set this to `none`, if you want to disable the table of contents.
   // More info: https://typst.app/docs/reference/model/outline/
   table-of-contents: outline(),
-
   // Display an appendix after the body but before the bibliography.
   appendix: (
     enabled: false,
@@ -67,36 +59,29 @@
     heading-numbering-format: "",
     body: none,
   ),
-
   // The result of a call to the `bibliography` function or `none`.
   // Example: bibliography("refs.bib")
   // More info: https://typst.app/docs/reference/model/bibliography/
   bibliography: none,
-
   // Whether to start a chapter on a new page.
   chapter-pagebreak: true,
-
   // Whether to display a maroon circle next to external links.
   external-link-circle: true,
-
   // Display an index of figures (images).
   figure-index: (
     enabled: false,
     title: "",
   ),
-
   // Display an index of tables
   table-index: (
     enabled: false,
     title: "",
   ),
-
   // Display an index of listings (code blocks).
   listing-index: (
     enabled: false,
     title: "",
   ),
-
   // The content of your work.
   body,
 ) = {
@@ -169,13 +154,12 @@
   show heading: it => {
     // Add vertical space before headings
     if it.level == 1 {
-        v(6%, weak: true)
+      v(6%, weak: true)
     } else {
-        v(4%, weak: true)
+      v(4%, weak: true)
     }
     // Set headings font
-    set text(weight: "medium")
-    // set text(font: headings-font, weight: "medium")
+    set text(font: headings-font, weight: "medium")
     it
 
     // Add vertical space after headings.
@@ -184,16 +168,16 @@
   // Do not hyphenate headings.
   show heading: set text(hyphenate: false)
 
-  // show heading.where(level: 3): it => text(
-  //   font: headings-font,
-  //   // size: body-font-size,
-  //   weight: "medium",
-  //   it.body + h(1em),
-  // )
+  show heading.where(level: 3): it => text(
+    font: headings-font,
+    // size: body-font-size,
+    weight: "medium",
+    it.body + h(1em),
+  )
 
   // Show a small maroon circle next to external links.
   show link: it => {
-    it
+    underline(it)
     // Workaround for ctheorems package so that its labels keep the default link styling.
     if external-link-circle and type(it.dest) != label {
       sym.wj
@@ -208,7 +192,7 @@
     page(preface)
   }
 
-  // Indent nested entires in the outline.
+  // Indent nested entries in the outline.
   set outline(indent: auto)
 
   // Display table of contents.
@@ -216,40 +200,61 @@
     table-of-contents
   }
 
+
   // Configure page numbering and footer.
-  set page(footer: context {
-    // Get current page number.
-    let i = counter(page).at(here()).first()
+  set page(
+      header: context {
+          if counter(page).get().first() > 1 [
+              #set text(font: headings-font, weight: "medium", fill: muted-color)
+              #header
+              #h(1fr)
+              #title
+          ] else [
+              #set text(font: headings-font, weight: "medium")
+              #header
+          ]
+      },
+      numbering: (..nums) => {
+          set text(font: headings-font, weight: "medium", fill: muted-color)
+          nums.pos().first()-1
+      },
+  )
 
-    // Align right for even pages and left for odd.
-    let is-odd = calc.odd(i)
-    let aln = if is-odd {
-      right
-    } else {
-      left
-    }
+  // Configure page numbering and footer.
+  // set page(footer: context {
+  //   // Get current page number.
+  //   let i = counter(page).at(here()).first()
 
-    // Are we on a page that starts a chapter?
-    let target = heading.where(level: 1)
-    if query(target).any(it => it.location().page() == i) {
-      return align(aln)[#i]
-    }
+  //   // Align right for even pages and left for odd.
+  //   let is-odd = calc.odd(i)
+  //   let aln = right
+  //   // let aln = if is-odd {
+  //   //   right
+  //   // } else {
+  //   //   left
+  //   // }
 
-    // Find the chapter of the section we are currently in.
-    let before = query(target.before(here()))
-    if before.len() > 0 {
-      let current = before.last()
-      let gap = 1.75em
-      let chapter = upper(text(size: 0.68em, current.body))
-      if current.numbering != none {
-        if is-odd {
-          align(aln)[#chapter #h(gap) #i]
-        } else {
-          align(aln)[#i #h(gap) #chapter]
-        }
-      }
-    }
-  })
+  //   // Are we on a page that starts a chapter?
+  //   let target = heading.where(level: 1)
+  //   if query(target).any(it => it.location().page() == i) {
+  //     return align(aln)[#i]
+  //   }
+
+  //   // Find the chapter of the section we are currently in.
+  //   let before = query(target.before(here()))
+  //   if before.len() > 0 {
+  //     let current = before.last()
+  //     let gap = 1.75em
+  //     let chapter = upper(text(size: 0.68em, current.body))
+  //     if current.numbering != none {
+  //       if is-odd {
+  //         align(aln)[#chapter #h(gap) #i]
+  //       } else {
+  //         align(aln)[#i #h(gap) #chapter]
+  //       }
+  //     }
+  //   }
+  // })
 
   // Configure equation numbering.
   set math.equation(numbering: "(1)")
@@ -264,11 +269,11 @@
 
   // Display block code with padding and shaded background
   show raw.where(block: true): block.with(
-    inset: (x:1.5em, y: 5pt),
+    inset: (x: 1.5em, y: 5pt),
     outset: (x: -1em),
     width: 100%,
     fill: block-bg-color,
-    stroke: stroke-color
+    stroke: stroke-color,
   )
 
   // Break large tables across pages.
@@ -304,20 +309,31 @@
 
   // Display appendix before the bibliography.
   if appendix.enabled {
-    pagebreak()
-    heading(level: 1)[#appendix.at("title", default: "Appendix")]
+    // pagebreak()
+    // heading(level: 1)[#appendix.at("title", default: "Appendix")]
+    page(
+      align(
+        center + horizon,
+        block(width: 90%)[
+          #heading(level: 1)[#text(size: 2em)[#appendix.at("title", default: "Appendix")]]
+        ],
+      ),
+    )
 
     // // For heading prefixes in the appendix, the standard convention is A.1.1.
     let num-fmt = appendix.at("heading-numbering-format", default: "A.1.1.")
 
     counter(heading).update(0)
-    set heading(outlined: false, numbering: (..nums) => {
-      let vals = nums.pos()
-      if vals.len() > 0{
-        let v = vals.slice(0)
-        return numbering(num-fmt, ..v)
-      }
-    })
+    set heading(
+      outlined: false,
+      numbering: (..nums) => {
+        let vals = nums.pos()
+        if vals.len() > 0 {
+          let v = vals.slice(0)
+          return numbering(num-fmt, ..v)
+        }
+      },
+    )
 
     appendix.body
   }

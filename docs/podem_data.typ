@@ -1,7 +1,6 @@
 #show figure: set block(breakable: false)
-#show table.cell: set text(11pt)
 #grid(
-  columns: 2, rows:2, column-gutter: 2em,
+  columns: 2, rows:2, column-gutter: 2em, row-gutter: 2em,
     figure(
       caption: [Circuit s27 generated tests],
       table(

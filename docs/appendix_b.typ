@@ -5,6 +5,8 @@
 
 = Deductive Fault Simulator Results
 
+This appendix is the result of running all the required test vectors through the fault simulator, and show all faults detected by each test vector for each circuit.
+
 #block(
   breakable: false,
   [== Circuit: s27
@@ -60,20 +62,22 @@
   breakable: false,
   [== Circuit: s298f_2
     - Input Vector: `1 1 1 0 1 1 1 0 1 0 1 1 1 0 1 1 1`
-    - Detected Faults: 53],
-)
+    - Detected Faults: 53
 
-#figure(
-  caption: [s298f_2 (`11101110101110111`)],
-  table(
-    columns: 9,
-    [1 s-a-0], [6 s-a-0], [7 s-a-0], [8 s-a-1], [9 s-a-0], [10 s-a-1], [11 s-a-0], [12 s-a-0], [15 s-a-0],
-    [18 s-a-1], [19 s-a-1], [20 s-a-1], [21 s-a-1], [22 s-a-1], [23 s-a-1], [24 s-a-1], [25 s-a-1], [26 s-a-1],
-    [27 s-a-1], [28 s-a-1], [29 s-a-1], [30 s-a-1], [31 s-a-1], [32 s-a-0], [33 s-a-0], [34 s-a-0], [35 s-a-1],
-    [36 s-a-0], [37 s-a-1], [43 s-a-0], [45 s-a-1], [47 s-a-1], [49 s-a-1], [51 s-a-1], [53 s-a-0], [55 s-a-0],
-    [57 s-a-0], [59 s-a-0], [63 s-a-1], [64 s-a-0], [65 s-a-1], [66 s-a-1], [67 s-a-1], [68 s-a-1], [102 s-a-1],
-    [152 s-a-1], [166 s-a-0], [168 s-a-0], [170 s-a-0], [172 s-a-0], [173 s-a-0], [174 s-a-0], [182 s-a-0],
-  ),
+
+    #figure(
+      caption: [s298f_2 (`11101110101110111`)],
+      table(
+        columns: 9,
+        [1 s-a-0], [6 s-a-0], [7 s-a-0], [8 s-a-1], [9 s-a-0], [10 s-a-1], [11 s-a-0], [12 s-a-0], [15 s-a-0],
+        [18 s-a-1], [19 s-a-1], [20 s-a-1], [21 s-a-1], [22 s-a-1], [23 s-a-1], [24 s-a-1], [25 s-a-1], [26 s-a-1],
+        [27 s-a-1], [28 s-a-1], [29 s-a-1], [30 s-a-1], [31 s-a-1], [32 s-a-0], [33 s-a-0], [34 s-a-0], [35 s-a-1],
+        [36 s-a-0], [37 s-a-1], [43 s-a-0], [45 s-a-1], [47 s-a-1], [49 s-a-1], [51 s-a-1], [53 s-a-0], [55 s-a-0],
+        [57 s-a-0], [59 s-a-0], [63 s-a-1], [64 s-a-0], [65 s-a-1], [66 s-a-1], [67 s-a-1], [68 s-a-1], [102 s-a-1],
+        [152 s-a-1], [166 s-a-0], [168 s-a-0], [170 s-a-0], [172 s-a-0], [173 s-a-0], [174 s-a-0], [182 s-a-0],
+      ),
+    )
+  ],
 )
 
 #block(
