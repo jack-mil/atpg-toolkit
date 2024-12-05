@@ -43,6 +43,7 @@
   raw-font: ("Cascadia Code", "Fira Mono"),
   raw-font-size: 11pt,
   headings-font: "Source Sans 3",
+  math-font: "Fira Math",
   // An abstract for your work. Can be omitted if you don't have one.
   abstract: none,
   // The contents for the preface page. This will be displayed after the cover page. Can
@@ -94,6 +95,8 @@
   // Set raw text font.
   // Default is Fira Mono at 8.8pt
   show raw: set text(font: raw-font, size: raw-font-size)
+
+  show math.equation: set text(font: math-font)
 
   // Configure page size and margins.
   set page(

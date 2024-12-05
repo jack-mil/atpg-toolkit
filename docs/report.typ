@@ -6,7 +6,6 @@
   author: "Jackson Miller",
 
   table-of-contents: none,
-  chapter-pagebreak: true,
   appendix: (
     enabled: true,
     body: [
