@@ -9,14 +9,14 @@ The project repository is available at #link("https://github.com/jack-mil/atpg-t
 The only requirement for running is Python version *3.13*. The code has been testing on both Windows and Linux.
 
 In the source distribution, you will find an importable Python package called `atpg_toolkit`. This package provides an API to perform fault analysis on a netlist. Also provided is the `atpg_toolkit._cli` subpackage, intended to provide a command line interface for simple functions. The command line interface should be invoked by running the python module as a script: `python3 -m atpg_toolkit --help`.
-For convienece, an executable script exists in the project root at `atpg-toolkit`, which can be run directly to get access the the CLI.
+For convenience, an executable script exists in the project root at `atpg-toolkit`, which can be run directly to get access to the CLI.
 
-The Python library is fully type-hinted and contains docstring comments that will display documentation in your editor (e.g. VSCode). For detailed usage of the library API, see some of the examples in the README.md file (for github), or any of the unit-test cases.
+The Python library is fully type-hinted and contains docstring comments that will display documentation in your editor (e.g. VSCode). For detailed usage of the library API, see some of the examples in the README file (on Github), or any of the unit-test cases.
 
 Here is a high-level overview of the package contents
 - `atpg_toolkit.gates.Gate`
   - Representation of a logic gate of a certain type ((N)AND/(N)OR/INV/BUF)
-  - Gates implement have an `.evaluate()` method that performs the correct operation based in it's type.
+  - Gates implement an `.evaluate()` method that performs the correct operation based in it's type (5-valued logic is further abstracted into the `Logic` enum).
 
 - `atpg_toolkit.circuit.Circuit`
   - Class to hold the static (stateless) representation of a circuit (`Nets` and `Gates`). Also provides methods for parsing netlist in various formats.
@@ -27,14 +27,14 @@ Here is a high-level overview of the package contents
   - The `BaseSim` parent provides the basis for general 5-valued simulation.
 
 - `atpg_toolkit.faultsim.FaultSimulator`
-  - Perform fault propagation through a circuit to find detected faults given a test vector with `FaultSimulator.detect_faults()`
+  - Perform deductive fault simulation by propagating fault-lists through a circuit to detected faults given a test vector with `FaultSimulator.detect_faults()`.
 
 - `atpg_toolkit.podem.TestGenerator`
   - The PODEM Test Pattern generator. Use `TestGenerator.generate_test()` to find a test for a fault.
 
 #v(2em)
 
-In the source distribution, you will also find several other folders related to development and testing. Many serve as useful reference on using the tools provided by the package.
+In the source distribution, you will also find several other folders related to development and testing. Many serve as useful reference of using the tools provided by the package.
 
 - `circuits/`
   - netlists of various size that can be loaded by the Simulators

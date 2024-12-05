@@ -115,7 +115,7 @@ vectors, every trial is different.
 
 = PODEM Test Pattern Generator
 
-The final part of this project is the implementation of the Path Orientated Decision Making (PODEM) test pattern generation algorithm [Goel and Rosales 1981]. This is implemented in the Python `TestGenerator` class, which provides methods of loading a circuit and generating a valid combination of inputs that detect a given single-stuck fault. The generated test vector can than be directly fed back into the previous deductive fault simulator to find all faults which are detected by that test. This this way, a small set of tests can be generated that cover many faults in the circuit.
+The final part of this project is the implementation of the Path Orientated Decision Making (PODEM) test pattern generation algorithm [Goel and Rosales 1981]. This is implemented in the Python `TestGenerator` class, which provides methods of loading a circuit and generating a valid combination of inputs that detect a given single-stuck fault. The generated test vector can than be directly fed back into the previous deductive fault simulator to find all faults which are detected by that test. This way, a small set of tests can be generated that cover many faults in the circuit.
 
 Usage of the library looks like this:
 
