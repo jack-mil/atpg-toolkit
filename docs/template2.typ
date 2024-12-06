@@ -42,7 +42,8 @@
   body-font-size: 12pt,
   raw-font: ("Cascadia Code", "Fira Mono"),
   raw-font-size: 11pt,
-  headings-font: "Source Sans 3",
+  headings-font: ("Noto Serif", "Source Sans 3"),
+  margin-font: "Source Sans 3",
   math-font: "Fira Math",
   // An abstract for your work. Can be omitted if you don't have one.
   abstract: none,
@@ -208,17 +209,17 @@
   set page(
       header: context {
           if counter(page).get().first() > 1 [
-              #set text(font: headings-font, weight: "medium", fill: muted-color)
+              #set text(font: margin-font, fill: muted-color)
               #header
               #h(1fr)
               #title
           ] else [
-              #set text(font: headings-font, weight: "medium")
+              #set text(font: margin-font, )
               #header
           ]
       },
       numbering: (..nums) => {
-          set text(font: headings-font, weight: "medium", fill: muted-color)
+          set text(font: margin-font,  fill: muted-color)
           nums.pos().first()-1
       },
   )
@@ -323,12 +324,12 @@
       ),
     )
 
-    // // For heading prefixes in the appendix, the standard convention is A.1.1.
+    // For heading prefixes in the appendix, the standard convention is A.1.1.
     let num-fmt = appendix.at("heading-numbering-format", default: "A.1.1.")
 
     counter(heading).update(0)
     set heading(
-      outlined: false,
+      outlined: true,
       numbering: (..nums) => {
         let vals = nums.pos()
         if vals.len() > 0 {
