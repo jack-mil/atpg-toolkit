@@ -1,6 +1,8 @@
-#set table(fill: (x, y) => if calc.odd(x + y) {
-  luma(240)
-})
+#set table(
+  fill: (x, y) => if calc.odd(x + y) {
+    luma(240)
+  },
+)
 #show table.cell: set text(size: 9pt)
 
 = Deductive Fault Simulator Results
@@ -11,7 +13,8 @@ This appendix is the result of running all the required test vectors through the
   breakable: false,
   [== Circuit: s27
     - Input Vector: `1 1 0 1 1 0 1`
-    - Detected Faults: 9],
+    - Detected Faults: 9
+  ],
 )
 #figure(
   caption: [s27 (`1101101`)],
@@ -35,26 +38,27 @@ This appendix is the result of running all the required test vectors through the
 
 #block(
   breakable: false,
-  [ == Circuit: s298f_2
+  [
+    == Circuit: s298f_2
     - Input Vector: `1 0 1 0 1 0 1 1 1 1 0 0 1 0 1 0 1`
-    - Detected Faults: 87 ],
+    - Detected Faults: 87
+  ],
 )
 
 #figure(
   caption: [s298f_2 (`10101011110010101`)],
   table(
-    columns: 8,
-    [3 s-a-0], [5 s-a-0], [6 s-a-1], [7 s-a-0], [8 s-a-0], [9 s-a-0], [10 s-a-0], [11 s-a-1],
-    [12 s-a-1], [15 s-a-0], [18 s-a-1], [19 s-a-1], [20 s-a-1], [21 s-a-1], [22 s-a-1], [23 s-a-1],
-    [24 s-a-0], [25 s-a-0], [26 s-a-0], [27 s-a-0], [28 s-a-1], [29 s-a-1], [30 s-a-1], [31 s-a-1],
-    [32 s-a-0], [33 s-a-1], [34 s-a-0], [35 s-a-0], [36 s-a-1], [37 s-a-0], [39 s-a-1], [41 s-a-1],
-    [45 s-a-1], [48 s-a-0], [49 s-a-0], [50 s-a-0], [51 s-a-0], [52 s-a-1], [53 s-a-1], [54 s-a-1],
-    [55 s-a-1], [56 s-a-0], [58 s-a-0], [64 s-a-1], [66 s-a-0], [67 s-a-1], [68 s-a-1], [95 s-a-0],
-    [102 s-a-0], [103 s-a-0], [104 s-a-0], [107 s-a-1], [108 s-a-1], [109 s-a-1], [110 s-a-1], [111 s-a-1],
-    [113 s-a-1], [115 s-a-1], [116 s-a-1], [118 s-a-0], [119 s-a-0], [121 s-a-0], [122 s-a-0], [132 s-a-0],
-    [133 s-a-0], [135 s-a-0], [138 s-a-0], [143 s-a-1], [144 s-a-1], [145 s-a-1], [149 s-a-0], [152 s-a-0],
-    [158 s-a-0], [159 s-a-0], [161 s-a-0], [163 s-a-0], [166 s-a-1], [167 s-a-1], [168 s-a-1], [169 s-a-1],
-    [170 s-a-1], [173 s-a-0], [182 s-a-1], [183 s-a-1], [186 s-a-1], [187 s-a-1], [188 s-a-1],
+    columns: 9,
+    [3 s-a-0], [5 s-a-0], [6 s-a-1], [7 s-a-0], [8 s-a-0], [9 s-a-0], [10 s-a-0], [11 s-a-1], [12 s-a-1],
+    [15 s-a-0], [18 s-a-1], [19 s-a-1], [20 s-a-1], [21 s-a-1], [22 s-a-1], [23 s-a-1], [24 s-a-0], [25 s-a-0],
+    [26 s-a-0], [27 s-a-0], [28 s-a-1], [29 s-a-1], [30 s-a-1], [31 s-a-1], [32 s-a-0], [33 s-a-1], [34 s-a-0],
+    [35 s-a-0], [36 s-a-1], [37 s-a-0], [39 s-a-1], [41 s-a-1], [45 s-a-1], [48 s-a-0], [49 s-a-0], [50 s-a-0],
+    [51 s-a-0], [52 s-a-1], [53 s-a-1], [54 s-a-1], [55 s-a-1], [56 s-a-0], [58 s-a-0], [64 s-a-1], [66 s-a-0],
+    [67 s-a-1], [68 s-a-1], [95 s-a-0], [102 s-a-0], [103 s-a-0], [104 s-a-0], [107 s-a-1], [108 s-a-1], [109 s-a-1],
+    [110 s-a-1], [111 s-a-1], [113 s-a-1], [115 s-a-1], [116 s-a-1], [118 s-a-0], [119 s-a-0], [121 s-a-0], [122 s-a-0],
+    [132 s-a-0], [133 s-a-0], [135 s-a-0], [138 s-a-0], [143 s-a-1], [144 s-a-1], [145 s-a-1], [149 s-a-0], [152 s-a-0],
+    [158 s-a-0], [159 s-a-0], [161 s-a-0], [163 s-a-0], [166 s-a-1], [167 s-a-1], [168 s-a-1], [169 s-a-1], [170 s-a-1],
+    [173 s-a-0], [182 s-a-1], [183 s-a-1], [186 s-a-1], [187 s-a-1], [188 s-a-1],
   ),
 )
 
@@ -84,7 +88,8 @@ This appendix is the result of running all the required test vectors through the
   breakable: false,
   [== Circuit: s344f_2
     - Input Vector: `1 0 1 0 1 0 1 0 1 0 1 0 1 1 1 1 0 1 1 1 1 1 1 1`
-    - Detected Faults: 82],
+    - Detected Faults: 82
+  ],
 )
 
 #figure(
@@ -108,7 +113,8 @@ This appendix is the result of running all the required test vectors through the
   breakable: false,
   [== Circuit: s344f_2
     - Input Vector: `1 1 1 0 1 0 1 1 1 0 1 0 1 0 1 0 1 0 0 0 1 1 0 0`
-    - Detected Faults: 132],
+    - Detected Faults: 132
+  ],
 )
 
 #figure(
@@ -137,7 +143,8 @@ This appendix is the result of running all the required test vectors through the
   breakable: false,
   [== Circuit: s349f_2
     - Input Vector: `1 0 1 0 0 0 0 0 0 0 1 0 1 0 1 0 1 1 1 1 1 1 1 1`
-    - Detected Faults: 97],
+    - Detected Faults: 97
+  ],
 )
 
 #figure(
@@ -162,7 +169,8 @@ This appendix is the result of running all the required test vectors through the
   breakable: false,
   [== Circuit: s349f_2
     - Input Vector: `1 1 1 1 1 1 1 0 1 0 1 0 1 0 1 0 1 0 0 0 1 1 1 1`
-    - Detected Faults: 137],
+    - Detected Faults: 137
+  ],
 )
 
 #figure(

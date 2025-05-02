@@ -36,7 +36,7 @@
   // More info: https://typst.app/docs/reference/foundations/datetime/#format
   // The default format will display date as: MMMM DD, YYYY
   date-format: "[month repr:long] [day padding:zero], [year repr:full]",
-  header:"",
+  header: "",
   // Fonts
   body-font: "Noto Serif",
   body-font-size: 12pt,
@@ -207,21 +207,21 @@
 
   // Configure page numbering and footer.
   set page(
-      header: context {
-          if counter(page).get().first() > 1 [
-              #set text(font: margin-font, fill: muted-color)
-              #header
-              #h(1fr)
-              #title
-          ] else [
-              #set text(font: margin-font, )
-              #header
-          ]
-      },
-      numbering: (..nums) => {
-          set text(font: margin-font,  fill: muted-color)
-          nums.pos().first()-1
-      },
+    header: context {
+      if counter(page).get().first() > 1 [
+        #set text(font: margin-font, fill: muted-color)
+        #header
+        #h(1fr)
+        #title
+      ] else [
+        #set text(font: margin-font)
+        #header
+      ]
+    },
+    numbering: (..nums) => {
+      set text(font: margin-font, fill: muted-color)
+      nums.pos().first() - 1
+    },
   )
 
   // Configure page numbering and footer.

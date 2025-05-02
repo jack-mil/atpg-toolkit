@@ -2,8 +2,8 @@
 #import "template2.typ": *
 
 #show: ilm.with(
-  title: "ECE 6140 Final Project",
-  author: "Jackson Miller",
+  title: "ATPG Toolkit Report",
+  author: "jack-mil",
 
   table-of-contents: none,
   appendix: (
@@ -14,7 +14,6 @@
       #include "appendix_b.typ"
     ],
   ),
-  header: "Jackson Miller",
 )
 
 = Logic Simulator
@@ -58,12 +57,12 @@ print(faults)
 ```
 
 #block(breakable: false)[
-The deductive fault simulator propagates a fault list $L$ to output $Z$ according to the equations below.
-$C$ is the set of gate inputs at the controlling value $c$.
-$
-  bold("if") C &= emptyset bold("then") L_Z = {limits(union)_(j in I)L_j} &union {Z "s-a-"(c xor i)} \
-  bold("else") L_Z &= {limits(sect)_(j in C) L_j} - {limits(union)_(j in I-C) L_j} &union {Z "s-a-"(macron(c) xor i)} \
-$
+  The deductive fault simulator propagates a fault list $L$ to output $Z$ according to the equations below.
+  $C$ is the set of gate inputs at the controlling value $c$.
+  $
+    bold("if") C &= emptyset bold("then") L_Z = {limits(union)_(j in I)L_j} &union {Z "s-a-"(c xor i)} \
+    bold("else") L_Z &= {limits(sect)_(j in C) L_j} - {limits(union)_(j in I-C) L_j} &union {Z "s-a-"(macron(c) xor i)} \
+  $
 ]
 
 == Sample simulations
@@ -90,9 +89,9 @@ of faults detected by each test vector.
 == Random vector coverage tests
 
 #block(breakable: false)[
-Each netlist was simulated with random vectors to calculate fault coverage
-$ "coverage" = "found_faults" / N * 100% $
-where $N$ is the total number of possible stuck-at faults in the circuit, $2 * "total_nets"$.
+  Each netlist was simulated with random vectors to calculate fault coverage
+  $ "coverage" = "found_faults" / N * 100% $
+  where $N$ is the total number of possible stuck-at faults in the circuit, $2 * "total_nets"$.
 ]
 
 The table summarizes the findings over an average of 15 sets of random test vectors. Because of the nature of random
