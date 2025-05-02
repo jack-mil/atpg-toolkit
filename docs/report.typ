@@ -2,7 +2,7 @@
 #import "template2.typ": *
 
 #show: ilm.with(
-  title: "ATPG Toolkit Report",
+  title: "ATPG Toolkit",
   author: "jack-mil",
 
   table-of-contents: none,
@@ -60,8 +60,8 @@ print(faults)
   The deductive fault simulator propagates a fault list $L$ to output $Z$ according to the equations below.
   $C$ is the set of gate inputs at the controlling value $c$.
   $
-    bold("if") C &= emptyset bold("then") L_Z = {limits(union)_(j in I)L_j} &union {Z "s-a-"(c xor i)} \
-    bold("else") L_Z &= {limits(sect)_(j in C) L_j} - {limits(union)_(j in I-C) L_j} &union {Z "s-a-"(macron(c) xor i)} \
+    &bold("if") C = emptyset bold("then") L_Z = {limits(union.big)_(j in I)L_j} &union.big {Z "s-a-"(c xor i)} \
+    &bold("else") L_Z = {limits(inter.big)_(j in C) L_j} - {limits(union.big)_(j in I-C) L_j} &union.big {Z "s-a-"(macron(c) xor i)} \
   $
 ]
 

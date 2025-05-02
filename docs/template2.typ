@@ -40,7 +40,7 @@
   // Fonts
   body-font: "Noto Serif",
   body-font-size: 12pt,
-  raw-font: ("Cascadia Code", "Fira Mono"),
+  raw-font: "Cascadia Code",
   raw-font-size: 11pt,
   headings-font: ("Noto Serif", "Source Sans 3"),
   margin-font: "Source Sans 3",
@@ -124,31 +124,31 @@
   // }
 
   // Cover page.
-  page(
-    align(
-      left + horizon,
-      block(width: 90%)[
-        #let v-space = v(2em, weak: true)
-        #text(3em)[*#title*]
+  // page(
+  //   align(
+  //     left + horizon,
+  //     block(width: 90%)[
+  //       #let v-space = v(2em, weak: true)
+  //       #text(3em)[*#title*]
 
-        #v-space
-        #text(1.6em, author)
+  //       #v-space
+  //       #text(1.6em, author)
 
-        #if abstract != none {
-          v-space
-          block(width: 80%)[
-            // Default leading is 0.65em.
-            #par(leading: 0.78em, justify: true, linebreaks: "optimized", abstract)
-          ]
-        }
+  //       #if abstract != none {
+  //         v-space
+  //         block(width: 80%)[
+  //           // Default leading is 0.65em.
+  //           #par(leading: 0.78em, justify: true, linebreaks: "optimized", abstract)
+  //         ]
+  //       }
 
-        #if date != none {
-          v-space
-          text(date.display(date-format))
-        }
-      ],
-    ),
-  )
+  //       #if date != none {
+  //         v-space
+  //         text(date.display(date-format))
+  //       }
+  //     ],
+  //   ),
+  // )
 
   // Configure paragraph properties.
   // Default leading is 0.65em.
