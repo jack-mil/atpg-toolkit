@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 jack-mil
+#
+# SPDX-License-Identifier: MIT
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -7,8 +11,8 @@ if TYPE_CHECKING:
 
 from argparse import ArgumentParser
 
-from ..simulator import Simulation
-from ._helpers import add_action, extend_from_file, max_len, valid_path
+from atpg_toolkit.cli._helpers import add_action, extend_from_file, max_len, valid_path
+from atpg_toolkit.simulator import Simulation
 
 # subcommand 'simulate'
 simulate_cmd = ArgumentParser(

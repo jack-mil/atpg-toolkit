@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 jack-mil
+#
+# SPDX-License-Identifier: MIT
+
 """
 Definition of the 5-valued Logic type and boolean operations,
 and the Fault dataclass to represent single-stuck faults.
@@ -17,7 +21,7 @@ from enum import Enum
 __all__ = ['Fault', 'Logic']
 
 
-class MultiValueEnum(Enum):
+class _MultiValueEnum(Enum):
     # https://docs.python.org/3/howto/enum.html#multivalueenum
     # requires Python 3.13
     def __new__(cls, value, *values):
@@ -28,7 +32,7 @@ class MultiValueEnum(Enum):
         return it
 
 
-class Logic(MultiValueEnum):
+class Logic(_MultiValueEnum):
     """
     Enum to represent a net logic level (voltage state).
 

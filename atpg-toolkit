@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-"""Entrypoint for convenience when running directly."""
+"""Entrypoint for convenience to run without installing."""
 
-from atpg_toolkit.__main__ import main
+import atpg_toolkit.cli
 
 if __name__ == '__main__':
-    main()
+    atpg_toolkit.cli.main()

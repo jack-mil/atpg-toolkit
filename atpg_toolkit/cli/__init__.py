@@ -1,17 +1,30 @@
+# SPDX-FileCopyrightText: 2024 jack-mil
+#
+# SPDX-License-Identifier: MIT
+
+"""
+Command line interface commands for interactive usage
+of the Fault Simulator and PODEM Test Generator.
+
+This module also demonstrates usage of the library API.
+"""
+
+from __future__ import annotations
+
 from argparse import ArgumentParser
 
-from .._version import __version__
-from .fault_app import faults_cmd
-from .podem_app import generate_cmd
-from .simulate_app import simulate_cmd
+from atpg_toolkit.__about__ import copyright, version
+from atpg_toolkit.cli.fault_app import faults_cmd
+from atpg_toolkit.cli.podem_app import generate_cmd
+from atpg_toolkit.cli.simulate_app import simulate_cmd
 
 
 def main():
     parser = ArgumentParser(
         description='Generate test patterns or simulate faults on digital logic circuits.',
-        epilog='jack-mil (2024) https://github.com/jack-mil/atpg-toolkit',
+        epilog=f'{copyright}. Source: https://github.com/jack-mil/atpg-toolkit',
     )
-    parser.add_argument('-v', '--version', action='version', version=f'%(prog)s {__version__}')
+    parser.add_argument('-v', '--version', action='version', version=f'%(prog)s {version}')
     subparses = parser.add_subparsers(title='Actions', required=True)
     subparses.add_parser(
         'faults',
@@ -39,6 +52,3 @@ def main():
     )
     args = parser.parse_args()
     args.func(**vars(args))
-
-if __name__ == "__main__":
-    main()

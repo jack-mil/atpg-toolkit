@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 jack-mil
+#
+# SPDX-License-Identifier: MIT
+
 """
 Definition of the supported logic gate types, and their properties.
 """
@@ -9,12 +13,12 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import Literal
 
-    from .types import NetId
+    from atpg_toolkit.types import NetId
 
 from dataclasses import dataclass
 from enum import StrEnum
 
-from .logic import Logic
+from atpg_toolkit.logic import Logic
 
 __all__ = ['Gate', 'GateType']
 

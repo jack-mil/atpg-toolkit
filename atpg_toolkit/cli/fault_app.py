@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 jack-mil
+#
+# SPDX-License-Identifier: MIT
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -7,8 +11,8 @@ if TYPE_CHECKING:
 
 from argparse import ArgumentParser
 
-from ..faultsim import FaultSimulation
-from ._helpers import add_action, extend_from_file, valid_path
+from atpg_toolkit.cli._helpers import add_action, extend_from_file, valid_path
+from atpg_toolkit.faultsim import FaultSimulation
 
 # Subcommand 'faults'
 faults_cmd = ArgumentParser(

@@ -50,6 +50,14 @@ print(*faults)
 See tests and the cli implementation for more examples
 
 ## CLI Usage
+The primary usage of ATPG Toolkit is as a library for other python scripts.
+However, a basic command-line utility is available for demonstration purposes, or to combine with output from other processes (see `scripts/` for examples).
+
+When installed as a package, you can execute `python3 -m atpg_toolkit` to see the CLI usage. 
+It is also possible to run the module without installation into a Python environment, as there are no external dependencies.
+
+For even more convenience as a tool, the `atpg-toolkit` script can act as an executable entry-point on systems with script Shebang support.
+
 ```
 $ python -m atpg_toolkit faults --help
 usage: __main__.py [-h] [-v] {faults,f,generate,g,simulate,s} ...
@@ -67,8 +75,10 @@ Actions:
     simulate (s)        Perform fault-free simulation with a given net-list and test       
                         vector(s)
 
-jack-mil (2024) https://github.com/jack-mil/atpg-toolkit
+Copyright 2024, jack-mil. Source: https://github.com/jack-mil/atpg-toolkit
 ```
+
+You can install the package with a tool like uv or pipx to make the tool available at the user level.
 
 ### Examples:
 ```

@@ -1,0 +1,28 @@
+[project]
+  name            = "atpg-toolkit"
+  version         = "0.3.0"
+  description     = "Automatic Test Pattern Generation toolkit"
+  readme          = "README.md"
+  license         = "MIT"
+  authors         = [{ name = "jack-mil", email = "62065280+jack-mil@users.noreply.github.com" }]
+  requires-python = ">=3.13"
+  dependencies    = []
+
+  [project.scripts]
+    atpg-toolkit = "atpg_toolkit.cli:main"
+
+  [project.urls]
+    "Source Code" = "https://github.com/jack-mil/atpg-toolkit"
+    "Issues"      = "https://github.com/jack-mil/atpg-toolkit/issues"
+
+[build-system]
+  requires      = ["hatchling"]
+  build-backend = "hatchling.build"
+
+[tool.hatch.build.hooks.version]
+  # keep version up to date (pyproject.toml is truth)
+  path    = "atpg_toolkit/__about__.py"
+  pattern = true
+
+[dependency-groups]
+  dev = ["ruff~=0.11"]

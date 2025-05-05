@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 jack-mil
+#
+# SPDX-License-Identifier: MIT
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -6,9 +10,9 @@ if TYPE_CHECKING:
     from .gates import Gate
     from .types import NetId, StrPath
 
-from . import util
-from .logic import Fault, Logic
-from .simulator import BaseSim
+from atpg_toolkit import util
+from atpg_toolkit.logic import Fault, Logic
+from atpg_toolkit.simulator import BaseSim
 
 
 class FaultSimulation(BaseSim):

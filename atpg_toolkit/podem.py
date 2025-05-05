@@ -1,18 +1,19 @@
-# TODO document
-# TODO move to common package
+# SPDX-FileCopyrightText: 2024 jack-mil
+#
+# SPDX-License-Identifier: MIT
 
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .gates import Gate
-    from .logic import Fault
-    from .types import NetId, StrPath
+    from atpg_toolkit.gates import Gate
+    from atpg_toolkit.logic import Fault
+    from atpg_toolkit.types import NetId, StrPath
 
-from .logic import Logic
-from .simulator import BaseSim
-from .types import InvalidNetError
+from atpg_toolkit.logic import Logic
+from atpg_toolkit.simulator import BaseSim
+from atpg_toolkit.types import InvalidNetError
 
 
 def filter_errors(vector: list[Logic]) -> str:

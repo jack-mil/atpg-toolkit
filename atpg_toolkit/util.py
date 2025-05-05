@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 jack-mil
+#
+# SPDX-License-Identifier: MIT
+
 """Standalone utility functions and techniques useful for testing."""
 
 from __future__ import annotations
@@ -11,7 +15,7 @@ if TYPE_CHECKING:
 
 import re
 
-from . import logic as _logic
+from atpg_toolkit import logic as _logic
 
 FAULT_REGEX = re.compile(r'^(\S+)-sa-([01])$')
 """Patterns to validate a string representation of a fault"""

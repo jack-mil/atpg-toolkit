@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 jack-mil
+#
+# SPDX-License-Identifier: MIT
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -10,10 +14,10 @@ if TYPE_CHECKING:
 
 from pathlib import Path
 
-from .gates import Gate, GateType
-from .logic import Fault, Logic
-from .types import NetlistFormatError
-from .util import try_as_int
+from atpg_toolkit.gates import Gate, GateType
+from atpg_toolkit.logic import Fault, Logic
+from atpg_toolkit.types import NetlistFormatError
+from atpg_toolkit.util import try_as_int
 
 
 class Circuit:
