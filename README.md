@@ -53,10 +53,9 @@ See tests and the cli implementation for more examples
 The primary usage of ATPG Toolkit is as a library for other python scripts.
 However, a basic command-line utility is available for demonstration purposes, or to combine with output from other processes (see `scripts/` for examples).
 
-When installed as a package, you can execute `python3 -m atpg_toolkit` to see the CLI usage. 
-It is also possible to run the module without installation into a Python environment, as there are no external dependencies.
+When installed as a package, you can execute `python -m atpg_toolkit` to see the CLI usage. A entry point is also installed, and available as `atpg-toolkit`.
 
-For even more convenience as a tool, the `atpg-toolkit` script can act as an executable entry-point on systems with script Shebang support.
+For more convenience as a tool, the `./atpg-toolkit` script can act as an executable entry-point on systems with script Shebang support. No installation of the package is necessary (but recommended).
 
 ```
 $ python -m atpg_toolkit faults --help
@@ -82,7 +81,7 @@ You can install the package with a tool like uv or pipx to make the tool availab
 
 ### Examples:
 ```
-$ python3 -m atpg_toolkit generate circuits/s349f_2.net 85-sa-1 10-sa-0 179-sa-1
+$ atpg_toolkit generate circuits/s349f_2.net 85-sa-1 10-sa-0 179-sa-1
 
 Circuit: circuits/s349f_2.net
 Fault    | Test
@@ -91,7 +90,7 @@ Fault    | Test
 179-sa-1 | UNDETECTABLE
 ```
 ```
-$ python3 -m atpg_toolkit faults circuits/s27.net 1110101
+$ python -m atpg_toolkit faults circuits/s27.net 1110101
 
 Circuit: circuits/s27.net
 Input Vector: 1 1 1 0 1 0 1
@@ -106,7 +105,7 @@ Input Vector: 1 1 1 0 1 0 1
   13 stuck at 0
 ```
 ```
-$ python3 -m atpg_toolkit simulate circuits/s27.net -f scripts/data/s27-tests.txt
+$ python -m atpg_toolkit simulate circuits/s27.net -f scripts/data/s27-tests.txt
 
 Circuit: circuits/s27.net
 Inputs  | Outputs

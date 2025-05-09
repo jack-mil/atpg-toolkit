@@ -21,7 +21,7 @@
 
 [tool.hatch.build.hooks.version]
   # keep version up to date (pyproject.toml is truth)
-  path    = "atpg_toolkit/__about__.py"
+  path    = "src/atpg_toolkit/__about__.py"
   pattern = true
 
 [dependency-groups]
