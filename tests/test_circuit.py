@@ -7,6 +7,7 @@ from atpg_toolkit.types import NetlistFormatError
 
 class TestCircuit(unittest.TestCase):
     def test_load_circuit(self):
+        """Test loading a simple circuit."""
         netlist = [
             'INV 1 4',
             'NAND 2 3 5',
@@ -27,7 +28,7 @@ class TestCircuit(unittest.TestCase):
         self.assertListEqual([6], circuit.outputs)
 
     def test_load_circuit_str_nets(self):
-        """Testing the generic net naming support (combination str and int)."""
+        """Test the generic net naming support (combination str and int)."""
         netlist = [
             'INV a 2',
             'AND b 2 3',
@@ -52,6 +53,7 @@ class TestCircuit(unittest.TestCase):
         self.assertListEqual(['out'], circuit.outputs)
 
     def test_unknown_gate(self):
+        """Test handling invalid gate type."""
         unknown_gate = [
             'BAR 1 2 3',  # <-
             'INPUT 1 2  -1',
@@ -62,6 +64,7 @@ class TestCircuit(unittest.TestCase):
         print(cm.exception)
 
     def test_undefined_io_nets(self):
+        """Test handling undefined nets."""
         unknown_gate = [
             'AND 1 2 3',
             'OR 3 4 5',
@@ -73,6 +76,7 @@ class TestCircuit(unittest.TestCase):
         print(cm.exception)
 
     def test_conflicting_io(self):
+        """Test handling conflicting input/output nets."""
         inputs_are_gate_outputs = [
             'AND 1 2 3',
             'OR 4 5 6',
@@ -102,6 +106,7 @@ class TestCircuit(unittest.TestCase):
         # print(cm.exception)
 
     def test_bad_gate(self):
+        """Test gate with missing inputs."""
         bad_gate_nets = [
             'AND 1 3',  # <- invalid one-input AND gate
             'INPUT 1 -1',
@@ -112,6 +117,7 @@ class TestCircuit(unittest.TestCase):
         print(cm.exception)
 
     def test_bad_delimiter(self):
+        """Test handling missing INPUT delimiter."""
         missing_end = [
             'AND 1 2 3',
             'INPUT 1 2',  # <- missing -1
@@ -122,6 +128,7 @@ class TestCircuit(unittest.TestCase):
         print(cm.exception)
 
     def test_multiple_drivers(self):
+        """Test handling multiple output drivers."""
         conflicting_gate_outputs = [
             'AND 1 2 4',  # <-
             'NAND 2 3 4',  # <-

@@ -73,7 +73,7 @@ class TestSimulator(unittest.TestCase):
             'OUTPUT 5 6 -1',
         ]
         sim = Simulation(netlist)
-        reset_state = dict()  # unset nets don't have a key in the dict
+        reset_state = {}  # unset nets don't have a key in the dict
         # check proper init
         self.assertDictEqual(reset_state, sim._net_states)
         self.assertFalse(sim.all_nets_assigned())

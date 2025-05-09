@@ -1,12 +1,17 @@
+"""
+Some tests that will ensure tests are being run with installed package, not from the cwd.
+Ensures that the package is properly installed and importable, and version metadeta matches code.
+"""
+
 import unittest
 
+import atpg_toolkit
 
-class TestModule(unittest.TestCase):
+
+class TestPackage(unittest.TestCase):
     def test_version(self):
         """Test package version matches __version__ attribute."""
         from importlib import metadata
-
-        import atpg_toolkit
 
         prop_ver = atpg_toolkit.__version__
         module_ver = metadata.version('atpg_toolkit')

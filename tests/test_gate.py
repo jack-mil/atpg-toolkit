@@ -35,7 +35,7 @@ class TestGate(unittest.TestCase):
         gate = Gate(GateType.And, (1, 2), 3)
 
         with self.assertRaises(FrozenInstanceError):
-            gate.output = 4  # type: ignore
+            gate.output = 4  # pyright: ignore[reportAttributeAccessIssue]
 
     def test_gate_evaluation(self):
         inv = Gate(GateType.Inv, (1,), 2)
