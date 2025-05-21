@@ -1,7 +1,8 @@
 import unittest
 from pathlib import Path
 
-from atpg_toolkit import Fault, FaultSimulation, Gate, GateType, Logic, TestGenerator
+from atpg_toolkit import Fault, FaultSimulation, Gate, GateType, Logic
+from atpg_toolkit import TestGenerator as _TestGenerator  # to prevent pytest discovery
 
 
 class TestPodemUnits(unittest.TestCase):
@@ -15,7 +16,7 @@ class TestPodemUnits(unittest.TestCase):
         ]
         objective = ('f', Logic.High)  # try to set net f to logic '1'
 
-        podem = TestGenerator(netlist)
+        podem = _TestGenerator(netlist)
         pi_net, value = podem.backtrace(*objective)
         print(f'{pi_net=}, {value=}')
 
@@ -44,7 +45,7 @@ class TestPodemUnits(unittest.TestCase):
         ]
         target_fault = Fault('f', Logic.Low)
 
-        podem = TestGenerator(netlist)
+        podem = _TestGenerator(netlist)
         net, value = podem.objective(target_fault)
 
         # first time should pick opposite of fault
@@ -63,7 +64,7 @@ class TestPodemUnits(unittest.TestCase):
         ]
         target_fault = Fault('b', Logic.Low)
 
-        podem = TestGenerator(netlist)
+        podem = _TestGenerator(netlist)
 
         # manually set state for next objective
         podem.sim._net_states['e'] = Logic.X
@@ -86,10 +87,10 @@ class TestPodemUnits(unittest.TestCase):
             'INPUT a b -1',
             'OUTPUT f -1',
         ]
-        podem = TestGenerator(netlist)
+        podem = _TestGenerator(netlist)
 
-        pi_assignement = ('a', Logic.Low)
-        podem.imply(*pi_assignement)
+        pi_assignment = ('a', Logic.Low)
+        podem.imply(*pi_assignment)
 
         self.assertEqual(podem.sim.get_state('a'), Logic.Low)
         self.assertEqual(podem.sim.get_state('c'), Logic.High)
@@ -97,8 +98,8 @@ class TestPodemUnits(unittest.TestCase):
         self.assertEqual(podem.sim.get_state('d'), Logic.X)
 
         # next input assignment builds on last
-        pi_assignement = ('b', Logic.High)
-        podem.imply(*pi_assignement)
+        pi_assignment = ('b', Logic.High)
+        podem.imply(*pi_assignment)
 
         self.assertEqual(podem.sim.get_state('a'), Logic.Low)
         self.assertEqual(podem.sim.get_state('c'), Logic.High)
@@ -124,7 +125,7 @@ class TestSimplePodem(unittest.TestCase):
             Fault(2, Logic.High): {'10'},
         }
 
-        podem = TestGenerator(netlist)
+        podem = _TestGenerator(netlist)
 
         for fault, expected_tests in tests_for_faults.items():
             with self.subTest(msg=str(fault)):
@@ -148,9 +149,9 @@ class TestSimplePodem(unittest.TestCase):
             Fault('E', 1): {'X111', ...},
             Fault('H', 0): {'10XX', ...},
         }
-        podem = TestGenerator(netlist)
+        podem = _TestGenerator(netlist)
         sim = FaultSimulation(netlist)
-        for target_fault, expected_tests in fault_tests.items():
+        for target_fault, expected_tests in fault_tests.items():  # noqa: B007, PERF102
             with self.subTest(msg=str(target_fault)):
                 found_test = podem.generate_test(target_fault)
                 # unreliable because I don't have every test that detects given fault
@@ -170,7 +171,7 @@ class TestSimplePodem(unittest.TestCase):
             'OUTPUT i -1',
         ]
 
-        podem = TestGenerator(netlist)
+        podem = _TestGenerator(netlist)
         all_faults = podem.sim.circuit.all_faults()
         results = {str(fault): podem.generate_test(fault) for fault in all_faults}
         self.assertIsNone(results['d-sa-1'])
@@ -203,7 +204,7 @@ class TestSimplePodem(unittest.TestCase):
         fault = Fault('a', stuck_at=1)
         expected_test = '011111'
 
-        podem = TestGenerator(netlist)
+        podem = _TestGenerator(netlist)
 
         found_test = podem.generate_test(fault)
 
@@ -230,10 +231,10 @@ class TestPodemComplete(unittest.TestCase):
         Run a integration test for the matrix of netlists and target faults against
         the detected faults from feeding the test into the simulator.
         """
-        for netlist_file, target_fault, expected_test in self.test_cases:
+        for netlist_file, target_fault, expected_test in self.test_cases:  # noqa: B007
             _, _, stub = netlist_file.partition('/')
             with self.subTest(msg=f'{stub} : {target_fault}'):
-                atpg = TestGenerator(Path(netlist_file))
+                atpg = _TestGenerator(Path(netlist_file))
                 test = atpg.generate_test(target_fault)
 
                 self.assertIsNotNone(test)
