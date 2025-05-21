@@ -1,7 +1,10 @@
+# VS Code test runner settings
+.vscode/
+!.vscode/settings.json
+
 # ignore generated data
 data/*.csv
 /*.zip
-.vscode/
 
 docs/assigned/
 

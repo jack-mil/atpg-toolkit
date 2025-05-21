@@ -1,0 +1,17 @@
+{
+    "python.testing.pytestArgs": [
+        "--color=yes",
+    ],
+    "python.analysis.enablePytestSupport": true,
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        ".mypy_cache": true,
+        ".pytest_cache": true
+    }
+}
