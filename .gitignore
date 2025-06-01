@@ -6,7 +6,10 @@
 data/*.csv
 /*.zip
 
-docs/assigned/
+# Leftovers from old-project
+docs/
+scripts/
+data/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
