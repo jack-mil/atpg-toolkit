@@ -1,26 +1,30 @@
 line-length        = 120
-target-version     = "py313"
 format.quote-style = "single"
-
+preview            = true
 
 [lint]
   extend-select = [
+    "ARG",  # https://docs.astral.sh/ruff/rules/#flake8-unused-arguments-arg
     "B",    # bugbear
     "C4",   # flake8-comprehensions
     "D4",   # https://docs.astral.sh/ruff/rules/#pydocstyle-d
     "E",    # pycodestyle (error)
     "F",    # pyflakes
+    "G",    # https://docs.astral.sh/ruff/rules/#flake8-logging-format-g
     "I",    # https://docs.astral.sh/ruff/rules/#isort-i
+    "INP",  # https://docs.astral.sh/ruff/rules/#flake8-no-pep420-inp
     "LOG",  # https://docs.astral.sh/ruff/rules/#flake8-logging-log,
     "N",    # https://docs.astral.sh/ruff/rules/#pep8-naming-n
     "PERF", # https://docs.astral.sh/ruff/rules/#perflint-perf
     "PGH",  # pygrep-hooks
     "PIE",  # flake8-pie
+    "PTH",  # https://docs.astral.sh/ruff/rules/#flake8-use-pathlib-pth
     "PYI",  # flake8-pyi
     "RSE",  # https://docs.astral.sh/ruff/rules/#flake8-raise-rse
     "RUF",  # https://docs.astral.sh/ruff/rules/#ruff-specific-rules-ruf
     "SIM",  # flake8-simplify
-    "TCH",  # https://docs.astral.sh/ruff/rules/#flake8-type-checking-tch
+    "TC",   # https://docs.astral.sh/ruff/rules/#flake8-type-checking-tch
+    "TD",   # https://docs.astral.sh/ruff/rules/#flake8-todos-td
     "UP",   # https://docs.astral.sh/ruff/rules/#pyupgrade-up
   ]
   fixable = ["ALL"]
@@ -31,4 +35,4 @@ format.quote-style = "single"
   [lint.per-file-ignores]
     "__*__.py"       = ["I002"]
     "./atpg-toolkit" = ["I002"]
-    "tests/**"       = ["I002"]
+    "tests/**.py"    = ["I002"]

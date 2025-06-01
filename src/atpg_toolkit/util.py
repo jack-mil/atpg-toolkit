@@ -39,7 +39,7 @@ def str_to_fault(fault_str: str) -> Fault | None:
     else:
         return None
     net_id, value = result.groups()
-    fault = _logic.Fault(try_as_int(net_id), value)  # type: ignore
+    fault = _logic.Fault(try_as_int(net_id), _logic.Logic(value))
     return fault
 
 

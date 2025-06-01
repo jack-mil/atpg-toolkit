@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Entrypoint for convenience to run without installing."""
+"""Entrypoint for convenience to run without installing as a package."""
 
 import sys
 from pathlib import Path
@@ -7,7 +7,7 @@ from pathlib import Path
 package_source_path = Path(__file__).resolve().parent / 'src'
 sys.path.insert(0, str(package_source_path))
 
-import atpg_toolkit.cli
+import atpg_toolkit.cli  # noqa: E402
 
 if __name__ == '__main__':
     atpg_toolkit.cli.main()

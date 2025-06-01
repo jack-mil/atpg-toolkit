@@ -12,8 +12,10 @@ type NetId = int | str
 type StrPath = str | PathLike[str]
 """String or path-like objects"""
 
+
 class NetlistFormatError(Exception):
     """Raised when circuit net-list is malformed or invalid."""
+
 
 class InvalidNetError(Exception):
     """Raised when there is a circuit/fault mismatch."""

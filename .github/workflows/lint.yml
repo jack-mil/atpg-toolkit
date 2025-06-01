@@ -2,13 +2,11 @@ on:
   push:
     paths:
       - "**.py"
-      - "pyproject.toml"
-      - "uv.lock"
 
-name: test
+name: lint
 
 jobs:
-  test:
+  lint:
     strategy:
       fail-fast: false
       matrix:
@@ -20,7 +18,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - uses: astral-sh/setup-uv@v6
+        id: setup-uv
         with:
-          python-version: "${{ matrix.python-version }}"
+          python-version: ${{ matrix.python-version }}
           enable-cache: true
-      - run: uv run --frozen pytest -v
+      - run: uv run --frozen ruff check --output-format=github
+      - run: uv run --frozen ruff format --check --diff
+        if: ${{ !cancelled() && steps.setup-uv.outcome == 'success' }}

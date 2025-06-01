@@ -4,7 +4,6 @@
 
 """Entry point for executing as module."""
 
-
 from atpg_toolkit.cli import main
 
 if __name__ == '__main__':
