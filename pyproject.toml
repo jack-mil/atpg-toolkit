@@ -1,33 +1,36 @@
 [project]
-  name            = "atpg-toolkit"
-  version         = "0.3.0"
-  description     = "Automatic Test Pattern Generation toolkit for digital systems testing"
-  readme          = "README.md"
-  license         = "MIT"
-  authors         = [{ name = "jack-mil", email = "62065280+jack-mil@users.noreply.github.com" }]
-  requires-python = ">=3.13"
-  dependencies    = []
+name = "atpg-toolkit"
+version = "0.3.0"
+description = "Automatic Test Pattern Generation toolkit for digital systems testing"
+readme = "README.md"
+license = "MIT"
+authors = [
+  { name = "jack-mil", email = "62065280+jack-mil@users.noreply.github.com" },
+]
+requires-python = ">=3.13"
+dependencies = []
 
-  [project.scripts]
-    atpg-toolkit = "atpg_toolkit.cli:main"
+[project.scripts]
+atpg-toolkit = "atpg_toolkit.cli:main"
 
-  [project.urls]
-    "Source Code" = "https://github.com/jack-mil/atpg-toolkit"
-    "Issues"      = "https://github.com/jack-mil/atpg-toolkit/issues"
+[project.urls]
+"Source Code" = "https://github.com/jack-mil/atpg-toolkit"
+"Issues" = "https://github.com/jack-mil/atpg-toolkit/issues"
 
 [build-system]
-  requires      = ["hatchling"]
-  build-backend = "hatchling.build"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.hatch.build.hooks.version]
-  # keep version up to date (pyproject.toml is truth)
-  path    = "src/atpg_toolkit/__about__.py"
-  pattern = true
+# keep version up to date (pyproject.toml is truth)
+path = "src/atpg_toolkit/__about__.py"
+pattern = true
 
 [dependency-groups]
-  dev = ["ruff", "pytest"]
+dev = ["ruff", "pytest"]
 
 [tool.pytest.ini_options]
-  minversion   = "6.0"
-  addopts      = "-ra"
-  testpaths    = ["tests"]
+minversion = "8.4"
+addopts = "-ra"
+testpaths = ["tests"]
+collect_imported_tests = false
