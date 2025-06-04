@@ -36,10 +36,10 @@ class Circuit:
           Use `Circuit.load_from_file(Path)` to initialize a specific net-list.
         """
 
-        self.inputs: list[NetId] = list()
+        self.inputs: list[NetId] = []
         """List of in-order circuit input net ids"""
 
-        self.outputs: list[NetId] = list()
+        self.outputs: list[NetId] = []
         """List of in-order circuit output net ids"""
 
         self.gates: set[Gate] = set()

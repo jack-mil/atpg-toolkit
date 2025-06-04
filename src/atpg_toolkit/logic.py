@@ -28,7 +28,8 @@ class _MultiValueEnum(Enum):
         it = object.__new__(cls)
         it._value_ = value
         for v in values:
-            it._add_value_alias_(v)  # type: ignore
+            # Pylance missing this attribute for some reason?
+            it._add_value_alias_(v)  # type: ignore[reportAttributeAccessIssue]
         return it
 
 
@@ -170,7 +171,6 @@ class Fault:
             object.__setattr__(self, 'stuck_at', Logic(self.stuck_at))
         if (self.stuck_at is not Logic.Low) and (self.stuck_at is not Logic.High):
             raise TypeError('Stuck at must be set to a High or Low Logic value')
-        pass
 
     def __str__(self) -> str:
         """Format a Fault as a string (1-sa-0)."""

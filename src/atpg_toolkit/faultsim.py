@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, override
 
 if TYPE_CHECKING:
     from .gates import Gate
@@ -29,7 +29,7 @@ class FaultSimulation(BaseSim):
         # # initialize base simulation for fault-free execution
         super().__init__(netlist)
 
-        self._fault_lists: dict[NetId, set[Fault]] = dict()
+        self._fault_lists: dict[NetId, set[Fault]] = {}
         """Mapping of all net ids (nodes) in the circuit and their fault list"""
 
     def detect_faults(self, test_vector: str) -> set[Fault]:
@@ -44,7 +44,7 @@ class FaultSimulation(BaseSim):
         vector = util.bitstring_to_logic(test_vector)
 
         # Initialize the initial input net fault lists with their opposite stuck-at fault
-        for net_id, state in zip(self.circuit.inputs, vector):
+        for net_id, state in zip(self.circuit.inputs, vector, strict=True):
             self._fault_lists[net_id] = set() if state is Logic.X else {Fault(net_id, ~state)}
 
         # and propagate input faults through the netlist
@@ -56,6 +56,7 @@ class FaultSimulation(BaseSim):
         self.reset()
         return output_faults
 
+    @override
     def _process_ready_gate(self, gate: Gate) -> Logic:
         """
         Use current fault-free net-list state and fault lists to
@@ -96,7 +97,8 @@ class FaultSimulation(BaseSim):
         # return output for use by BaseSim
         return output_state
 
+    @override
     def reset(self):
         """Reset the base sim and the fault lists."""
         super().reset()
-        self._fault_lists = dict()
+        self._fault_lists = {}

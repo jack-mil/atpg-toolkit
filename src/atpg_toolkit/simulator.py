@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, override
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -42,7 +42,7 @@ class BaseSim:
         self.circuit = Circuit.load_strings(netlist) if isinstance(netlist, list) else Circuit.load_file(netlist)
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
 
-        self._net_states: dict[NetId, Logic] = dict()
+        self._net_states: dict[NetId, Logic] = {}
         """Mapping of all net ids (nodes) in the circuit, and the associated Logic value (HIGH, LOW, D, D̅, X)."""
 
     def _simulate_input(self, vector: list[Logic]):
@@ -76,7 +76,7 @@ class BaseSim:
             # Remove the ready gates from the list of gates yet to be processed
             gates_to_process.difference_update(ready_gates)
 
-    def _process_ready_gate(self, gate: Gate, *args, **kwargs) -> Logic:
+    def _process_ready_gate(self, gate: Gate) -> Logic:
         """
         Process a gate that has all inputs assigned, and return the output value.
 
@@ -162,6 +162,7 @@ class Simulation(BaseSim):
         self.reset()
         return output_result
 
+    @override
     def _process_ready_gate(self, gate: Gate) -> Logic:
         """
         Use the current net-list state to evaluate what the

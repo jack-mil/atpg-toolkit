@@ -150,7 +150,7 @@ class TestSimplePodem(unittest.TestCase):
         }
         podem = TestGenerator(netlist)
         sim = FaultSimulation(netlist)
-        for target_fault, expected_tests in fault_tests.items():
+        for target_fault, expected_tests in fault_tests.items():  # noqa: B007, PERF102
             with self.subTest(msg=str(target_fault)):
                 found_test = podem.generate_test(target_fault)
                 # unreliable because I don't have every test that detects given fault
@@ -230,13 +230,14 @@ class TestPodemComplete(unittest.TestCase):
         Run a integration test for the matrix of netlists and target faults against
         the detected faults from feeding the test into the simulator.
         """
-        for netlist_file, target_fault, expected_test in self.test_cases:
+        for netlist_file, target_fault, expected_test in self.test_cases:  # noqa: B007
             _, _, stub = netlist_file.partition('/')
             with self.subTest(msg=f'{stub} : {target_fault}'):
                 atpg = TestGenerator(Path(netlist_file))
                 test = atpg.generate_test(target_fault)
 
                 self.assertIsNotNone(test)
+                assert test is not None  # silence type checker
 
                 sim = FaultSimulation(Path(netlist_file))
                 detected_faults = sim.detect_faults(test)

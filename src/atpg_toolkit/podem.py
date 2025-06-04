@@ -234,11 +234,8 @@ class TestGenerator:
     def check_success(self) -> bool:
         """Return True if the fault has been detected."""
         # succeed if a primary output has a D or D̅
-        if any(value is Logic.D or value is Logic.Dbar for value in self.sim.get_out_values()):
-            return True
-
-        # cannot determine success
-        return False
+        # else, cannot determine success
+        return any(value is Logic.D or value is Logic.Dbar for value in self.sim.get_out_values())
 
     def check_failure(self, fault: Fault) -> bool:
         """Return True if detecting the fault is impossible."""
@@ -247,7 +244,7 @@ class TestGenerator:
             return True
 
         # D-frontier is empty, fault cannot be propagated
-        if self.sim.get_state(fault.net_id) is not Logic.X and len(self.d_frontier) == 0:
+        if self.sim.get_state(fault.net_id) is not Logic.X and len(self.d_frontier) == 0:  # noqa: SIM103
             return True
 
         # Error propagation look-ahead (x-path check)
