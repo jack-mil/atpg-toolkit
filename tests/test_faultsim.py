@@ -154,9 +154,24 @@ class TestFaultSimulator(unittest.TestCase):
         self.assertSetEqual(faults, expected_faults)
 
     @unittest.skip('Requires XOR support')
-    def test_input_fanout(self):
+    def test_xor_simulation(self):
         """Test deductive simulation on a circuit with input fanout."""
-        netlist = ['NAND a c i', 'NOR c f g', 'AND g e h', 'XOR i h j']
+        netlist = [
+            'NAND a b e',
+            'NOR b c f',
+            'AND d f g',
+            'XOR e g h',
+            'INPUT a b c d -1',
+            'OUTPUT h -1',
+        ]
+        expected_faults = {
+            Fault('e', Logic.High),
+            # TODO: might be others, need to manually check
+        }
+        vector = '0XX0'
+        sim = FaultSimulation(netlist)
+        faults = sim.detect_faults(vector)
+        self.assertSetEqual(faults, expected_faults)
 
 
 if __name__ == '__main__':
