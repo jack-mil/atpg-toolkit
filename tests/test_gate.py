@@ -1,7 +1,10 @@
 import unittest
 from dataclasses import FrozenInstanceError
 
-from atpg_toolkit.gates import Gate, GateType, Logic
+import pytest
+
+from atpg_toolkit.gates import Gate, GateType
+from atpg_toolkit.logic import Logic
 from atpg_toolkit.util import str_to_fault
 
 
@@ -53,10 +56,13 @@ class TestGate(unittest.TestCase):
         self.assertEqual(nand_gate.evaluate(Logic.High, Logic.Low), Logic.High)
 
     def test_invalid_gate_evaluation(self):
-        gate = Gate(GateType.And, (1, 2), 3)
+        gate1 = Gate(GateType.And, (1, 2), 3)
 
-        with self.assertRaises(TypeError):
-            gate.evaluate(Logic.High)
+        with self.assertRaises(TypeError, ):
+            _ = gate1.evaluate(Logic.High)
+        
+        with pytest.raises(TypeError, match="Gate of type OR must have >= 2 inputs"):
+            _ = Gate(GateType.Or, (2,), 3)
 
     def test_logic_xor(self):
         # only for literal High and Low values (for now)

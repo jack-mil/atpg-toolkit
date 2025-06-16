@@ -6,14 +6,14 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from atpg_toolkit.logic import Logic
+from atpg_toolkit.simulator import BaseSim
+from atpg_toolkit.types import InvalidNetError
+
 if TYPE_CHECKING:
     from atpg_toolkit.gates import Gate
     from atpg_toolkit.logic import Fault
     from atpg_toolkit.types import NetId, StrPath
-
-from atpg_toolkit.logic import Logic
-from atpg_toolkit.simulator import BaseSim
-from atpg_toolkit.types import InvalidNetError
 
 
 def filter_errors(vector: list[Logic]) -> str:
@@ -94,7 +94,7 @@ class ErrorSim(BaseSim):
         but one or more D/D̅ values on inputs.
         TODO: find better place to optimize this, instead of full loop over all gates every iteration.
         """
-        d_frontier = set()
+        d_frontier: set[Gate] = set()
         for gate in self.circuit.gates:
             out_value = self.get_state(gate.output)
             if out_value is Logic.X:

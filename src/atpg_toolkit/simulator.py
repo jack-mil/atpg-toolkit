@@ -6,15 +6,15 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, override
 
+import atpg_toolkit.util as util
+from atpg_toolkit.circuit import Circuit
+from atpg_toolkit.logic import Logic
+
 if TYPE_CHECKING:
     from collections.abc import Iterable
 
-    from .gates import Gate
-    from .types import NetId, StrPath
-
-from atpg_toolkit import util
-from atpg_toolkit.circuit import Circuit
-from atpg_toolkit.gates import Logic
+    from atpg_toolkit.gates import Gate
+    from atpg_toolkit.types import NetId, StrPath
 
 
 class BaseSim:

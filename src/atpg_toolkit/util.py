@@ -6,16 +6,16 @@
 
 from __future__ import annotations
 
+import re
 from typing import TYPE_CHECKING
+
+import atpg_toolkit.logic as _logic
 
 if TYPE_CHECKING:
     from collections.abc import Generator
 
-    from .logic import Fault, Logic
+    from atpg_toolkit.logic import Fault, Logic
 
-import re
-
-from atpg_toolkit import logic as _logic
 
 FAULT_REGEX = re.compile(r'^(\S+)-sa-([01])$')
 """Patterns to validate a string representation of a fault"""

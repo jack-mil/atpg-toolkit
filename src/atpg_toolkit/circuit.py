@@ -4,20 +4,19 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import TYPE_CHECKING
+
+import atpg_toolkit.util as util
+from atpg_toolkit.gates import Gate, GateType
+from atpg_toolkit.logic import Fault, Logic
+from atpg_toolkit.types import NetlistFormatError
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
     from typing import Self
 
     from .types import NetId, StrPath
-
-from pathlib import Path
-
-from atpg_toolkit.gates import Gate, GateType
-from atpg_toolkit.logic import Fault, Logic
-from atpg_toolkit.types import NetlistFormatError
-from atpg_toolkit.util import try_as_int
 
 
 class Circuit:
@@ -96,7 +95,7 @@ class Circuit:
 
         for i, line in enumerate(netlist):  # process gate or I/O definition
             keyword, *nets = line.split()  # split on whitespace
-            nets = list(map(try_as_int, nets))  # use int or str as net ids
+            nets = list(map(util.try_as_int, nets))  # use int or str as net ids
             try:
                 if keyword in GateType:
                     # the last net id in the line is the gate output net

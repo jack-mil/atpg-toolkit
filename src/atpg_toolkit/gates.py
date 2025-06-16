@@ -8,17 +8,17 @@ Definition of the supported logic gate types, and their properties.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
+from enum import StrEnum
+from typing import TYPE_CHECKING, assert_never, override
+
+from atpg_toolkit.logic import Logic
 
 if TYPE_CHECKING:
     from typing import Literal
 
     from atpg_toolkit.types import NetId
 
-from dataclasses import dataclass
-from enum import StrEnum
-
-from atpg_toolkit.logic import Logic
 
 __all__ = ['Gate', 'GateType']
 
@@ -36,6 +36,7 @@ class GateType(StrEnum):
     Nor = 'NOR'
     Nand = 'NAND'
 
+    @override
     def __repr__(self):
         return f'<{self.name}>'
 
@@ -56,8 +57,8 @@ class GateType(StrEnum):
                 return Logic.High
             case GateType.Buf | GateType.Inv:
                 return None
-            case _:
-                raise TypeError(f'Gate type unknown: {self}')
+            case _ as never:
+                assert_never(never)
 
     def inversion(self):
         """Get the inversion parity for each types of gate."""
@@ -66,6 +67,8 @@ class GateType(StrEnum):
                 return Logic.Low
             case GateType.Nand | GateType.Nor | GateType.Inv:
                 return Logic.High
+            case _ as never:
+                assert_never(never)
 
 
 @dataclass(eq=True, frozen=True)

@@ -9,14 +9,12 @@ and the Fault dataclass to represent single-stuck faults.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import TYPE_CHECKING, assert_never, override
 
 if TYPE_CHECKING:
     from typing import Literal
-
-
-from dataclasses import dataclass, field
-from enum import Enum
 
 __all__ = ['Fault', 'Logic']
 
@@ -75,6 +73,8 @@ class Logic(_MultiValueEnum):
                 return Logic.D
             case Logic.X:
                 return Logic.X
+            case _:
+                assert_never()
 
     def __or__(self, other) -> Logic:
         """Bitwise | operator. Override to evaluate OR operations on Logic type."""
@@ -127,7 +127,7 @@ class Logic(_MultiValueEnum):
             # one D, one Dbar
             return Logic.Low
 
-    def __xor__(self, other) -> Literal[Logic.Low, Logic.High]:
+    def __xor__(self, other: object) -> Literal[Logic.Low, Logic.High]:
         if not isinstance(other, Logic):
             return NotImplemented
 
@@ -142,8 +142,10 @@ class Logic(_MultiValueEnum):
         else:
             return Logic.High
 
+    @override
     def __str__(self) -> str:
-        """String representation."""  # noqa: D401
+        """Represent as a string."""
+
         return self.value
 
 
@@ -172,6 +174,7 @@ class Fault:
         if (self.stuck_at is not Logic.Low) and (self.stuck_at is not Logic.High):
             raise TypeError('Stuck at must be set to a High or Low Logic value')
 
+    @override
     def __str__(self) -> str:
         """Format a Fault as a string (1-sa-0)."""
         return f'{self.net_id}-sa-{self.stuck_at}'
