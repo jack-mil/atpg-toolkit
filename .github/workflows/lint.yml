@@ -22,6 +22,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           enable-cache: true
-      - run: uv run --frozen ruff check --output-format=github
-      - run: uv run --frozen ruff format --check --diff
+      - run: uv run --only-dev --locked ruff check --output-format=github
+      - run: uv run --only-dev --locked ruff format --check --diff
         if: ${{ !cancelled() && steps.setup-uv.outcome == 'success' }}

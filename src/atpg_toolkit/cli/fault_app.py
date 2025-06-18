@@ -38,7 +38,7 @@ faults_cmd.add_argument(
 
 
 @add_action(faults_cmd)
-def deduce(net_file: Path, input_vectors: list[str], file: Path | None, **kwargs):
+def deduce(net_file: Path, input_vectors: list[str], file: Path | None, **kwargs):  # noqa: ARG001
     """Run deductive fault simulator."""
 
     # extend positional arguments

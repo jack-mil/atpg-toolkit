@@ -39,7 +39,7 @@ generate_cmd.add_argument(
 
 
 @add_action(generate_cmd)
-def generate(net_file: Path, faults: list[str], file: Path | None, **kwargs):
+def generate(net_file: Path, faults: list[str], file: Path | None, **kwargs):  # noqa: ARG001
     """Generate a test vector for fault in format '[net-id]-sa-[0 | 1]'. e.g. 2-sa-0."""
 
     import sys

@@ -38,7 +38,7 @@ simulate_cmd.add_argument(
 
 
 @add_action(simulate_cmd)
-def simulate(net_file: Path, input_vectors: list[str], file: Path | None, **kwargs):
+def simulate(net_file: Path, input_vectors: list[str], file: Path | None, **kwargs):  # noqa: ARG001
     """Run fault-free circuit simulator."""
 
     # extend positional arguments

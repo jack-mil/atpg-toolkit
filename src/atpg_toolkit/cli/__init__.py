@@ -25,12 +25,12 @@ def main():
     parser = ArgumentParser(
         description='Generate test patterns or simulate faults on digital logic circuits.',
         epilog=f'{copyright}. Source: https://github.com/jack-mil/atpg-toolkit',
-        prog=Path(sys.argv[0]).name
+        prog=Path(sys.argv[0]).name,
     )
     # Python >=3.14 features
     parser.suggest_on_error = True
     parser.color = True
-    
+
     parser.add_argument('-v', '--version', action='version', version=f'%(prog)s {version}')
     subparses = parser.add_subparsers(title='Actions', required=True)
     subparses.add_parser(

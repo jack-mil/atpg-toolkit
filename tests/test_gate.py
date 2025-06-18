@@ -58,10 +58,10 @@ class TestGate(unittest.TestCase):
     def test_invalid_gate_evaluation(self):
         gate1 = Gate(GateType.And, (1, 2), 3)
 
-        with self.assertRaises(TypeError, ):
+        with self.assertRaises(TypeError):
             _ = gate1.evaluate(Logic.High)
-        
-        with pytest.raises(TypeError, match="Gate of type OR must have >= 2 inputs"):
+
+        with pytest.raises(TypeError, match='Gate of type OR must have >= 2 inputs'):
             _ = Gate(GateType.Or, (2,), 3)
 
     def test_logic_xor(self):
