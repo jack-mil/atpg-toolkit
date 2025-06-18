@@ -34,3 +34,6 @@ minversion = "8.4"
 addopts = "-ra"
 testpaths = ["tests"]
 collect_imported_tests = false
+
+[tool.pyright]
+reportUnusedCallResult = false

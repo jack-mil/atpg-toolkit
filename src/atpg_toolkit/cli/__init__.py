@@ -11,7 +11,9 @@ This module also demonstrates usage of the library API.
 
 from __future__ import annotations
 
+import sys
 from argparse import ArgumentParser
+from pathlib import Path
 
 from atpg_toolkit.__about__ import copyright, version
 from atpg_toolkit.cli.fault_app import faults_cmd
@@ -23,7 +25,12 @@ def main():
     parser = ArgumentParser(
         description='Generate test patterns or simulate faults on digital logic circuits.',
         epilog=f'{copyright}. Source: https://github.com/jack-mil/atpg-toolkit',
+        prog=Path(sys.argv[0]).name
     )
+    # Python >=3.14 features
+    parser.suggest_on_error = True
+    parser.color = True
+    
     parser.add_argument('-v', '--version', action='version', version=f'%(prog)s {version}')
     subparses = parser.add_subparsers(title='Actions', required=True)
     subparses.add_parser(
