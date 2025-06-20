@@ -43,7 +43,7 @@ def deduce(net_file: Path, input_vectors: list[str], file: Path | None, **kwargs
 
     # extend positional arguments
     # with lines from file, if given
-    extend_from_file(input_vectors, file)
+    _ = extend_from_file(input_vectors, file)
 
     # Create the deductive fault simulator for this circuit
     sim = FaultSimulation(net_file)

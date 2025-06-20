@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, override
 
 from atpg_toolkit.logic import Logic
 from atpg_toolkit.simulator import BaseSim
@@ -40,6 +40,7 @@ class ErrorSim(BaseSim):
         super().__init__(netlist)
         self.fault: Fault | None = None
 
+    @override
     def set_state(self, id: NetId, value: Logic):
         """Override BaseSim method to inject a D/Dbar if target fault is every activated."""
         new_val = value
@@ -121,13 +122,13 @@ class TestGenerator:
         Optionally, load from a list of strings in the format of net-list file lines (for testing)
         """
 
-        self.sim = ErrorSim(netlist)
+        self.sim: ErrorSim = ErrorSim(netlist)
         """Internal circuit simulation and state"""
 
         self.d_frontier: set[Gate] = set()  # TODO: should be part of ErrorSim?
         """Gates whose output is unset (X) and at-least one input is D or D̅ """
 
-        self.output_to_gate = {gate.output: gate for gate in self.sim.circuit.gates}
+        self.output_to_gate: dict[NetId, Gate] = {gate.output: gate for gate in self.sim.circuit.gates}
         """Mapping of a particular net to the Gate driving it."""
 
     def generate_test(self, fault: Fault) -> str | None:

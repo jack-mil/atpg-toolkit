@@ -22,7 +22,7 @@ __all__ = ['Fault', 'Logic']
 class _MultiValueEnum(Enum):
     # https://docs.python.org/3/howto/enum.html#multivalueenum
     # requires Python 3.13
-    def __new__(cls, value, *values):
+    def __new__(cls, value: object, *values: object):
         it = object.__new__(cls)
         it._value_ = value
         for v in values:
@@ -76,7 +76,7 @@ class Logic(_MultiValueEnum):
             case _:
                 assert_never()
 
-    def __or__(self, other) -> Logic:
+    def __or__(self, other: object) -> Logic:
         """Bitwise | operator. Override to evaluate OR operations on Logic type."""
         if not isinstance(other, Logic):
             return NotImplemented
@@ -102,7 +102,7 @@ class Logic(_MultiValueEnum):
             # one D, one Dbar
             return Logic.High
 
-    def __and__(self, other) -> Logic:
+    def __and__(self, other: object) -> Logic:
         """Bitwise & operator. Override to evaluate AND operation on Logic type."""
         if not isinstance(other, Logic):
             return NotImplemented

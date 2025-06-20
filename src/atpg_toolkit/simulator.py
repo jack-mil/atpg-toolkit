@@ -39,7 +39,9 @@ class BaseSim:
         Optionally load from a list of strings in the format of net-list file lines (for testing)
         """
 
-        self.circuit = Circuit.load_strings(netlist) if isinstance(netlist, list) else Circuit.load_file(netlist)
+        self.circuit: Circuit = (
+            Circuit.load_strings(netlist) if isinstance(netlist, list) else Circuit.load_file(netlist)
+        )
         """Static, state-less representation of the topology of the circuit (gates and net ids)"""
 
         self._net_states: dict[NetId, Logic] = {}

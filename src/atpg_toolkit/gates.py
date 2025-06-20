@@ -37,10 +37,10 @@ class GateType(StrEnum):
     Nand = 'NAND'
 
     @override
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'<{self.name}>'
 
-    def min_inputs(self):
+    def min_inputs(self) -> Literal[1, 2]:
         """Get the minimum number of inputs for each type of gates."""
         match self:
             case GateType.Inv | GateType.Buf:
@@ -48,7 +48,7 @@ class GateType(StrEnum):
             case _:
                 return 2
 
-    def control_value(self):
+    def control_value(self) -> Literal[Logic.Low, Logic.High] | None:
         """Get the controlling value for each type of gate."""
         match self:
             case GateType.And | GateType.Nand:
@@ -57,17 +57,17 @@ class GateType(StrEnum):
                 return Logic.High
             case GateType.Buf | GateType.Inv:
                 return None
-            case _ as never:
+            case _ as never:  # pyright: ignore[reportUnnecessaryComparison]
                 assert_never(never)
 
-    def inversion(self):
+    def inversion(self) -> Literal[Logic.Low, Logic.High]:
         """Get the inversion parity for each types of gate."""
         match self:
             case GateType.And | GateType.Or | GateType.Buf:
                 return Logic.Low
             case GateType.Nand | GateType.Nor | GateType.Inv:
                 return Logic.High
-            case _ as never:
+            case _ as never:  # pyright: ignore[reportUnnecessaryComparison]
                 assert_never(never)
 
 

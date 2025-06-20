@@ -189,7 +189,7 @@ class Circuit:
     def all_faults(self) -> set[Fault]:
         """Get the set of all possible faults in this circuit. (2*# nets)."""
 
-        all_faults = set()
+        all_faults: set[Fault] = set()
         for net in self.nets:
             all_faults.add(Fault(net, Logic.High))
             all_faults.add(Fault(net, Logic.Low))

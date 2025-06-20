@@ -43,7 +43,7 @@ def simulate(net_file: Path, input_vectors: list[str], file: Path | None, **kwar
 
     # extend positional arguments
     # with lines from file, if given
-    extend_from_file(input_vectors, file)
+    _ = extend_from_file(input_vectors, file)
 
     # Create the simulation object for this circuit
     circuit = Simulation(net_file)

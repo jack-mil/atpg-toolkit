@@ -9,11 +9,14 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from pathlib import Path
 
+    from atpg_toolkit.logic import Fault
+
 from argparse import ArgumentParser
 
 from atpg_toolkit import util
 from atpg_toolkit.cli._helpers import add_action, extend_from_file, max_len, valid_path
-from atpg_toolkit.podem import InvalidNetError, TestGenerator
+from atpg_toolkit.podem import TestGenerator
+from atpg_toolkit.types import InvalidNetError
 
 # subcommand 'generate'
 generate_cmd = ArgumentParser(
@@ -46,10 +49,10 @@ def generate(net_file: Path, faults: list[str], file: Path | None, **kwargs):  #
 
     # extend positional arguments
     # with lines from file, if given
-    extend_from_file(faults, file)
+    _ = extend_from_file(faults, file)
 
     # pre-process the list of faults to turn into list of Faults
-    fault_list = []
+    fault_list: list[Fault] = []
     for string in faults:
         fault = util.str_to_fault(string)
         if fault is None:
@@ -58,7 +61,7 @@ def generate(net_file: Path, faults: list[str], file: Path | None, **kwargs):  #
                 'Format: [net-id]-sa[0|1]. E.g. 2-sa-0, net123-sa-0, etc.',
                 file=sys.stderr,
             )
-            exit(1)
+            sys.exit(1)
         fault_list.append(fault)
     fault_list.sort()
 

@@ -54,7 +54,7 @@ def random_patterns(length: int) -> Generator[str]:
     """
     import random
 
-    n = 2**length  # modulus (m)
+    n = 1 << length  # modulus (m)
     c = 1  # increment
     a = 5  # multiplier
     # Use a random start value every invocation
