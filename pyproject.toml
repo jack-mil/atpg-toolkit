@@ -4,6 +4,7 @@ version = "0.3.0"
 description = "Automatic Test Pattern Generation toolkit for digital systems testing"
 readme = "README.md"
 license = "MIT"
+license-files = ["LICENSE"]
 authors = [
   { name = "jack-mil", email = "62065280+jack-mil@users.noreply.github.com" },
 ]
@@ -20,6 +21,9 @@ atpg-toolkit = "atpg_toolkit.cli:main"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+exclude = ["/.vscode", "/.github"]
 
 [tool.hatch.build.hooks.version]
 # keep version up to date (pyproject.toml is truth)
